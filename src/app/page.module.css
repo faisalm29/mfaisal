@@ -27,6 +27,14 @@
   }
 }
 
+.h1 {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-style: normal;
+  font-feature-settings: "cv01", "cv09", "cv03", "cv04", "zero", "cv05",
+    "cv10" on;
+}
+
 .main {
   display: flex;
   flex-direction: column;
@@ -68,10 +76,7 @@
   padding: 0 20px;
   border: none;
   border: 1px solid transparent;
-  transition:
-    background 0.2s,
-    color 0.2s,
-    border-color 0.2s;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
   cursor: pointer;
   display: flex;
   align-items: center;
