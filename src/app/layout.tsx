@@ -1,15 +1,99 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const inter = localFont({
+  src: [
+    {
+      path: "../InterVariable.woff2",
+      style: "normal",
+    },
+    {
+      path: "../InterVariable-Italic.woff2",
+      style: "italic",
+    },
+  ],
+  variable: "--font-inter",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const jakartaSans = localFont({
+  src: [
+    {
+      path: "../PlusJakartaSans-Regular.woff2",
+      style: "normal",
+    },
+    {
+      path: "../PlusJakartaSans-Italic.woff2",
+      style: "italic",
+    },
+  ],
+  variable: "--font-jakarta-sans",
+});
+
+const uncutSans = localFont({
+  src: [
+    {
+      path: "../UncutSans-Light.woff2",
+      weight: "300", //light
+      style: "normal",
+    },
+    {
+      path: "../UncutSans-LightItalic.woff2",
+      weight: "300", //light italic
+      style: "italic",
+    },
+    {
+      path: "../UncutSans-Book.woff2",
+      weight: "350", //book
+      style: "normal",
+    },
+    {
+      path: "../UncutSans-BookItalic.woff2",
+      weight: "350", //book italic
+      style: "italic",
+    },
+    {
+      path: "../UncutSans-Regular.woff2",
+      weight: "400", //regular
+      style: "normal",
+    },
+    {
+      path: "../UncutSans-RegularItalic.woff2",
+      weight: "400", //regular italic
+      style: "italic",
+    },
+    {
+      path: "../UncutSans-Medium.woff2",
+      weight: "500", //medium
+      style: "normal",
+    },
+    {
+      path: "../UncutSans-MediumItalic.woff2",
+      weight: "500", //medium italic
+      style: "italic",
+    },
+    {
+      path: "../UncutSans-Semibold.woff2",
+      weight: "600", //semibold
+      style: "normal",
+    },
+    {
+      path: "../UncutSans-SemiboldItalic.woff2",
+      weight: "600", //semibold italic
+      style: "italic",
+    },
+    {
+      path: "../UncutSans-Bold.woff2",
+      weight: "700", //bold
+      style: "normal",
+    },
+    {
+      path: "../UncutSans-BoldItalic.woff2",
+      weight: "700", //bold italic
+      style: "italic",
+    },
+  ],
+  variable: "--font-uncut-sans",
 });
 
 export const metadata: Metadata = {
@@ -24,7 +108,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body
+        className={`${inter.variable} ${uncutSans.variable} ${jakartaSans.variable}`}
+      >
         {children}
       </body>
     </html>
