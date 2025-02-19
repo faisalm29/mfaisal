@@ -1,15 +1,17 @@
 import { allBlogs } from "content-collections";
-import { MDXContent } from "@content-collections/mdx/react";
+import Card from "@/components/Card";
 
 const BlogPage = () => {
+  const sortedPosts = allBlogs.sort(
+    (a, b) =>
+      Date.parse(b.publishedDate.toISOString()) -
+      Date.parse(a.publishedDate.toISOString())
+  );
+
   return (
     <>
-      {allBlogs.map((blog, id) => (
-        <div key={id}>
-          <h1>{blog.title}</h1>
-          <p>{blog.summary}</p>
-          <MDXContent code={blog.mdx} />
-        </div>
+      {sortedPosts.map((post, id) => (
+        <Card key={id} post={post} />
       ))}
     </>
   );

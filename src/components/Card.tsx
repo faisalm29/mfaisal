@@ -1,5 +1,7 @@
 import { styled } from "@pigment-css/react";
 import Heading from "./Heading";
+import Link from "next/link";
+import type { Blog } from "content-collections";
 
 const CardWrapper = styled("div")({
   padding: "16px",
@@ -7,15 +9,12 @@ const CardWrapper = styled("div")({
   borderRadius: "8px",
 });
 
-const Card = () => {
+const Card = ({ post }: { post: Blog }) => {
   return (
     <CardWrapper>
-      <Heading text="Lah, ini mah judul!" />
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Obcaecati ut
-        voluptatum animi, aliquid harum non nam excepturi fugit recusandae!
-        Beatae, obcaecati.
-      </p>
+      <Heading text={post.title} />
+      <p>{post.summary}</p>
+      <Link href={post.slug}>Read more →</Link>
     </CardWrapper>
   );
 };
