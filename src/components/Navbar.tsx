@@ -1,4 +1,3 @@
-import { Home } from "./Icon";
 import Link from "next/link";
 
 const links = [
@@ -23,16 +22,13 @@ const links = [
 const Navbar = () => {
   return (
     <nav>
-      <Link href="/">
-        <Home />
-      </Link>
-      <div>
+      <ul>
         {links.map((link, id) => (
-          <Link key={id} href={link.url}>
-            {link.placeholder}
-          </Link>
+          <li key={id}>
+            <Link href={link.url}>{link.placeholder}</Link>
+          </li>
         ))}
-      </div>
+      </ul>
     </nav>
   );
 };
