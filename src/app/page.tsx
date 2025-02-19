@@ -1,15 +1,37 @@
 import Profile from "@/components/Profile";
 import PostSectionWrapper from "@/components/PostSectionWrapper";
-import Card from "@/components/Card";
-import { allBlogs } from "content-collections";
+import { PlainCard } from "@/components/Card";
+import { allBlogs, allProgrammings } from "content-collections";
 
 export default function Home() {
+  const allContents = allBlogs
+    .map((post) => ({
+      title: post.title,
+      publishedDate: post.publishedDate,
+      category: post.category,
+      slug: post.slug,
+    }))
+    .concat(
+      allProgrammings.map((post) => ({
+        title: post.title,
+        publishedDate: post.publishedDate,
+        category: post.category,
+        slug: post.slug,
+      }))
+    );
+
+  const sortedContents = allContents.sort(
+    (a, b) =>
+      Date.parse(b.publishedDate.toISOString()) -
+      Date.parse(a.publishedDate.toISOString())
+  );
+
   return (
     <>
       <Profile />
       <PostSectionWrapper>
-        {allBlogs.map((post, id) => (
-          <Card key={id} post={post} />
+        {sortedContents.map((content, id) => (
+          <PlainCard key={id} post={content} />
         ))}
       </PostSectionWrapper>
     </>

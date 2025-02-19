@@ -1,7 +1,13 @@
 import { styled } from "@pigment-css/react";
-import Heading from "./Heading";
+import Heading from "../Heading";
 import Link from "next/link";
-import type { Blog } from "content-collections";
+
+interface Post {
+  title: string;
+  publishedDate: Date;
+  category: string;
+  slug: string;
+}
 
 const CardWrapper = styled("div")({
   padding: "16px",
@@ -9,14 +15,13 @@ const CardWrapper = styled("div")({
   borderRadius: "8px",
 });
 
-const Card = ({ post }: { post: Blog }) => {
+const PlainCard = ({ post }: { post: Post }) => {
   return (
     <CardWrapper>
       <Heading text={post.title} />
-      <p>{post.summary}</p>
       <Link href={post.slug}>Read more →</Link>
     </CardWrapper>
   );
 };
 
-export default Card;
+export default PlainCard;

@@ -1,5 +1,5 @@
 import { allProgrammings } from "content-collections";
-import Card from "@/components/Card";
+import { DetailedCard } from "@/components/Card";
 
 const ProgrammingPage = () => {
   const sortedPosts = allProgrammings.sort(
@@ -10,7 +10,7 @@ const ProgrammingPage = () => {
   return (
     <>
       {sortedPosts.map((post, id) => (
-        <Card key={id} post={post} />
+        <DetailedCard key={id} post={post} />
       ))}
     </>
   );

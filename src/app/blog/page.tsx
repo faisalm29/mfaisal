@@ -1,5 +1,5 @@
 import { allBlogs } from "content-collections";
-import Card from "@/components/Card";
+import { DetailedCard } from "@/components/Card";
 
 const BlogPage = () => {
   const sortedPosts = allBlogs.sort(
@@ -11,7 +11,7 @@ const BlogPage = () => {
   return (
     <>
       {sortedPosts.map((post, id) => (
-        <Card key={id} post={post} />
+        <DetailedCard key={id} post={post} />
       ))}
     </>
   );
