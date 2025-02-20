@@ -109,7 +109,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${uncutSans} ${inter} ${jakartaSans}`}>
+      <body className={`${uncutSans} ${inter} ${jakartaSans} bg-primary`}>
         <Navbar />
         {children}
       </body>

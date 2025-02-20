@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: oklch(0.21 0.034 264.665);
+  --color-secondary-200: oklch(0.929 0.013 255.508);
+  --color-secondary-400: oklch(0.704 0.04 256.788);
+  --color-accent: oklch(0.855 0.138 181.071);
+
+  --text-xs: 0.812rem;
+  --text-sm: 0.875rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.438rem;
+  --text-3xl: 1.625rem;
+  --text-4xl: 1.812rem;
+  --text-5xl: 2rem;
+  --text-6xl: 2.25rem;
+  --text-7xl: 2.875rem;
+  --text-8xl: 3.25rem;
+  --text-9xl: 3.625rem;
+  --text-10xl: 4.125rem;
+  --text-11xl: 4.625rem;
+}
