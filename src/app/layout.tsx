@@ -108,8 +108,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${uncutSans} ${inter} ${jakartaSans} bg-primary`}>
+    <html
+      lang="en"
+      className={`${uncutSans.variable} ${inter.variable} ${jakartaSans.variable}`}
+    >
+      <body className="bg-primary text-secondary-400 font-inter">
         <Navbar />
         {children}
       </body>

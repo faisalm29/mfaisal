@@ -17,13 +17,13 @@ export default function Home() {
         publishedDate: post.publishedDate,
         category: post.category,
         slug: post.slug,
-      }))
+      })),
     );
 
   const sortedContents = allContents.sort(
     (a, b) =>
       Date.parse(b.publishedDate.toISOString()) -
-      Date.parse(a.publishedDate.toISOString())
+      Date.parse(a.publishedDate.toISOString()),
   );
 
   return (

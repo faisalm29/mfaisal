@@ -22,9 +22,7 @@ const otherPlatforms = [
 const Profile = () => {
   return (
     <div>
-      <h1 className="text-4xl font-bold">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit
-      </h1>
+      <h1 className="text-4xl font-bold">Faisal M.</h1>
       <p>
         (tulis tentang blog ini)Lorem ipsum dolor sit, amet consectetur
         adipisicing elit. Officiis enim quas iste, voluptatem quisquam iure est.
