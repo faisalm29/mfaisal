@@ -113,9 +113,9 @@ export default function RootLayout({
       lang="en"
       className={`${uncutSans.variable} ${inter.variable} ${jakartaSans.variable}`}
     >
-      <body className="bg-primary text-secondary-400 font-inter">
+      <body className="bg-primary text-secondary-400 font-inter mx-auto max-w-3xl px-4 md:px-8 lg:px-0">
         <Navbar />
-        <main className="mx-auto max-w-2xl">{children}</main>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>

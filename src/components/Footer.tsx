@@ -1,10 +1,15 @@
 import AnchorLink from "./AnchorLink";
 import { RiHeartFill } from "@remixicon/react";
 
+const currentYear = new Date().getFullYear();
+
 const Footer = () => {
   return (
-    <footer className="mx-auto mt-16 max-w-2xl">
-      <p className="max-w-lg">
+    <footer className="mx-auto mt-24 mb-8 sm:grid sm:grid-cols-4 md:grid-cols-8 lg:grid-cols-12">
+      <p className="mb-2 sm:col-span-1 md:col-span-3 md:mb-0 lg:col-span-4 lg:mb-0">
+        © Faisal M. 2025{currentYear > 2025 && ` - ${currentYear}`}.
+      </p>
+      <p className="sm:col-span-3 sm:ml-8 md:col-span-5 md:ml-0 lg:col-span-8 lg:ml-0">
         Coded with{" "}
         <RiHeartFill className="inline transition-colors duration-300 ease-in-out hover:text-red-500" />{" "}
         in{" "}
@@ -31,7 +36,11 @@ const Footer = () => {
         <AnchorLink href="https://rsms.me/inter/" target="_blank">
           Inter
         </AnchorLink>{" "}
-        typeface.
+        typeface designed by{" "}
+        <AnchorLink href="https://rsms.me/" target="_blank">
+          Rasmus Andersson
+        </AnchorLink>
+        .
       </p>
     </footer>
   );
