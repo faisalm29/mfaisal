@@ -31,8 +31,8 @@ const PlainCard = ({ post }: { post: Post }) => {
         })}
       </time>
       <div className="col-span-10">
-        <p className="group-hover:text-accent mb-1 transition-colors duration-300 ease-in-out">
-          {`#${post.category}`}
+        <p className="group-hover:text-accent mb-1 capitalize transition-colors duration-300 ease-in-out">
+          {post.category}
         </p>
         <h3 className="text-secondary-200 group-hover:text-accent text-base font-medium transition-colors duration-300 ease-in-out">
           {post.title}
