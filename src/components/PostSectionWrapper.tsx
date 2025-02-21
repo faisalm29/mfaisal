@@ -5,7 +5,7 @@ const PostSectionWrapper = ({
 }) => {
   return (
     <div>
-      <h1>All Posts</h1>
+      <h2 className="text-secondary-200 mb-6 font-bold">All Posts</h2>
       {children}
     </div>
   );

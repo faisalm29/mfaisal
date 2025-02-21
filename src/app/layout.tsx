@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 const inter = localFont({
@@ -114,7 +115,8 @@ export default function RootLayout({
     >
       <body className="bg-primary text-secondary-400 font-inter">
         <Navbar />
-        {children}
+        <main className="mx-auto max-w-2xl">{children}</main>
+        <Footer />
       </body>
     </html>
   );

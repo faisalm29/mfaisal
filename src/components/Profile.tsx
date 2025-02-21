@@ -5,39 +5,38 @@ const otherPlatforms = [
   {
     name: "Bluesky",
     url: "https://bsky.app/",
-    icon: <RiBlueskyFill />,
+    icon: <RiBlueskyFill size={32} />,
   },
   {
     name: "Github",
     url: "https://github.com/faisalm29",
-    icon: <RiGithubFill />,
+    icon: <RiGithubFill size={32} />,
   },
   {
     name: "Instagram",
     url: "https://www.instagram.com/faisalm29/",
-    icon: <RiInstagramFill />,
+    icon: <RiInstagramFill size={32} />,
   },
 ];
 
 const Profile = () => {
   return (
-    <div>
-      <h1 className="font-bold">Faisal M.</h1>
-      <p>
+    <div className="mb-16 max-w-lg">
+      <h1 className="text-secondary-200 mb-3 font-bold">Faisal M.</h1>
+      <p className="mb-8">
         (tulis tentang blog ini)Lorem ipsum dolor sit, amet consectetur
         adipisicing elit. Officiis enim quas iste, voluptatem quisquam iure est.
         Veritatis dolorum eos recusandae, aliquid, laudantium accusamus laborum
         quo fugiat provident voluptate dolorem atque.
       </p>
       <div>
-        <h2>Find me on another platform!</h2>
         {otherPlatforms.map((platform, id) => (
           <Link
             key={id}
             href={platform.url}
             title={platform.name}
             target="_blank"
-            className="inline-block"
+            className="hover:text-secondary-200 mr-4 inline-block last:mr-0"
           >
             {platform.icon}
           </Link>

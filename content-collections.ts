@@ -19,7 +19,7 @@ const blog = defineCollection({
       ...document,
       mdx,
       readingTime: JSON.stringify(readingTime(document.content)),
-      slug: document.category.concat("/", document._meta.path),
+      slug: "blog".concat("/", document._meta.path),
     };
   },
 });
