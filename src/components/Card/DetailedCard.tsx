@@ -1,12 +1,13 @@
 import Link from "next/link";
 import type { Blog } from "content-collections";
+import AnchorLink from "../AnchorLink";
 
 const DetailedCard = ({ post }: { post: Blog }) => {
   return (
-    <div>
-      <h1 className="font-bold">{post.title}</h1>
-      {post.summary ?? <p>{post.summary}</p>}
-      <Link href={post.slug}>Read more</Link>
+    <div className="mb-8">
+      <h2 className="mb-1 font-bold">{post.title}</h2>
+      <p className="mb-1">{post.summary}</p>
+      <AnchorLink href={post.slug}>Read more →</AnchorLink>
     </div>
   );
 };
