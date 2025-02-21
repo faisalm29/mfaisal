@@ -14,86 +14,124 @@
   --color-accent: oklch(0.855 0.138 181.071);
 
   --text-xs: 0.812rem;
+  --text-xs--line-height: 1.68;
   --text-sm: 0.875rem;
+  --text-sm--line-height: 1.68;
+  --text-base: 1rem;
+  --text-base--line-height: 1.68;
   --text-lg: 1.125rem;
+  --text-lg--line-height: 1.5;
   --text-xl: 1.25rem;
+  --text-xl--line-height: 1.4;
   --text-2xl: 1.438rem;
+  --text-2xl--line-height: 1.4;
   --text-3xl: 1.625rem;
+  --text-3xl--line-height: 1.4;
   --text-4xl: 1.812rem;
+  --text-4xl--line-height: 1.38;
   --text-5xl: 2rem;
+  --text-5xl--line-height: 1.2;
   --text-6xl: 2.25rem;
+  --text-6xl--line-height: 1.2;
   --text-7xl: 2.875rem;
+  --text-7xl--line-height: 1.2;
   --text-8xl: 3.25rem;
+  --text-8xl--line-height: 1.2;
   --text-9xl: 3.625rem;
+  --text-9xl--line-height: 1.2;
   --text-10xl: 4.125rem;
+  --text-10xl--line-height: 1.2;
   --text-11xl: 4.625rem;
+  --text-11xl--line-height: 1.15;
 }
 
 @layer base {
   h1 {
     font-size: var(--text-5xl);
+    line-height: var(--text-5xl--line-height);
 
     @media (width >= 48rem) {
       font-size: var(--text-6xl);
+      line-height: var(--text-6xl--line-height);
     }
 
     @media (width >= 64rem) {
       font-size: var(--text-7xl);
+      line-height: var(--text-7xl--line-height);
     }
   }
   h2 {
     font-size: var(--text-4xl);
+    line-height: var(--text-4xl--line-height);
 
     @media (width >= 48rem) {
       font-size: var(--text-5xl);
+      line-height: var(--text-5xl--line-height);
     }
 
     @media (width >= 64rem) {
       font-size: var(--text-6xl);
+      line-height: var(--text-6xl--line-height);
     }
   }
   h3 {
     font-size: var(--text-3xl);
+    line-height: var(--text-3xl--line-height);
 
     @media (width >= 48rem) {
       font-size: var(--text-4xl);
+      line-height: var(--text-4xl--line-height);
     }
 
     @media (width >= 64rem) {
       font-size: var(--text-5xl);
+      line-height: var(--text-5xl--line-height);
     }
   }
   h4 {
     font-size: var(--text-2xl);
+    line-height: var(--text-2xl--line-height);
 
     @media (width >= 48rem) {
       font-size: var(--text-3xl);
+      line-height: var(--text-3xl--line-height);
     }
 
     @media (width >= 64rem) {
       font-size: var(--text-4xl);
+      line-height: var(--text-4xl--line-height);
     }
   }
   h5 {
     font-size: var(--text-xl);
+    line-height: var(--text-xl--line-height);
 
     @media (width >= 48rem) {
       font-size: var(--text-2xl);
+      line-height: var(--text-2xl--line-height);
     }
 
     @media (width >= 64rem) {
       font-size: var(--text-3xl);
+      line-height: var(--text-3xl--line-height);
     }
   }
   h6 {
     font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
 
     @media (width >= 48rem) {
       font-size: var(--text-xl);
+      line-height: var(--text-xl--line-height);
     }
 
     @media (width >= 64rem) {
       font-size: var(--text-2xl);
+      line-height: var(--text-2xl--line-height);
     }
+  }
+  p {
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
   }
 }
