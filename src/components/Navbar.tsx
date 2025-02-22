@@ -27,7 +27,6 @@ const links = [
 const Navbar = () => {
   const [mobileNav, setMobileNav] = useState(false);
   const route = usePathname();
-  console.log(route);
 
   useEffect(() => {
     setMobileNav(false);

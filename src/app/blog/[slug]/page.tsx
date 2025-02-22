@@ -1,5 +1,5 @@
 import { allBlogs } from "content-collections";
-import { useMDXComponent } from "@content-collections/mdx/react";
+import { MDXContent } from "@content-collections/mdx/react";
 import MDXContainer from "@/components/MDXContainer";
 import { notFound } from "next/navigation";
 import type { ReadTimeResults } from "reading-time";
@@ -29,8 +29,6 @@ export default async function Blog({
 
   const readingTime = JSON.parse(post.readingTime) as ReadTimeResults;
 
-  const Component = useMDXComponent(post.body);
-
   return (
     <article className="prose prose-p:text-secondary-400 prose-a:no-underline mx-auto mt-10">
       <div className="flex">
@@ -50,7 +48,7 @@ export default async function Blog({
         {post.title}
       </h1>
 
-      <Component components={MDXContainer} />
+      <MDXContent code={post.body} components={MDXContainer} />
     </article>
   );
 }
