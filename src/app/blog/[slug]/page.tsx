@@ -32,19 +32,25 @@ export default async function Blog({
   const Component = useMDXComponent(post.body);
 
   return (
-    <article className="">
-      <h1>{post.title}</h1>
-      <Component components={MDXContainer} />
-      <div>
-        <time>
-          {post.publishedDate.toLocaleDateString("en-GB", {
+    <article className="prose prose-p:text-secondary-400 prose-a:no-underline mx-auto mt-10">
+      <div className="flex">
+        <time className="not-prose text-secondary-400 mr-2">
+          {post.publishedDate.toLocaleDateString("en-US", {
             year: "numeric",
-            month: "long",
+            month: "short",
             day: "numeric",
           })}
         </time>
-        <p>{readingTime.text}</p>
+        •
+        <p className="not-prose text-secondary-400 ml-2 capitalize">
+          {readingTime.text}
+        </p>
       </div>
+      <h1 className="not-prose text-secondary-200 mt-[0.6em] mb-[0.6em] font-bold">
+        {post.title}
+      </h1>
+
+      <Component components={MDXContainer} />
     </article>
   );
 }

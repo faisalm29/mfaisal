@@ -1,7 +1,19 @@
 import AnchorLink from "./AnchorLink";
+import { RiHashtag } from "@remixicon/react";
 
 const MDXContainer = {
   a: ({ ...props }) => {
+    if (props.href.startsWith("#")) {
+      return (
+        <a
+          {...props}
+          href={props.href}
+          className="absolute top-0 right-0 bottom-0 -left-4 mt-auto mb-auto flex w-fit -translate-x-1/2 flex-col items-center justify-center opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
+        >
+          <RiHashtag className="text-secondary-200" />
+        </a>
+      );
+    }
     return (
       <AnchorLink href={props.href} target="_blank">
         {props.children}
@@ -9,9 +21,19 @@ const MDXContainer = {
     );
   },
   h2: ({ ...props }) => (
-    <h2 data-heading className="text-11xl text-secondary-200" {...props} />
+    <h2
+      {...props}
+      data-heading
+      className="group not-prose text-secondary-200 article-h2 relative scroll-mt-[82px] font-bold"
+    />
   ),
-  p: ({ ...props }) => <p className="text-red-400" {...props} />,
+  h3: ({ ...props }) => (
+    <h3
+      {...props}
+      data-heading
+      className="group not-prose not-prose text-secondary-200 article-h3 relative scroll-mt-[82px] font-bold"
+    />
+  ),
 };
 
 export default MDXContainer;

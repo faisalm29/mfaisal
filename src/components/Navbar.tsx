@@ -27,14 +27,17 @@ const links = [
 const Navbar = () => {
   const [mobileNav, setMobileNav] = useState(false);
   const route = usePathname();
+  console.log(route);
 
   useEffect(() => {
     setMobileNav(false);
   }, [route]);
 
   return (
-    <nav className="bg-primary sticky top-0">
-      <div className="relative mx-auto bg-transparent py-4">
+    <nav
+      className={`bg-primary sticky top-0 z-[100] ${route.startsWith("/programming/") || route.startsWith("/blog/") ? "mx-auto max-w-[65ch]" : "max-w-full"}`}
+    >
+      <div className="relative bg-transparent py-4">
         <div className="flex items-center justify-between">
           <Link
             href="/"

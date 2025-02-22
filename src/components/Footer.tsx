@@ -1,11 +1,17 @@
+"use client";
+
 import AnchorLink from "./AnchorLink";
 import { RiHeartFill } from "@remixicon/react";
+import { usePathname } from "next/navigation";
 
 const currentYear = new Date().getFullYear();
 
 const Footer = () => {
+  const route = usePathname();
   return (
-    <footer className="mx-auto mt-24 mb-8 sm:grid sm:grid-cols-4 md:grid-cols-8 lg:grid-cols-12">
+    <footer
+      className={`mx-auto mt-24 mb-8 sm:grid sm:grid-cols-4 md:grid-cols-8 lg:grid-cols-12 ${route.startsWith("/programming/") || route.startsWith("/blog/") ? "mx-auto max-w-[65ch]" : "max-w-full"}`}
+    >
       <p className="mb-2 sm:col-span-1 md:col-span-3 md:mb-0 lg:col-span-4 lg:mb-0">
         © Faisal M. 2025{currentYear > 2025 && ` - ${currentYear}`}.
       </p>
@@ -36,11 +42,7 @@ const Footer = () => {
         <AnchorLink href="https://rsms.me/inter/" target="_blank">
           Inter
         </AnchorLink>{" "}
-        typeface designed by{" "}
-        <AnchorLink href="https://rsms.me/" target="_blank">
-          Rasmus Andersson
-        </AnchorLink>
-        .
+        typeface.
       </p>
     </footer>
   );
