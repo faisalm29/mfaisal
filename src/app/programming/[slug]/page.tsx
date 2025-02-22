@@ -1,5 +1,6 @@
 import { allProgrammings } from "content-collections";
-import { MDXContent } from "@content-collections/mdx/react";
+import { MDXContent, useMDXComponent } from "@content-collections/mdx/react";
+import MDXContainer from "@/components/MDXContainer";
 import { notFound } from "next/navigation";
 import type { ReadTimeResults } from "reading-time";
 
@@ -17,7 +18,7 @@ export default async function Programming({
   const { slug } = await params;
 
   const post = allProgrammings.find(
-    (post) => post.slug === post.category.concat("/", slug)
+    (post) => post.slug === post.category.concat("/", slug),
   );
 
   if (!post) {
@@ -25,11 +26,12 @@ export default async function Programming({
   }
 
   const readingTime = JSON.parse(post.readingTime) as ReadTimeResults;
+  const Component = useMDXComponent(post.body);
 
   return (
-    <article>
+    <article className="prose prose-a:no-underline prose-headings:text-secondary-200 prose-p:text-secondary-400">
       <h1>{post.title}</h1>
-      <MDXContent code={post.mdx} />
+      <Component components={MDXContainer} />
       <div>
         <time>
           {post.publishedDate.toLocaleDateString("en-GB", {

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Blog } from "content-collections";
 import AnchorLink from "../AnchorLink";
 

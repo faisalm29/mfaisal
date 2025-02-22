@@ -14,10 +14,10 @@ const blog = defineCollection({
     publishedDate: z.coerce.date(),
   }),
   transform: async (document, context) => {
-    const mdx = await compileMDX(context, document);
+    const body = await compileMDX(context, document);
     return {
       ...document,
-      mdx,
+      body,
       readingTime: JSON.stringify(readingTime(document.content)),
       slug: "blog".concat("/", document._meta.path),
     };
@@ -36,10 +36,10 @@ const programming = defineCollection({
     publishedDate: z.coerce.date(),
   }),
   transform: async (document, context) => {
-    const mdx = await compileMDX(context, document);
+    const body = await compileMDX(context, document);
     return {
       ...document,
-      mdx,
+      body,
       readingTime: JSON.stringify(readingTime(document.content)),
       slug: document.category.concat("/", document._meta.path),
     };

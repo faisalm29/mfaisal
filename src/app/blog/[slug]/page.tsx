@@ -1,5 +1,6 @@
 import { allBlogs } from "content-collections";
-import { MDXContent } from "@content-collections/mdx/react";
+import { useMDXComponent } from "@content-collections/mdx/react";
+import MDXContainer from "@/components/MDXContainer";
 import { notFound } from "next/navigation";
 import type { ReadTimeResults } from "reading-time";
 
@@ -19,7 +20,7 @@ export default async function Blog({
   const post = allBlogs.find(
     (post) =>
       post.category.concat("/", post._meta.path) ===
-      post.category.concat("/", slug)
+      post.category.concat("/", slug),
   );
 
   if (!post) {
@@ -28,10 +29,12 @@ export default async function Blog({
 
   const readingTime = JSON.parse(post.readingTime) as ReadTimeResults;
 
+  const Component = useMDXComponent(post.body);
+
   return (
-    <article>
+    <article className="">
       <h1>{post.title}</h1>
-      <MDXContent code={post.mdx} />
+      <Component components={MDXContainer} />
       <div>
         <time>
           {post.publishedDate.toLocaleDateString("en-GB", {
