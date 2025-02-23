@@ -28,7 +28,7 @@ export default async function Programming({
   const readingTime = JSON.parse(post.readingTime) as ReadTimeResults;
 
   return (
-    <article className="prose prose-p:text-secondary-400 prose-a:no-underline mx-auto mt-10">
+    <article className="prose prose-p:text-secondary-400 prose-a:no-underline prose-li:text-secondary-400 prose-strong:text-secondary-200 prose-code:text-secondary-400 prose-th:text-secondary-200 prose-td:text-secondary-400 checked:bg-accent mx-auto mt-10 marker:text-gray-500">
       <div className="flex">
         <time className="not-prose text-secondary-400 mr-2">
           {post.publishedDate.toLocaleDateString("en-US", {

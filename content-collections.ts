@@ -3,6 +3,7 @@ import { compileMDX } from "@content-collections/mdx";
 import readingTime from "reading-time";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
 
 // this is collection for general blog (general) posts
 const blog = defineCollection({
@@ -18,6 +19,7 @@ const blog = defineCollection({
   transform: async (document, context) => {
     const body = await compileMDX(context, document, {
       rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
+      remarkPlugins: [remarkGfm],
     });
     return {
       ...document,
@@ -42,6 +44,7 @@ const programming = defineCollection({
   transform: async (document, context) => {
     const body = await compileMDX(context, document, {
       rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
+      remarkPlugins: [remarkGfm],
     });
     return {
       ...document,

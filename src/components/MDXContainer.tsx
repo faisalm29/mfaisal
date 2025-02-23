@@ -34,6 +34,30 @@ const MDXContainer = {
       className="group not-prose not-prose text-secondary-200 article-h3 relative scroll-mt-[82px] font-bold"
     />
   ),
+  input: ({ ...props }) => {
+    if (props.type === "checkbox" && props.disabled && !props.checked) {
+      return (
+        <input
+          readOnly
+          type="checkbox"
+          disabled
+          className="form-checkbox rounded bg-gray-500"
+        />
+      );
+    }
+    if (props.type === "checkbox" && props.disabled && props.checked) {
+      return (
+        <input
+          readOnly
+          type="checkbox"
+          disabled
+          checked
+          className="form-checkbox rounded text-gray-500"
+        />
+      );
+    }
+    return <input type="checkbox" />;
+  },
 };
 
 export default MDXContainer;

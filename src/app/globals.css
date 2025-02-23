@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/forms";
 
 @theme {
   --font-jakarta-sans: var(--font-jakarta-sans);
