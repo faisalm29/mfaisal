@@ -38,6 +38,7 @@ const MDXContainer = {
     if (props.type === "checkbox" && props.disabled && !props.checked) {
       return (
         <input
+          {...props}
           readOnly
           type="checkbox"
           disabled
@@ -48,6 +49,7 @@ const MDXContainer = {
     if (props.type === "checkbox" && props.disabled && props.checked) {
       return (
         <input
+          {...props}
           readOnly
           type="checkbox"
           disabled
@@ -58,6 +60,8 @@ const MDXContainer = {
     }
     return <input type="checkbox" />;
   },
+  pre: ({ ...props }) => <pre {...props} className="not-prose shiki" />,
+  code: ({ ...props }) => <code {...props} className="not-prose" />,
 };
 
 export default MDXContainer;

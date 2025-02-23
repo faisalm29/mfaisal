@@ -9,6 +9,7 @@ import {
   transformerNotationDiff,
   transformerMetaHighlight,
   transformerMetaWordHighlight,
+  transformerCompactLineOptions,
 } from "@shikijs/transformers";
 import fs from "node:fs";
 
