@@ -17,13 +17,16 @@
     "next": "15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "reading-time": "^1.5.0"
+    "reading-time": "^1.5.0",
+    "shiki": "^1.29.2"
   },
   "devDependencies": {
     "@content-collections/core": "^0.8.0",
     "@content-collections/mdx": "^0.2.0",
     "@content-collections/next": "^0.2.4",
     "@eslint/eslintrc": "^3",
+    "@shikijs/rehype": "^3.0.0",
+    "@shikijs/transformers": "^3.0.0",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/postcss": "^4.0.7",
     "@tailwindcss/typography": "^0.5.16",

@@ -4,6 +4,17 @@ import readingTime from "reading-time";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
+import rehypeShiki from "@shikijs/rehype";
+import {
+  transformerNotationDiff,
+  transformerMetaHighlight,
+  transformerMetaWordHighlight,
+} from "@shikijs/transformers";
+import fs from "node:fs";
+
+const highlighterTheme = JSON.parse(
+  fs.readFileSync("./highlighter-theme.json", "utf-8"),
+);
 
 // this is collection for general blog (general) posts
 const blog = defineCollection({
@@ -43,14 +54,29 @@ const programming = defineCollection({
   }),
   transform: async (document, context) => {
     const body = await compileMDX(context, document, {
-      rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
+      rehypePlugins: [
+        rehypeSlug,
+        rehypeAutolinkHeadings,
+        [
+          rehypeShiki,
+          {
+            theme: highlighterTheme,
+            inline: "tailing-curly-colon",
+            transformers: [
+              transformerNotationDiff({ matchAlgorithm: "v3" }),
+              transformerMetaHighlight(),
+              transformerMetaWordHighlight(),
+            ],
+          },
+        ],
+      ],
       remarkPlugins: [remarkGfm],
     });
     return {
       ...document,
       body,
       readingTime: JSON.stringify(readingTime(document.content)),
-      slug: document.category.concat("/", document._meta.path),
+      slug: "programming".concat("/", document._meta.path),
     };
   },
 });
