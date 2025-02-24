@@ -1,6 +1,5 @@
 import AnchorLink from "./AnchorLink";
 import { RiHashtag } from "@remixicon/react";
-import Pre from "./Pre";
 
 const MDXContainer = {
   a: ({ ...props }) => {
