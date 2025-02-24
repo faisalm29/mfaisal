@@ -136,7 +136,7 @@
     font-size: var(--text-base);
     line-height: var(--text-base--line-height);
   }
-  pre.shiki {
+  /* pre.shiki {
     position: relative;
     z-index: 1;
     margin: 0;
@@ -151,9 +151,7 @@
       padding: 0 24px;
       width: fit-content;
       min-width: 100%;
-      /* line-height: var(--vp-code-line-height);
-    font-size: var(--vp-code-font-size);
-    color: var(--vp-code-block-color); */
+      position: relative;
       transition: color 0.5s;
       & .diff {
         margin: 0 -24px;
@@ -178,6 +176,156 @@
         }
       }
     }
+  } */
+
+  span > code > button {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  #_top {
+    font-weight: 900;
+    @apply text-[rgb(38,38,43)] dark:text-[rgb(255_245_224)];
+  }
+
+  a > code {
+    text-decoration: none !important;
+    text-decoration-style: unset !important;
+    text-decoration-color: unset !important;
+    text-decoration-thickness: unset !important;
+  }
+
+  h3 code {
+    @apply !text-lg md:!text-xl;
+  }
+
+  pre {
+    @apply rounded-lg !px-0;
+  }
+
+  code {
+    @apply text-sm !leading-loose md:text-base;
+  }
+
+  pre > code {
+    /* 
+   * Starlight unsets some styles so important is needed here.
+   * https://github.com/withastro/starlight/blob/main/packages/starlight/style/markdown.css#L94
+   */
+    counter-reset: line !important;
+    overflow-x: auto !important;
+  }
+
+  figcaption {
+    /* https://github.com/withastro/starlight/blob/main/packages/starlight/style/markdown.css#L4  */
+    margin-bottom: -1rem;
+  }
+
+  /* code[data-theme*=" "],
+  code[data-theme*=" "] span {
+    color: var(--shiki-light);
+    background-color: var(--shiki-light-bg);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    code[data-theme*=" "],
+    code[data-theme*=" "] span {
+      color: var(--shiki-dark);
+      background-color: var(--shiki-dark-bg);
+    }
+  } */
+
+  code[data-line-numbers] {
+    counter-reset: line;
+  }
+
+  code[data-line-numbers] > [data-line]::before {
+    counter-increment: line;
+    content: counter(line);
+    @apply mr-4 inline-block w-4 pr-6 text-right text-gray-500;
+  }
+
+  pre [data-line] {
+    @apply px-8;
+  }
+
+  [data-highlighted-line] {
+    /* background-color: hsla(222, 47%, 11%, 0.5); */
+    /* 222°, 47%, 11% */
+    background-color: hsla(220, 39%, 25%, 1);
+    /* border-left: 2px solid white; */
+    @apply border-accent border-l-4;
+  }
+
+  [data-highlighted-chars] {
+    @apply rounded bg-zinc-600/50;
+    box-shadow: 0 0 0 4px rgb(82 82 91 / 0.5);
+  }
+
+  [data-chars-id] {
+    @apply border-b-2 p-1 shadow-none;
+  }
+
+  [data-chars-id] span {
+    @apply !text-inherit;
+  }
+
+  [data-chars-id="v"] {
+    @apply border-b-pink-600 bg-rose-800/50 font-bold !text-pink-300;
+  }
+
+  [data-chars-id="s"] {
+    @apply border-b-yellow-600 bg-yellow-800/50 font-bold !text-yellow-300;
+  }
+
+  [data-chars-id="i"] {
+    @apply border-b-purple-600 bg-purple-800/50 font-bold !text-purple-200;
+  }
+
+  [data-rehype-pretty-code-title] {
+    @apply rounded-t-lg bg-zinc-700 px-3 py-2 text-sm font-semibold text-zinc-200;
+  }
+
+  figure[data-rehype-pretty-code-figure]:has(> [data-rehype-pretty-code-title])
+    pre {
+    @apply !rounded-t-none;
+  }
+
+  figure {
+    @apply mt-1 mb-6;
+  }
+
+  pre,
+  code,
+  figure {
+    @apply overflow-x-auto;
+  }
+
+  .diff {
+    position: relative;
+    &.add {
+      background-color: hsla(120, 100%, 50%, 0.2);
+      &:before {
+        content: "+";
+        position: absolute;
+        top: 0;
+        left: 12px;
+      }
+    }
+    &.remove {
+      background-color: hsla(0, 100%, 50%, 0.2);
+      &::before {
+        content: "-";
+        position: absolute;
+        top: 0;
+        left: 12px;
+      }
+    }
+  }
+
+  span [data-line] {
+    @apply rounded bg-zinc-600/50 p-1;
   }
 }
 

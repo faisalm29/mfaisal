@@ -4,14 +4,11 @@ import readingTime from "reading-time";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
-import rehypeShiki from "@shikijs/rehype";
-import {
-  transformerNotationDiff,
-  transformerMetaHighlight,
-  transformerMetaWordHighlight,
-  transformerCompactLineOptions,
-} from "@shikijs/transformers";
+import { transformerNotationDiff } from "@shikijs/transformers";
+import rehypePrettyCode from "rehype-pretty-code";
 import fs from "node:fs";
+
+// const shikiOptions = rehypePrettyCode({theme: })
 
 const highlighterTheme = JSON.parse(
   fs.readFileSync("./highlighter-theme.json", "utf-8"),
@@ -59,15 +56,10 @@ const programming = defineCollection({
         rehypeSlug,
         rehypeAutolinkHeadings,
         [
-          rehypeShiki,
+          rehypePrettyCode,
           {
-            theme: highlighterTheme,
-            inline: "tailing-curly-colon",
-            transformers: [
-              transformerNotationDiff({ matchAlgorithm: "v3" }),
-              transformerMetaHighlight(),
-              transformerMetaWordHighlight(),
-            ],
+            theme: await highlighterTheme,
+            transformers: [transformerNotationDiff()],
           },
         ],
       ],

@@ -1,5 +1,6 @@
 import AnchorLink from "./AnchorLink";
 import { RiHashtag } from "@remixicon/react";
+import Pre from "./Pre";
 
 const MDXContainer = {
   a: ({ ...props }) => {
@@ -60,8 +61,13 @@ const MDXContainer = {
     }
     return <input type="checkbox" />;
   },
-  pre: ({ ...props }) => <pre {...props} className="not-prose shiki" />,
   code: ({ ...props }) => <code {...props} className="not-prose" />,
+  blockquote: ({ ...props }) => (
+    <blockquote
+      {...props}
+      className="not-prose text-secondary-400 border-l-accent border-l-4 py-2 pl-8 italic"
+    />
+  ),
 };
 
 export default MDXContainer;
