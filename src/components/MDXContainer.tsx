@@ -10,7 +10,7 @@ const MDXContainer = {
           href={props.href}
           className="absolute top-0 right-0 bottom-0 -left-4 mt-auto mb-auto flex w-fit -translate-x-1/2 flex-col items-center justify-center opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
         >
-          <RiHashtag className="text-secondary-200" />
+          <RiHashtag className="text-secondary-200 hidden md:inline" />
         </a>
       );
     }
