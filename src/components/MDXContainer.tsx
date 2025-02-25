@@ -67,6 +67,11 @@ const MDXContainer = {
       className="not-prose text-secondary-400 border-l-accent border-l-4 py-2 pl-8 italic"
     />
   ),
+  table: ({ ...props }) => (
+    <div className="overflow-x-auto">
+      <table {...props} className="prose table-fix w-full overflow-scroll" />
+    </div>
+  ),
 };
 
 export default MDXContainer;

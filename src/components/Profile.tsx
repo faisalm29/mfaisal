@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AnchorLink from "./AnchorLink";
 import { RiBlueskyFill, RiGithubFill, RiInstagramFill } from "@remixicon/react";
 
 const otherPlatforms = [
@@ -29,10 +30,15 @@ const Profile = () => {
 
         <div className="md:col-span-6 md:ml-6 lg:col-span-8 lg:ml-0">
           <p className="mb-8 pt-2">
-            (tulis tentang blog ini)Lorem ipsum dolor sit, amet consectetur
-            adipisicing elit. Officiis enim quas iste, voluptatem quisquam iure
-            est. Veritatis dolorum eos recusandae, aliquid, laudantium accusamus
-            laborum quo fugiat provident voluptate dolorem atque.
+            Hello, Faisal here! I'm just an ordinary person with an interest in
+            writing and web development. I created this blog as a record and to
+            implement the learning that I have gone through on web development.
+            My journey in learning web development and what I am adding to this
+            blog can be found in the{" "}
+            <AnchorLink href="/programming">code</AnchorLink> section. The rest
+            can be found in the <AnchorLink href="/blog">general</AnchorLink>{" "}
+            and <AnchorLink href="/movie">movies</AnchorLink> section for what
+            interests me.
           </p>
           <div>
             {otherPlatforms.map((platform, id) => (
