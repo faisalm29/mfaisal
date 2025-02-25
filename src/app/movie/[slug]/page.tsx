@@ -19,7 +19,7 @@ export default async function Movie({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  console.log(slug);
+
   const imdbIds = allMovies.map((movie) => movie.imdbId);
   const movies = await getMoviesByImdbIds(imdbIds);
 

@@ -1,4 +1,5 @@
 import { allMovies } from "content-collections";
+import { Crew, Cast } from "@/types";
 
 const getMoviesByImdbIds = async (imdbIds: string[]) => {
   const API_KEY = process.env.TMDB_API_KEY; // load tmdb api key from .env.local
@@ -34,11 +35,11 @@ const getMoviesByImdbIds = async (imdbIds: string[]) => {
 
       // extract director
       const director =
-        credits.crew.find((person: any) => person.job === "Director")?.name ||
+        credits.crew.find((person: Crew) => person.job === "Director")?.name ||
         "Unknown";
 
       // Get top 5 cast members
-      const casts = credits.cast.slice(0, 5).map((actor: any) => actor.name);
+      const casts = credits.cast.slice(0, 5).map((actor: Cast) => actor.name);
 
       //  fetch movie from mdx to get slug and body text
       const movieMDX = allMovies.find((m) => m.imdbId === imdbId);
