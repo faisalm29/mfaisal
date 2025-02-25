@@ -74,6 +74,28 @@ const programming = defineCollection({
   },
 });
 
+// this is collection for general blog (general) posts
+const movie = defineCollection({
+  name: "movie",
+  directory: "content/movie",
+  include: "*.mdx",
+  schema: (z) => ({
+    category: z.string(),
+    imdbId: z.string(),
+  }),
+  transform: async (document, context) => {
+    const body = await compileMDX(context, document, {
+      rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
+      remarkPlugins: [remarkGfm],
+    });
+    return {
+      ...document,
+      body,
+      slug: "movie".concat("/", document._meta.path),
+    };
+  },
+});
+
 export default defineConfig({
-  collections: [blog, programming],
+  collections: [blog, programming, movie],
 });
