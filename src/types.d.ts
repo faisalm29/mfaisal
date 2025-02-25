@@ -26,3 +26,8 @@ export interface Cast {
   credit_id: string;
   order: number;
 }
+
+export interface Genre {
+  id: number;
+  name: string;
+}

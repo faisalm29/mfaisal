@@ -9,58 +9,52 @@ const Movie = async () => {
   const movies = await getMoviesByImdbIds(imdbIds);
 
   return (
-    <>
-      <h1>All Movies</h1>
+    <main className="mt-24">
+      <h1 className="text-secondary-200 mb-6 font-bold">All Movies</h1>
       <ul>
-        {movies.map((movie, id) => (
-          <li key={id}>
-            {/* title */}
-            <h2>{movie.title}</h2>
+        {movies.map((movie, id) => {
+          if (movie.slug) {
+            return (
+              <Link
+                href={movie.slug}
+                key={id}
+                className="group mb-6 flex flex-col justify-between last:mb-0 md:grid md:w-full md:grid-cols-12"
+              >
+                {movie.publishedDate && (
+                  <time
+                    dateTime={movie.publishedDate
+                      ?.toISOString()
+                      .replace(/T.*/, "")
+                      .split("-")
+                      .reverse()
+                      .join("-")}
+                    className="group-hover:text-accent col-span-2 mb-1 transition-colors duration-300 ease-in-out md:mb-0"
+                  >
+                    {movie.publishedDate.toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </time>
+                )}
 
-            {/* poster */}
-            {movie.poster && (
-              <Image
-                src={movie.poster}
-                alt={movie.title}
-                width={100}
-                height={200}
-              />
-            )}
-
-            {/* overview */}
-            <p>{movie.overview}</p>
-
-            {/* release date */}
-            <time dateTime={movie.releaseDate}>{movie.releaseDate}</time>
-
-            {/* director */}
-            <p>{movie.director}</p>
-
-            {/* top 5 casts */}
-            <ul>
-              {movie.casts.map((cast: string, id: string) => (
-                <li key={id}>{cast}</li>
-              ))}
-            </ul>
-
-            {/* Read more link */}
-            {movie.slug && <Link href={movie.slug}>Read More →</Link>}
-          </li>
-        ))}
+                <div className="col-span-10">
+                  <p className="group-hover:text-accent transition-colors duration-300 ease-in-out">
+                    {movie.genre}
+                  </p>
+                  <h3 className="text-secondary-200 group-hover:text-accent text-base font-medium transition-colors duration-300 ease-in-out">
+                    {movie.title}{" "}
+                    <time dateTime={movie.releaseDate}>
+                      ({new Date(movie.releaseDate).getFullYear()})
+                    </time>
+                  </h3>
+                </div>
+              </Link>
+            );
+          }
+        })}
       </ul>
-      {/* <h1>{movie.title}</h1>
-      <p>{movie.overview}</p>
-      {movie.poster && (
-        <Image src={movie.poster} alt={movie.title} width={360} height={720} />
-      )}
-      <time dateTime={movie.releaseDate}>{movie.releaseDate}</time>
-      <p>{movie.director}</p>
-      <ul>
-        {movie.cast.map((c: string, id: string) => (
-          <li key={id}>{c}</li>
-        ))}
-      </ul> */}
-    </>
+    </main>
   );
 };
 

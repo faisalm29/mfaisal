@@ -1,5 +1,5 @@
 import { allMovies } from "content-collections";
-import { Crew, Cast } from "@/types";
+import { Crew, Cast, Genre } from "@/types";
 
 const getMoviesByImdbIds = async (imdbIds: string[]) => {
   const API_KEY = process.env.TMDB_API_KEY; // load tmdb api key from .env.local
@@ -41,6 +41,8 @@ const getMoviesByImdbIds = async (imdbIds: string[]) => {
       // Get top 5 cast members
       const casts = credits.cast.slice(0, 5).map((actor: Cast) => actor.name);
 
+      const genres = details.genres.map((genre: Genre) => genre.name);
+
       //  fetch movie from mdx to get slug and body text
       const movieMDX = allMovies.find((m) => m.imdbId === imdbId);
 
@@ -54,7 +56,9 @@ const getMoviesByImdbIds = async (imdbIds: string[]) => {
           : null,
         director,
         casts,
+        genre: genres.map(String).join(", "),
         slug: movieMDX?.slug,
+        publishedDate: movieMDX?.publishedDate,
         body: movieMDX?.body,
       };
     } catch (error) {

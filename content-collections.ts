@@ -82,6 +82,7 @@ const movie = defineCollection({
   schema: (z) => ({
     category: z.string(),
     imdbId: z.string(),
+    publishedDate: z.coerce.date(),
   }),
   transform: async (document, context) => {
     const body = await compileMDX(context, document, {

@@ -46,6 +46,9 @@ export default async function Movie({
       {/* overview */}
       <p>{movie.overview}</p>
 
+      {/* Movie genre */}
+      <p>{movie.genre}</p>
+
       {/* release date */}
       <time dateTime={movie.releaseDate}>{movie.releaseDate}</time>
 
