@@ -1,5 +1,5 @@
 import { allMovies } from "content-collections";
-import { Crew, Cast, Genre } from "@/types";
+import type { Crew, Cast, Genre } from "@/types";
 
 const getMoviesByImdbIds = async (imdbIds: string[]) => {
   const API_KEY = process.env.TMDB_API_KEY; // load tmdb api key from .env.local
@@ -14,6 +14,7 @@ const getMoviesByImdbIds = async (imdbIds: string[]) => {
         throw new Error(`Failed to find movie for IMDB ID: ${imdbId}`);
 
       const findData = await findRes.json();
+
       const movie = findData.movie_results[0];
       if (!movie) return null;
 
@@ -34,29 +35,32 @@ const getMoviesByImdbIds = async (imdbIds: string[]) => {
       const credits = await creditsRes.json();
 
       // extract director
-      const director =
+      const director: string =
         credits.crew.find((person: Crew) => person.job === "Director")?.name ||
         "Unknown";
 
       // Get top 5 cast members
-      const casts = credits.cast.slice(0, 5).map((actor: Cast) => actor.name);
+      const casts: string[] = credits.cast
+        .slice(0, 5)
+        .map((actor: Cast) => actor.name);
 
-      const genres = details.genres.map((genre: Genre) => genre.name);
+      const genres: string[] = details.genres.map((genre: Genre) => genre.name);
 
       //  fetch movie from mdx to get slug and body text
       const movieMDX = allMovies.find((m) => m.imdbId === imdbId);
 
       return {
         imdbId,
+        category: movieMDX?.category,
         title: details.title,
         overview: details.overview,
         releaseDate: details.release_date,
         poster: details.poster_path
           ? `https://image.tmdb.org/t/p/w500${details.poster_path}`
-          : null,
+          : "Unknown",
         director,
         casts,
-        genre: genres.map(String).join(", "),
+        genres,
         slug: movieMDX?.slug,
         publishedDate: movieMDX?.publishedDate,
         body: movieMDX?.body,

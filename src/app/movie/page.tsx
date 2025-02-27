@@ -1,6 +1,5 @@
 import getMoviesByImdbIds from "../../../lib/tmdb";
 import { allMovies } from "content-collections";
-import Image from "next/image";
 import Link from "next/link";
 
 const Movie = async () => {
@@ -40,7 +39,7 @@ const Movie = async () => {
 
                 <div className="col-span-10">
                   <p className="group-hover:text-accent transition-colors duration-300 ease-in-out">
-                    {movie.genre}
+                    {movie.genres.map(String).join(", ")}
                   </p>
                   <h3 className="text-secondary-200 group-hover:text-accent text-base font-medium transition-colors duration-300 ease-in-out">
                     {movie.title}{" "}

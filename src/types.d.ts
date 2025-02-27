@@ -31,3 +31,34 @@ export interface Genre {
   id: number;
   name: string;
 }
+
+export interface MovieProps {
+  imdbId: string;
+  category: string;
+  title: string;
+  overview: string;
+  releaseDate: string;
+  poster: string;
+  director: string;
+  casts: Array<string>;
+  genres: Array<string>;
+  slug: string;
+  publishedDate: Date;
+  body: string;
+}
+
+export interface MovieMDX {
+  content: string;
+  category: string;
+  imdbId: string;
+  publishedDate: Date;
+  _meta: {
+    filePath: string;
+    fileName: string;
+    directory: string;
+    extension: string;
+    path: string;
+  };
+  body: string;
+  slug: string;
+}

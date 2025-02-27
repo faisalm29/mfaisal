@@ -1,24 +1,38 @@
 import Profile from "@/components/Profile";
 import PostSectionWrapper from "@/components/PostSectionWrapper";
 import { PlainCard } from "@/components/Card";
-import { allBlogs, allProgrammings } from "content-collections";
+import { allBlogs, allProgrammings, allMovies } from "content-collections";
+import getMoviesByImdbIds from "../../lib/tmdb";
+import type { Movie } from "content-collections";
 
-export default function Home() {
-  const allContents = allBlogs
-    .map((post) => ({
-      title: post.title,
-      publishedDate: post.publishedDate,
-      category: post.category,
-      slug: post.slug,
-    }))
-    .concat(
-      allProgrammings.map((post) => ({
-        title: post.title,
-        publishedDate: post.publishedDate,
-        category: post.category,
-        slug: post.slug,
-      })),
-    );
+export default async function Home() {
+  const imdbIds = allMovies.map((movie: Movie) => movie.imdbId);
+
+  const res = await getMoviesByImdbIds(imdbIds);
+
+  const movies = res.map((movie) => ({
+    title: movie.title,
+    publishedDate: movie.publishedDate,
+    category: movie.category,
+    slug: movie.slug,
+  }));
+
+  const blogs = allBlogs.map((post) => ({
+    title: post.title,
+    publishedDate: post.publishedDate,
+    category: post.category,
+    slug: post.slug,
+  }));
+
+  const codes = allProgrammings.map((post) => ({
+    title: post.title,
+    publishedDate: post.publishedDate,
+    category: post.category,
+    slug: post.slug,
+  }));
+
+  // @ts-expect-error: always show error because match overload
+  const allContents = codes.concat(movies, blogs);
 
   const sortedContents = allContents.sort(
     (a, b) =>

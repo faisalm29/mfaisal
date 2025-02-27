@@ -32,38 +32,50 @@ export default async function Movie({
   }
 
   return (
-    <article>
-      <h1>All Movies</h1>
-
+    <article className="mx-auto max-w-[65ch]">
       {/* title */}
-      <h2>{movie.title}</h2>
 
-      {/* Poster */}
-      {movie.poster && (
-        <Image src={movie.poster} alt={movie.title} width={100} height={200} />
-      )}
+      <h1 className="text-secondary-200 mt-[0.6em] mb-[0.6em] font-bold">
+        {movie.title}
+      </h1>
 
-      {/* overview */}
-      <p>{movie.overview}</p>
+      <div className="prose prose-p:text-secondary-400">
+        {/* Poster */}
+        <div className="mx-auto w-max">
+          {movie.poster && (
+            <Image
+              src={movie.poster}
+              alt={movie.title}
+              width={300}
+              height={600}
+            />
+          )}
+        </div>
 
-      {/* Movie genre */}
-      <p>{movie.genre}</p>
+        {/* overview */}
+        <p>Synopsis: {movie.overview}</p>
 
-      {/* release date */}
-      <time dateTime={movie.releaseDate}>{movie.releaseDate}</time>
+        {/* Movie genre */}
+        <p>Genre: {movie.genres.map(String).join(", ")}</p>
 
-      {/* director */}
-      <p>{movie.director}</p>
+        {/* release date */}
+        <p>
+          Release Date:{" "}
+          <time dateTime={movie.releaseDate}>{movie.releaseDate}</time>
+        </p>
 
-      {/* top 5 casts */}
-      <ul>
-        {movie.casts.map((cast: string, id: string) => (
-          <li key={id}>{cast}</li>
-        ))}
-      </ul>
+        {/* director */}
+        <p>Director: {movie.director}</p>
+
+        {/* Top 5 cast */}
+        <p>Cast: {movie.casts.map(String).join(", ")}</p>
+      </div>
 
       {/* Body */}
-      <MDXContent code={movie.body as string} components={MDXContainer} />
+      <h2 className="text-secondary-200 mt-10 mb-5 font-bold">My Take</h2>
+      <div className="prose prose-p:text-secondary-400 prose-a:no-underline prose-li:text-secondary-400 prose-strong:text-secondary-200 prose-th:text-secondary-200 prose-td:text-secondary-400 checked:bg-accent prose-tr:even:bg-[#172135] prose-tr:odd:bg-primary marker:text-gray-500">
+        <MDXContent code={movie.body as string} components={MDXContainer} />
+      </div>
     </article>
   );
 }

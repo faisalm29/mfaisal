@@ -34,7 +34,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`bg-primary sticky top-0 z-[100] ${route.startsWith("/programming/") || route.startsWith("/blog/") ? "mx-auto max-w-[65ch]" : "max-w-full"}`}
+      className={`bg-primary sticky top-0 z-[100] ${route.startsWith("/programming/") || route.startsWith("/blog/") || route.startsWith("/movie/") ? "mx-auto max-w-[65ch]" : "max-w-full"}`}
     >
       <div className="relative bg-transparent py-4">
         <div className="flex items-center justify-between">
