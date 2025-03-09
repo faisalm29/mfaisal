@@ -32,43 +32,52 @@ export default async function Movie({
   }
 
   return (
-    <article className="mx-auto max-w-[65ch]">
-      {/* title */}
-
-      <h1 className="text-secondary-200 mt-[0.6em] mb-[0.6em] font-bold">
-        {movie.title}
-      </h1>
-
-      <div className="prose prose-p:text-secondary-400">
-        {/* Poster */}
-        <div className="mx-auto w-max">
+    <article className="mx-auto mt-24 max-w-[65ch]">
+      <div className="mb-4 grid grid-cols-12 gap-4">
+        <div className="col-span-3">
           {movie.poster && (
             <Image
               src={movie.poster}
               alt={movie.title}
-              width={300}
-              height={600}
+              width={100}
+              height={200}
+              className="not-prose h-auto w-full rounded"
             />
           )}
         </div>
+        <div className="bg-surface col-span-9 flex items-center rounded p-4">
+          <div>
+            <h1 className="text-secondary-200 mb-4 font-bold">{movie.title}</h1>
 
-        {/* overview */}
-        <p>Synopsis: {movie.overview}</p>
+            <div className="flex gap-2">
+              <time dateTime={movie.releaseDate}>
+                {new Date(movie.releaseDate).getFullYear()}
+              </time>
+              •<p>{movie.genres.map(String).join(", ")}</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        {/* Movie genre */}
-        <p>Genre: {movie.genres.map(String).join(", ")}</p>
+      <div className="bg-surface rounded p-4">
+        <h2 className="text-secondary-200 mb-4 font-bold">Movie Info</h2>
+        {/* Director */}
+        <div className="mb-4">
+          <p className="text-secondary-200 font-bold">Director</p>
+          <p>{movie.director}</p>
+        </div>
 
-        {/* release date */}
-        <p>
-          Release Date:{" "}
-          <time dateTime={movie.releaseDate}>{movie.releaseDate}</time>
-        </p>
+        {/* Cast */}
+        <div className="mb-4">
+          <p className="text-secondary-200 font-bold">Cast</p>
+          <p>{movie.casts.map(String).join(", ")}</p>
+        </div>
 
-        {/* director */}
-        <p>Director: {movie.director}</p>
-
-        {/* Top 5 cast */}
-        <p>Cast: {movie.casts.map(String).join(", ")}</p>
+        {/* Overview */}
+        <div>
+          <p className="text-secondary-200 font-bold">Overview</p>
+          <p>{movie.overview}</p>
+        </div>
       </div>
 
       {/* Body */}
