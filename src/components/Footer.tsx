@@ -10,7 +10,7 @@ const Footer = () => {
   const route = usePathname();
   return (
     <footer
-      className={`mx-auto mt-24 mb-8 sm:grid sm:grid-cols-4 md:grid-cols-8 lg:grid-cols-12 ${route.startsWith("/programming/") || route.startsWith("/blog/") ? "mx-auto max-w-[65ch]" : "max-w-full"}`}
+      className={`mx-auto mt-24 mb-8 sm:grid sm:grid-cols-4 md:grid-cols-8 lg:grid-cols-12 ${route.startsWith("/programming/") || route.startsWith("/blog/") || route.startsWith("/movie/") ? "mx-auto max-w-[65ch]" : "max-w-full"}`}
     >
       <p className="mb-2 sm:col-span-1 md:col-span-3 md:mb-0 lg:col-span-4 lg:mb-0">
         © Faisal M. 2025{currentYear > 2025 && ` - ${currentYear}`}.

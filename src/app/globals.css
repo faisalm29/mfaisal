@@ -14,6 +14,7 @@
   --color-secondary-200: oklch(0.929 0.013 255.508);
   --color-secondary-400: oklch(0.704 0.04 256.788);
   --color-accent: oklch(0.855 0.138 181.071);
+  --color-surface: oklch(24.89% 0.0409 263.42);
 
   --text-xs: 0.812rem;
   --text-xs--line-height: 1.68;
