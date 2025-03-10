@@ -32,51 +32,54 @@ export default async function Movie({
   }
 
   return (
-    <article className="mx-auto mt-24 max-w-[65ch]">
-      <div className="mb-4 grid grid-cols-12 gap-4">
-        <div className="col-span-3">
-          {movie.poster && (
-            <Image
-              src={movie.poster}
-              alt={movie.title}
-              width={100}
-              height={200}
-              className="not-prose h-auto w-full rounded"
-            />
-          )}
-        </div>
-        <div className="bg-surface col-span-9 flex items-center rounded p-4">
-          <div>
-            <h1 className="text-secondary-200 mb-4 font-bold">{movie.title}</h1>
-
-            <div className="flex gap-2">
-              <time dateTime={movie.releaseDate}>
-                {new Date(movie.releaseDate).getFullYear()}
-              </time>
-              •<p>{movie.genres.map(String).join(", ")}</p>
-            </div>
-          </div>
-        </div>
+    <article className="mx-auto mt-10 max-w-[65ch]">
+      <div className="prose flex">
+        <time
+          dateTime={movie.releaseDate}
+          className="not-prose text-secondary-400 mr-2"
+        >
+          {new Date(movie.releaseDate).getFullYear()}
+        </time>
+        •
+        <p className="not-prose text-secondary-400 ml-2">
+          {movie.genres.map(String).join(", ")}
+        </p>
       </div>
 
-      <div className="bg-surface rounded p-4">
-        <h2 className="text-secondary-200 mb-4 font-bold">Movie Info</h2>
-        {/* Director */}
-        <div className="mb-4">
-          <p className="text-secondary-200 font-bold">Director</p>
-          <p>{movie.director}</p>
+      {/* Title */}
+      <h1 className="text-secondary-200 mt-[0.6em] mb-[0.6em] font-bold">
+        {movie.title}
+      </h1>
+
+      <div className="gap-6 md:grid md:grid-cols-12">
+        <div className="col-span-6 mb-4 md:mb-0">
+          <Image
+            src={movie.poster}
+            alt={`${movie.title} poster`}
+            width={100}
+            height={200}
+            className="h-auto w-full"
+            priority
+          />
         </div>
 
-        {/* Cast */}
-        <div className="mb-4">
-          <p className="text-secondary-200 font-bold">Cast</p>
-          <p>{movie.casts.map(String).join(", ")}</p>
-        </div>
-
-        {/* Overview */}
-        <div>
-          <p className="text-secondary-200 font-bold">Overview</p>
-          <p>{movie.overview}</p>
+        {/* Movie info */}
+        <div className="col-span-6">
+          {/* Director */}
+          <div className="mb-4">
+            <p className="text-secondary-200">Director</p>
+            <p>{movie.director}</p>
+          </div>
+          {/* Cast */}
+          <div className="mb-4">
+            <p className="text-secondary-200">Cast</p>
+            <p>{movie.casts.map(String).join(", ")}</p>
+          </div>
+          {/* Overview */}
+          <div>
+            <p className="text-secondary-200">Overview</p>
+            <p>{movie.overview}</p>
+          </div>
         </div>
       </div>
 
