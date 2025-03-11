@@ -3,6 +3,7 @@ import { MDXContent } from "@content-collections/mdx/react";
 import MDXContainer from "@/components/MDXContainer";
 import { notFound } from "next/navigation";
 import type { ReadTimeResults } from "reading-time";
+import TableOfContent from "@/components/TableOfContent";
 
 export async function generateStaticParams() {
   return allProgrammings.map((post) => ({
@@ -45,6 +46,8 @@ export default async function Programming({
       <h1 className="not-prose text-secondary-200 mt-[0.6em] mb-[0.6em] font-bold">
         {post.title}
       </h1>
+
+      <TableOfContent />
 
       <MDXContent code={post.body} components={MDXContainer} />
     </article>
