@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo } from "react";
 // import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { RiArrowUpLine } from "@remixicon/react";
