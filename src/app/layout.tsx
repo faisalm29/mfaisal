@@ -115,7 +115,7 @@ export default function RootLayout({
     >
       <body className="bg-primary text-secondary-400 font-inter px-4 md:px-8 lg:px-0">
         <Navbar />
-        <main>{children}</main>
+        <main className="mx-auto max-w-5xl">{children}</main>
         <Footer />
       </body>
     </html>

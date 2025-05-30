@@ -3,24 +3,27 @@
 import { useState, useEffect, useMemo } from "react";
 // import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { RiArrowUpLine } from "@remixicon/react";
+import BackToTopButton from "./BackToTopButton";
+import { useIntersectionObserver } from "../../lib/useIntersectionObserver";
 
 const TableOfContent = () => {
   const [headings, setHeadings] = useState<HTMLHeadingElement[]>([]);
+  const activeId = useIntersectionObserver(headings);
 
   useEffect(() => {
-    const headingElement: HTMLHeadingElement[] = Array.from(
+    const headingElements: HTMLHeadingElement[] = Array.from(
       document.querySelectorAll("[data-heading]"),
     );
-    setHeadings(headingElement);
+
+    setHeadings(headingElements);
     return () => {
       setHeadings([]);
     };
   }, []);
 
   const getLevel = useMemo(() => {
-    return (nodeName: string) => {
-      return Number(nodeName.replace("H", ""));
+    return (nodename: string) => {
+      return Number(nodename.replace("H", ""));
     };
   }, []);
 
@@ -30,7 +33,7 @@ const TableOfContent = () => {
         <Link
           href={`#${heading.id}`}
           key={heading.id}
-          className={`text-secondary-400 ${getLevel(heading.nodeName) === 3 && "pl-8"}`}
+          className={`text-sm transition-all duration-300 ease-in-out not-last:mb-2 ${getLevel(heading.nodeName) === 3 ? "pl-8" : "pl-0"} ${activeId === heading.id ? "text-accent" : "text-secondary-400"}`}
         >
           {heading.innerText}
         </Link>
@@ -38,25 +41,20 @@ const TableOfContent = () => {
     });
   };
 
-  const backToTop = () => {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  };
-
   return (
     <>
-      <div className="mb-4 flex items-center justify-between">
-        <p className="text-secondary-200">Table of Contents</p>
-        <button
-          onClick={() => backToTop()}
-          className="bg-secondary-200 text-surface cursor-pointer rounded"
-        >
-          <RiArrowUpLine />
-        </button>
-      </div>
-      <ul>
-        <li className="flex flex-col gap-4">{mapHeadings()}</li>
-      </ul>
+      <aside className="col-span-4 hidden pl-12 lg:block">
+        <nav className="sticky top-[178px]">
+          <div className="mb-2 flex items-center justify-between">
+            <h2 className="text-secondary-200 text-base font-bold uppercase">
+              Table of Contents
+            </h2>
+            {/* Back to top button goes here. */}
+            <BackToTopButton />
+          </div>
+          <div className="flex flex-col">{mapHeadings()}</div>
+        </nav>
+      </aside>
     </>
   );
 };

@@ -7,6 +7,7 @@ import remarkGfm from "remark-gfm";
 import { transformerNotationDiff } from "@shikijs/transformers";
 import rehypePrettyCode from "rehype-pretty-code";
 import fs from "node:fs";
+import remarkToc from "remark-toc";
 
 // const shikiOptions = rehypePrettyCode({theme: })
 
@@ -28,7 +29,7 @@ const blog = defineCollection({
   transform: async (document, context) => {
     const body = await compileMDX(context, document, {
       rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
-      remarkPlugins: [remarkGfm],
+      remarkPlugins: [remarkGfm, remarkToc],
     });
     return {
       ...document,
