@@ -56,8 +56,8 @@ export default async function Movie({
           <Image
             src={movie.poster}
             alt={`${movie.title} poster`}
-            width={100}
-            height={200}
+            width={500}
+            height={750}
             className="h-auto w-full"
             priority
           />

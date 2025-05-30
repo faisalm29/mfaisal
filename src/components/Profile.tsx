@@ -24,12 +24,12 @@ const Profile = () => {
   return (
     <div className="my-24">
       <div className="md:grid md:grid-cols-8 lg:grid-cols-12">
-        <h1 className="text-secondary-200 mb-3 font-bold md:col-span-2 lg:col-span-4">
+        <h1 className="text-secondary-200 mb-3 font-bold md:col-span-2 lg:col-span-6">
           Faisal M.
         </h1>
 
-        <div className="md:col-span-6 md:ml-6 lg:col-span-8 lg:ml-0">
-          <p className="mb-8 pt-2">
+        <div className="md:col-span-6 md:ml-6 lg:col-span-6 lg:ml-0">
+          <p className="mb-8">
             Hello, Faisal here! I&apos;m just an ordinary person with an
             interest in writing and web development. I created this blog as a
             record and to implement the learning that I have gone through on web
@@ -47,7 +47,7 @@ const Profile = () => {
                 href={platform.url}
                 title={platform.name}
                 target="_blank"
-                className="hover:text-secondary-200 mr-4 inline-block transition-colors duration-300 ease-in-out last:mr-0"
+                className="hover:text-accent text-secondary-200 mr-4 inline-block transition-colors duration-300 ease-in-out last:mr-0"
               >
                 {platform.icon}
               </Link>

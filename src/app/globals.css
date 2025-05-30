@@ -49,6 +49,10 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   h1 {
     font-size: var(--text-5xl);
     line-height: var(--text-5xl--line-height);

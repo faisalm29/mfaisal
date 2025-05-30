@@ -3,6 +3,7 @@ import { MDXContent } from "@content-collections/mdx/react";
 import MDXContainer from "@/components/MDXContainer";
 import { notFound } from "next/navigation";
 import type { ReadTimeResults } from "reading-time";
+import TableOfContent from "@/components/TableOfContent";
 
 export async function generateStaticParams() {
   return allBlogs.map((post) => ({
@@ -30,25 +31,29 @@ export default async function Blog({
   const readingTime = JSON.parse(post.readingTime) as ReadTimeResults;
 
   return (
-    <article className="prose prose-p:text-secondary-400 prose-a:no-underline prose-li:text-secondary-400 prose-strong:text-secondary-200 prose-th:text-secondary-200 prose-td:text-secondary-400 checked:bg-accent prose-tr:even:bg-[#172135] prose-tr:odd:bg-primary mx-auto mt-10 marker:text-gray-500">
-      <div className="flex">
-        <time className="not-prose text-secondary-400 mr-2">
-          {post.publishedDate.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-          })}
-        </time>
-        •
-        <p className="not-prose text-secondary-400 ml-2 capitalize">
-          {readingTime.text}
-        </p>
-      </div>
-      <h1 className="not-prose text-secondary-200 mt-[0.6em] mb-[0.6em] font-bold">
-        {post.title}
-      </h1>
+    <div className="mx-auto max-w-[65ch] lg:grid lg:max-w-5xl lg:grid-cols-12">
+      <article className="prose prose-p:text-secondary-400 prose-a:no-underline prose-li:text-secondary-400 prose-strong:text-secondary-200 prose-th:text-secondary-200 prose-td:text-secondary-400 checked:bg-accent prose-tr:even:bg-[#172135] prose-tr:odd:bg-primary mt-10 marker:text-gray-500 lg:col-span-8">
+        <div className="flex">
+          <time className="not-prose text-secondary-400 mr-2">
+            {post.publishedDate.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })}
+          </time>
+          •
+          <p className="not-prose text-secondary-400 ml-2 capitalize">
+            {readingTime.text}
+          </p>
+        </div>
+        <h1 className="not-prose text-secondary-200 mt-[0.6em] mb-[0.6em] font-bold">
+          {post.title}
+        </h1>
 
-      <MDXContent code={post.body} components={MDXContainer} />
-    </article>
+        <MDXContent code={post.body} components={MDXContainer} />
+      </article>
+
+      <TableOfContent />
+    </div>
   );
 }

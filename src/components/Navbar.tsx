@@ -33,10 +33,8 @@ const Navbar = () => {
   }, [route]);
 
   return (
-    <nav
-      className={`bg-primary sticky top-0 z-[100] ${route.startsWith("/programming/") || route.startsWith("/blog/") || route.startsWith("/movie/") ? "mx-auto max-w-[65ch]" : "max-w-full"}`}
-    >
-      <div className="relative bg-transparent py-4">
+    <nav className={`bg-primary sticky top-0 z-[100]`}>
+      <div className="relative mx-auto max-w-5xl bg-transparent py-4">
         <div className="flex items-center justify-between">
           <Link
             href="/"
