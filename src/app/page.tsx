@@ -43,7 +43,7 @@ export default async function Home() {
   return (
     <>
       <Profile />
-      <PostSectionWrapper>
+      <PostSectionWrapper title="Latest Posts">
         {sortedContents.map((content, id) => (
           <PlainCard key={id} post={content} />
         ))}

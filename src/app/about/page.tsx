@@ -1,8 +1,8 @@
 const About = () => {
   return (
-    <main className="mt-24">
+    <div className="mt-24">
       <h1 className="text-secondary-200 mb-6 font-bold">About Me</h1>
-      <ul>
+      <ul className="ml-4">
         <li className="mb-4 list-disc">
           <p>Mulanya, saya adalah seoarng Content/Copywriter.</p>
         </li>
@@ -28,7 +28,7 @@ const About = () => {
           </p>
         </li>
       </ul>
-    </main>
+    </div>
   );
 };
 

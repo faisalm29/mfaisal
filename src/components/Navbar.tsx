@@ -23,12 +23,15 @@ const links = [
     url: "/movie",
     placeholder: "Movies",
   },
+  {
+    url: "/chart",
+    placeholder: "Chart",
+  },
 ];
 
 const Navbar = () => {
   const [mobileNav, setMobileNav] = useState(false);
   const route = usePathname();
-  console.log(route);
 
   useEffect(() => {
     setMobileNav(false);
