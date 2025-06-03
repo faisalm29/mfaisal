@@ -7,7 +7,15 @@ interface AnchorLinkProps {
 }
 
 const AnchorLink = ({ href, children, target }: AnchorLinkProps) => {
-  return (
+  return target === "_blank" ? (
+    <a
+      href={href}
+      target={target}
+      className="text-secondary-200 hover:text-accent font-medium transition-colors duration-300 ease-in-out"
+    >
+      {children}
+    </a>
+  ) : (
     <Link
       href={href}
       target={target}

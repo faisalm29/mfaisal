@@ -62,3 +62,22 @@ export interface MovieMDX {
   body: string;
   slug: string;
 }
+
+export interface Track {
+  id: string;
+  name: string;
+  artists: {
+    name: string;
+  }[];
+  album: {
+    name: string;
+    images: {
+      height: number;
+      width: number;
+      url: string;
+    }[];
+  };
+  external_urls: {
+    spotify: string;
+  };
+}
