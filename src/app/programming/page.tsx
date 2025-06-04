@@ -1,5 +1,13 @@
 import { allProgrammings } from "content-collections";
 import { DetailedCard } from "@/components/Card";
+import siteConfig from "@/config";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: `Programming | ${siteConfig.details.title}`,
+  description:
+    "Here, I write about what I have been learning lately in programming and how I have implemented it on this website.",
+};
 
 const ProgrammingPage = () => {
   const sortedPosts = allProgrammings.sort(

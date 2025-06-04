@@ -4,6 +4,30 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { MDXContent } from "@content-collections/mdx/react";
 import MDXContainer from "@/components/MDXContainer";
+import type { Metadata } from "next";
+import { cache } from "react";
+
+type Props = {
+  params: Promise<{ slug: string }>;
+};
+
+const getPost = cache(async (slug: string) => {
+  const imdbIds = allMovies.map((movie) => movie.imdbId);
+  const movies = await getMoviesByImdbIds(imdbIds);
+
+  return movies.find((movie) => movie.slug === "movie".concat("/", slug));
+});
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+
+  const movie = await getPost(slug);
+
+  return {
+    title: `${movie!.title} | Movie Reviews`,
+    description: movie!.overview,
+  };
+}
 
 export async function generateStaticParams() {
   const imdbIds = allMovies.map((movie) => movie.imdbId);
@@ -20,12 +44,7 @@ export default async function Movie({
 }) {
   const { slug } = await params;
 
-  const imdbIds = allMovies.map((movie) => movie.imdbId);
-  const movies = await getMoviesByImdbIds(imdbIds);
-
-  const movie = movies.find(
-    (movie) => movie.slug === "movie".concat("/", slug),
-  );
+  const movie = await getPost(slug);
 
   if (!movie) {
     notFound();

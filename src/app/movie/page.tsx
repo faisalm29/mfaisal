@@ -1,6 +1,13 @@
 import getMoviesByImdbIds from "../../../lib/tmdb";
 import { allMovies } from "content-collections";
 import Link from "next/link";
+import siteConfig from "@/config";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: `Movie Reviews | ${siteConfig.details.title}`,
+  description: "Reviews of the movies I have been watching lately.",
+};
 
 const Movie = async () => {
   const imdbIds = allMovies.map((movie) => movie.imdbId);

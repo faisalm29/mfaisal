@@ -4,6 +4,31 @@ import MDXContainer from "@/components/MDXContainer";
 import { notFound } from "next/navigation";
 import type { ReadTimeResults } from "reading-time";
 import TableOfContent from "@/components/TableOfContent";
+import type { Metadata } from "next";
+import { cache } from "react";
+
+type Props = {
+  params: Promise<{ slug: string }>;
+};
+
+const getPost = cache((slug: string) => {
+  return allProgrammings.find(
+    (post) =>
+      post.category.concat("/", post._meta.path) ===
+      post.category.concat("/", slug),
+  );
+});
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+
+  const post = getPost(slug);
+
+  return {
+    title: `${post!.title} | Programming`,
+    description: post!.summary,
+  };
+}
 
 export async function generateStaticParams() {
   return allProgrammings.map((post) => ({
@@ -18,9 +43,7 @@ export default async function Programming({
 }) {
   const { slug } = await params;
 
-  const post = allProgrammings.find(
-    (post) => post.slug === post.category.concat("/", slug),
-  );
+  const post = getPost(slug);
 
   if (!post) {
     notFound();
