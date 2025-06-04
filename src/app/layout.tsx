@@ -119,12 +119,10 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "Faisal M.",
     images: "/opengraph-image.png",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Faisal M.",
     images: "/twitter-image.png",
   },
 };
