@@ -1,3 +1,11 @@
+import siteConfig from "@/config";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: `About Me | ${siteConfig.details.title}`,
+  description: "Here you can learn more about me.",
+};
+
 const About = () => {
   return (
     <div className="mt-24">
