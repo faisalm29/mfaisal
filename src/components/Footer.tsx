@@ -7,7 +7,7 @@ const currentYear = new Date().getFullYear();
 
 const Footer = () => {
   return (
-    <footer className="mx-auto mt-24 mb-8 max-w-5xl sm:grid sm:grid-cols-4 md:grid-cols-8 lg:grid-cols-12">
+    <footer className="mx-auto mt-24 mb-8 max-w-5xl px-4 sm:grid sm:grid-cols-4 md:grid-cols-8 md:px-8 lg:grid-cols-12">
       <p className="mb-2 sm:col-span-1 md:col-span-3 md:mb-0 lg:col-span-6 lg:mb-0">
         © Faisal M. 2025{currentYear > 2025 && ` - ${currentYear}`}.
       </p>

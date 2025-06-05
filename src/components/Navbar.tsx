@@ -40,7 +40,9 @@ const Navbar = () => {
   return (
     <>
       {/^\/(blog|programming|movie)\//.test(route) && <ScrollProgress />}
-      <nav className={`bg-primary sticky top-0 z-[100]`}>
+      <nav
+        className={`sticky top-0 z-[100] bg-transparent px-4 backdrop-blur-lg md:px-8`}
+      >
         <div className="relative mx-auto max-w-5xl bg-transparent py-4">
           <div className="flex items-center justify-between">
             <Link
