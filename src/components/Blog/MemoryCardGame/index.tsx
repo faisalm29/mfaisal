@@ -11,10 +11,10 @@ import Card from "./Card";
 import { CardIcon } from "./Card";
 
 const cardIcons = [
-  <RiPokerClubsFill className="text-secondary-200" />,
-  <RiPokerDiamondsFill className="text-secondary-200" />,
-  <RiPokerHeartsFill className="text-secondary-200" />,
-  <RiPokerSpadesFill className="text-secondary-200" />,
+  <RiPokerClubsFill className="text-secondary-200" key="club" />,
+  <RiPokerDiamondsFill className="text-secondary-200" key="diamond" />,
+  <RiPokerHeartsFill className="text-secondary-200" key="heart" />,
+  <RiPokerSpadesFill className="text-secondary-200" key="spade" />,
 ];
 
 const MemoryCardGame = () => {
@@ -36,7 +36,7 @@ const MemoryCardGame = () => {
   };
 
   const handleChoice = (card: CardIcon) => {
-    choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
+    return choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
   };
 
   useEffect(() => {
