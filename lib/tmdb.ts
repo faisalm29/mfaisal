@@ -1,4 +1,5 @@
-import { allMovies } from "content-collections";
+// import { allMovies } from "content-collections";
+import { movies } from "#velite";
 import type { Crew, Cast, Genre } from "@/types";
 
 const getMoviesByImdbIds = async (imdbIds: string[]) => {
@@ -47,7 +48,7 @@ const getMoviesByImdbIds = async (imdbIds: string[]) => {
       const genres: string[] = details.genres.map((genre: Genre) => genre.name);
 
       //  fetch movie from mdx to get slug and body text
-      const movieMDX = allMovies.find((m) => m.imdbId === imdbId);
+      const movieMDX = movies.find((m) => m.imdbId === imdbId);
 
       return {
         imdbId,
@@ -63,7 +64,7 @@ const getMoviesByImdbIds = async (imdbIds: string[]) => {
         genres,
         slug: movieMDX?.slug,
         publishedDate: movieMDX?.publishedDate,
-        body: movieMDX?.body,
+        body: movieMDX?.code,
       };
     } catch (error) {
       console.error(error);
@@ -72,10 +73,10 @@ const getMoviesByImdbIds = async (imdbIds: string[]) => {
   };
 
   // Fethc all movies in parallel
-  const movies = await Promise.all(imdbIds.map(fetchMovie));
+  const allMmovies = await Promise.all(imdbIds.map(fetchMovie));
 
   // Remove any null values (failed fetches)
-  return movies.filter((movie) => movie !== null);
+  return allMmovies.filter((movie) => movie !== null);
 };
 
 export default getMoviesByImdbIds;
