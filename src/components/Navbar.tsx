@@ -41,9 +41,9 @@ const Navbar = () => {
     <>
       {/^\/(blog|programming|movie)\//.test(route) && <ScrollProgress />}
       <nav
-        className={`sticky top-0 z-[100] bg-transparent px-4 backdrop-blur-lg md:px-8`}
+        className={`sticky top-0 z-[100] bg-transparent py-4 backdrop-blur-lg`}
       >
-        <div className="relative mx-auto max-w-5xl bg-transparent py-4">
+        <div className="relative mx-auto max-w-5xl bg-transparent px-4 md:px-8">
           <div className="flex items-center justify-between">
             <Link
               href="/"
