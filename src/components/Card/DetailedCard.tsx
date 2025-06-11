@@ -1,4 +1,5 @@
-import type { Blog } from "content-collections";
+// import type { Blog } from "content-collections";
+import { Blog } from "#velite";
 import AnchorLink from "../AnchorLink";
 
 const DetailedCard = ({ post }: { post: Blog }) => {
