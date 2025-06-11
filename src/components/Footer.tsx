@@ -23,8 +23,8 @@ const Footer = () => {
           Next.js
         </AnchorLink>
         ,{" "}
-        <AnchorLink href="https://www.content-collections.dev/" target="_blank">
-          Content Collections
+        <AnchorLink href="https://velite.js.org/" target="_blank">
+          Velite
         </AnchorLink>
         ,{" "}
         <AnchorLink href="https://tailwindcss.com/" target="_blank">

@@ -1,4 +1,3 @@
-// import { allMovies } from "content-collections";
 import { movies } from "#velite";
 import type { Crew, Cast, Genre } from "@/types";
 

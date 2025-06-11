@@ -1,10 +1,8 @@
 import Profile from "@/components/Profile";
 import PostSectionWrapper from "@/components/PostSectionWrapper";
 import { PlainCard } from "@/components/Card";
-// import { allBlogs, allProgrammings, allMovies } from "content-collections";
 import { blogs, programmings, movies } from "#velite";
 import getMoviesByImdbIds from "../../lib/tmdb";
-// import type { Movie } from "content-collections";
 import { Movie } from "#velite";
 
 export default async function Home() {
