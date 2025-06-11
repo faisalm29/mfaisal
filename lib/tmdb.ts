@@ -51,7 +51,7 @@ const getMoviesByImdbIds = async (imdbIds: string[]) => {
 
       return {
         imdbId,
-        category: movieMDX?.category,
+        category: movieMDX!.category,
         title: details.title,
         overview: details.overview,
         releaseDate: details.release_date,
@@ -61,9 +61,9 @@ const getMoviesByImdbIds = async (imdbIds: string[]) => {
         director,
         casts,
         genres,
-        slug: movieMDX?.slug,
-        publishedDate: movieMDX?.publishedDate,
-        body: movieMDX?.code,
+        slug: movieMDX!.slug,
+        publishedDate: movieMDX!.publishedDate,
+        body: movieMDX!.code,
       };
     } catch (error) {
       console.error(error);

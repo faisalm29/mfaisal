@@ -31,8 +31,7 @@ export default async function Home() {
     slug: post.slug,
   }));
 
-  // @ts-expect-error: always show error because match overload
-  const allContents = allProgrammings.concat(allMovies, allBlogs);
+  const allContents = [...allBlogs, ...allProgrammings, ...allMovies];
 
   const sortedContents = allContents.sort(
     (a, b) => Date.parse(b.publishedDate) - Date.parse(a.publishedDate),
