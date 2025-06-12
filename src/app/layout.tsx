@@ -104,20 +104,20 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://faisalm.vercel.app"),
   title: siteConfig.details.title,
   description: siteConfig.details.description,
-  icons: {
-    icon: [
-      {
-        media: "(prefers-color-scheme: light)",
-        url: siteConfig.assets.favicon.light,
-        type: "image/svg+xml",
-      },
-      {
-        media: "(prefers-color-scheme: dark)",
-        url: siteConfig.assets.favicon.dark,
-        type: "image/svg+xml",
-      },
-    ],
-  },
+  // icons: {
+  //   icon: [
+  //     {
+  //       media: "(prefers-color-scheme: light)",
+  //       url: siteConfig.assets.favicon.light,
+  //       type: "image/svg+xml",
+  //     },
+  //     {
+  //       media: "(prefers-color-scheme: dark)",
+  //       url: siteConfig.assets.favicon.dark,
+  //       type: "image/svg+xml",
+  //     },
+  //   ],
+  // },
   openGraph: {
     images: "/opengraph-image.png",
   },
