@@ -2,11 +2,6 @@ import type { MetadataRoute } from "next";
 import { blogs, programmings, movies } from "#velite";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl =
-    process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test"
-      ? "http://localhost:3000/"
-      : "https://mfaisal.xyz/";
-
   const staticPaths = ["", "about", "blog", "programming", "movie", "chart"];
 
   const blogPaths = blogs.map((blog) => blog.slug);
@@ -23,7 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   return allPaths.map((path) => ({
-    url: `${baseUrl}${path}`,
+    url: `https://mfaisal.xyz/${path}`,
     lastModified: new Date().toISOString(),
   }));
 }

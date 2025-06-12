@@ -12,10 +12,7 @@ function escapeXML(str: string) {
 }
 
 export async function GET() {
-  const baseUrl =
-    process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test"
-      ? "http://localhost:3000/"
-      : "https://mfaisal.xyz/";
+  const baseUrl = "https://mfaisal.xyz/";
 
   const imdbIds = movies.map((movie: Movie) => movie.imdbId);
 
