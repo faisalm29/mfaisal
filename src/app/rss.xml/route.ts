@@ -12,7 +12,7 @@ function escapeXML(str: string) {
 }
 
 export async function GET() {
-  const baseUrl = "https://mfaisal.xyz/";
+  const baseUrl = "https://mfaisal.xyz";
 
   const imdbIds = movies.map((movie: Movie) => movie.imdbId);
 
@@ -60,8 +60,8 @@ export async function GET() {
         return `
     <item>
       <title>${escapeXML(content.title)}</title>
-      <link>${baseUrl}blog/${content.slug}</link>
-      <guid>${baseUrl}blog/${content.slug}</guid>
+      <link>${baseUrl}/blog/${content.slug}</link>
+      <guid>${baseUrl}/blog/${content.slug}</guid>
       <pubDate>${formatDate(content.publishedDate)}</pubDate>
       <description>${escapeXML(content.description)}</description>
     </item>`;
