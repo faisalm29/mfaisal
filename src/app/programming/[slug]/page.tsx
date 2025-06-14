@@ -12,9 +12,9 @@ interface ProgrammingProps {
 }
 
 const getPost = cache((slug: string) => {
-  return programmings.find(
-    (programming) => programming.slug === "programming/".concat(slug),
-  );
+  return programmings
+    .filter((post) => post.published)
+    .find((programming) => programming.slug === "programming/".concat(slug));
 });
 
 export async function generateStaticParams() {

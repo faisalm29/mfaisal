@@ -13,7 +13,9 @@ export const metadata: Metadata = {
 const Movie = async () => {
   const imdbIds = movies.map((movie) => movie.imdbId);
 
-  const allMovies = await getMoviesByImdbIds(imdbIds);
+  const allMovies = (await getMoviesByImdbIds(imdbIds))
+    .filter((movie) => movie.published)
+    .sort((a, b) => Date.parse(b.publishedDate) - Date.parse(a.publishedDate));
 
   return (
     <main className="mt-24">

@@ -15,7 +15,9 @@ const getPost = cache(async (slug: string) => {
   const imdbIds = movies.map((movie) => movie.imdbId);
   const allMovies = await getMoviesByImdbIds(imdbIds);
 
-  return allMovies.find((movie) => movie.slug === "movie".concat("/", slug));
+  return allMovies
+    .filter((movie) => movie.published)
+    .find((movie) => movie.slug === "movie".concat("/", slug));
 });
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

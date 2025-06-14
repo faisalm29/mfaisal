@@ -63,6 +63,7 @@ const getMoviesByImdbIds = async (imdbIds: string[]) => {
         genres,
         slug: movieMDX!.slug,
         publishedDate: movieMDX!.publishedDate,
+        published: movieMDX!.published,
         body: movieMDX!.code,
       };
     } catch (error) {

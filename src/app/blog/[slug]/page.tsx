@@ -12,7 +12,9 @@ interface BlogProps {
 }
 
 const getPost = cache((slug: string) => {
-  return blogs.find((blog) => blog.slug === "blog/".concat(slug));
+  return blogs
+    .filter((post) => post.published)
+    .find((blog) => blog.slug === "blog/".concat(slug));
 });
 
 export async function generateStaticParams() {

@@ -10,16 +10,16 @@ export const metadata: Metadata = {
 };
 
 const BlogPage = () => {
-  const sortedPosts = blogs.sort(
-    (a, b) => Date.parse(b.publishedDate) - Date.parse(a.publishedDate),
-  );
+  const allPosts = blogs
+    .filter((post) => post.published)
+    .sort((a, b) => Date.parse(b.publishedDate) - Date.parse(a.publishedDate));
 
   return (
     <div className="mt-24">
       <h1 className="text-secondary-200 mb-8 font-bold">All Posts</h1>
       <ul>
-        {sortedPosts.map((post, id) => (
-          <li key={id}>
+        {allPosts.map((post) => (
+          <li key={post.slug}>
             <DetailedCard post={post} />
           </li>
         ))}

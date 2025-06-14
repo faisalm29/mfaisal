@@ -24,6 +24,7 @@ const blogs = defineCollection({
       category: s.string(),
       code: s.mdx(),
       plain: s.raw(),
+      published: s.boolean().default(true),
     })
     .transform((data) => ({
       ...data,
@@ -44,6 +45,7 @@ const programmings = defineCollection({
       category: s.string(),
       code: s.mdx(),
       plain: s.raw(),
+      published: s.boolean().default(true),
     })
     .transform((data) => ({
       ...data,
@@ -62,6 +64,7 @@ const movies = defineCollection({
       publishedDate: s.isodate(),
       slug: s.path(),
       code: s.mdx(),
+      published: s.boolean().default(true),
     })
     .transform((data) => ({
       ...data,
