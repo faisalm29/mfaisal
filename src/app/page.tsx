@@ -15,6 +15,7 @@ export default async function Home() {
     publishedDate: movie.publishedDate,
     category: movie.category,
     slug: movie.slug,
+    published: movie.published,
   }));
 
   const allBlogs = blogs.map((post) => ({
@@ -22,6 +23,7 @@ export default async function Home() {
     publishedDate: post.publishedDate,
     category: post.category,
     slug: post.slug,
+    published: post.published,
   }));
 
   const allProgrammings = programmings.map((post) => ({
@@ -29,13 +31,14 @@ export default async function Home() {
     publishedDate: post.publishedDate,
     category: post.category,
     slug: post.slug,
+    published: post.published,
   }));
 
   const allContents = [...allBlogs, ...allProgrammings, ...allMovies];
 
-  const sortedContents = allContents.sort(
-    (a, b) => Date.parse(b.publishedDate) - Date.parse(a.publishedDate),
-  );
+  const sortedContents = allContents
+    .filter((content) => content.published)
+    .sort((a, b) => Date.parse(b.publishedDate) - Date.parse(a.publishedDate));
 
   return (
     <>
