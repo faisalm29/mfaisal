@@ -1,0 +1,198 @@
+---
+title: How I Built My Blog
+summary: This post shares my journey on creating this blog. I talk about what's behind and how everything fits together and the reason I choose certain tech stacks over another.
+category: programming
+publishedDate: 2025-06-20
+---
+
+It's been years since I typed my first line of code. I don't remember exactly what made me interested in learning to code, but I remember for sure the feeling when the first time I saw the output — `"Hello, World!"{:js}` — of my first line of code. As far as I remember, I wrote my first line of code in PHP.
+
+PHP was very popular because, as someone with limited knowledge on programming back then, I had heard of it once or twice before actually learning it myself. When I typed "Which programming language should I learn" into Google, PHP definitely came up as one of them, and it showed how popular this programming language was.
+
+And then Python started to came up on my radar. I switched to Python because I found its syntax easier, making it a beginner-friendly programming language. These two programming languages had their own purposes. That's why I switched back to PHP later, as I became curious about how websites are made.
+
+All I knew was that if you want to build a website, you need to know about HTML, CSS, and two different programming languages — JavaScript for the frontend and PHP for the backend. It was a lot of things to learn and remember, but I enjoyed the process.
+
+The more learned, the more knowledge I gained about programming. I started to know that JavaScript can actually be used to write the backend of a website. This became possible because of something called Node.Js. It was very cool to me because you don't need an extra programming language to build a website. Fewer languages mean fewer things to remember mean more enjoyable learning process.
+
+Up until now, I've been focusing my learning on JavaScript and its ecosystem. The goal from start was clear: I want to built my own blog from scratch first someday. That day has finally come.
+
+Okay, enough talking about my learning story — let's move to the main question: how did I build this blog?
+
+## Content Management
+
+This was the most explorative and confusing part of my blog. My blog is just a [NextJS](https://nextjs.org/) application at its core. I write my content in MDX and push it a Github repository to post it. No database is involved to store the content — just static mdx files.
+
+MDX is cool, but the problem is there are no actual columns to fill as seen in CMS like WordPress. There are no columns for metadata like title, excerpt, and published date in MDX. Instead, MDX uses something called frontmatter to write metadata.
+
+Maybe you might wonder how that could be a problem. Well, it's not really a problem because frontmatter is actually great. But since it's just a key-value pair, we are very likely to produce unexpected output just because due typos when writing the keys.
+
+To handle this, I used something called [Content Collections](https://mdxjs.com "Go to Content Collections official website"). With Content Collections, my content is transformed into type-safe data collections, and it also handles the parsing and fetching process. Before the content is transformed into type-safe data, it's validated first to ensure accuracy. We can also preprocess our data before we using it in our app.
+
+Since I use TypeScript to build this blog, having type-safe content is excellent! Content Collections seemed is a good solution. Integration with NextJS was seamless, and I didn't encounter any problems initially. But something happened when I was almost finished building this blog.
+
+Unlike basic markdown, MDX allows me to use JSX in my markdown content. All I needed to do was import the JSX components in my markdown content, similar to importing a JSX component into a route page. The importing syntax look like this:
+
+```mdx
+import DestinationCards from "@/components/DestinationCards";
+
+# Top destination in Japan
+
+<DestinationCards />
+```
+
+Strangely, when using Content-Collections, my JSX components wouldn't render when I'm imported them into my markdown content. It produced an error. I don't know why this happened.
+
+Maybe there was something missing in my code. I tried to find it back and forth but still couldn't figure it out. This process was very time consuming. I litteraly spent a couple of days trying fix this error, but nothing worked. Content Collections is still in the early stages of development, so maybe it wasn't me. Or maybe it was just a skill issue (this one is more likely 😭). I decided to move on.
+
+Astro instatntly came to mind when I decided to replace Content Collections because Astro has built-in type-safe content management feature. But I would need to rewrite a lot of my code to intergated it since it wasn't a React framework. Yes, I could use React in Astro to write JSX components, so I wouldn't need to rewrite them in Astro's syntax. But there was no point in using React in Astro if Astro itself is worked just fine. I needed a better replacement.
+
+It didn't take me long to find Velite. This was a perfect replacement for me because it's very similar to Content Collections but better. Both use [zod](https://zod.dev/) for schema validation, but Velite has [extended schemas](https://velite.js.org/guide/velite-schemas) that help a lot when building content models. With Velite, I only needed to make slight adjustments to make everything work. The error was solved, and I could finally use my JSX components in my markdown content. Yeay!
+
+## Styling for User Interface
+
+When it comes to styling, I used Tailwind CSS. I have known Tailwind for a couple of years. I've been having a great time with Tailwind.
+
+Tailwind is a utility-first CSS framework. It allows developers to create great user interfaces by applying utility classes directly in HTML. With Tailwind, we can create beautiful user interface without ever leaving our HTML files (or tsx files in my case). The utility classes look like this:
+
+```html
+<h1 className="text-white mb-6 font-bold">Welcome!</h1>
+```
+
+The html above will produce a heading with bold white text with 24px bottom margin. Since you only need to write utility classes in your html, Tailwind CSS is highly customizable. You can also create your own custom classes in Tailwind.
+
+Its customizability and ease of use enough to justify why I chose Tailwind for this blog. But I know Tailwind is not for everyone. Some people might not have a good development experience with it, and I can see why.
+
+Tailwind class can become very long and start to clutter your html files, making them less readable. And yes, it happens to me too. But I'm okay with it since I'm the one who is reading my own code. I also use the prettier-plugin-tailwindcss to sort the classes. With that prettier plugin, reading tailwind-classes-cluttered html files becomes even easier.
+
+## Syntax Highlighting
+
+Shiki is perhaps one of the best when it comes to syntax Highlighter. Unfortunately, Shiki doesn't provide official Integration for NextJS yet. So instead of using Shiki directly in my blog, I used something called [rehype-pretty-code](https://rehype-pretty.pages.dev/).
+
+Rehype-pretty-code is basically a [rehype](https://github.com/rehypejs/rehype) plugin version of Shiki because it's based on Shiki. With rehype-pretty-code, integrating Shiki syntax highlighter with NextJS is much easier. I just needed to import it into my Velite config file as a plugin, choose a theme, and let it handle the rest.
+
+```ts {23-28}
+import { defineConfig } from "velite";
+import rehypePrettyCode from "rehype-pretty-code";
+import { transformerNotationDiff } from "@shikijs/transformers";
+
+const highlighterTheme = JSON.parse(
+  fs.readFileSync("./highlighter-theme.json", "utf-8"),
+);
+
+export default defineConfig({
+  root: "content",
+  output: {
+    data: ".velite",
+  },
+  collections: {
+    blogs,
+    programmings,
+    movies,
+  },
+  mdx: {
+    rehypePlugins: [
+      rehypeSlug,
+      rehypeAutolinkHeadings,
+      [
+        rehypePrettyCode,
+        {
+          theme: await highlighterTheme,
+        },
+      ],
+    ],
+    remarkPlugins: [remarkGfm, remarkToc],
+  },
+});
+```
+
+## Movie Review Section
+
+If you go to the [movie review](https://mfaisal.xyz/movie) section, besides my take on the movie, you'll also see metadata the like title, release year, genres, director, cast, and overview of the movie. I could get this kind of data manually by visiting [IMDb](https://www.imdb.com/), copying the data that I need, and pasting it into my content.
+
+But that's a lot of work. It would be much more convenient if it were done automatically through an API. Unfortunately, as far as I know, IMDB doesn't a provide free API. They offer an API through something called [AWS Data Exchange](https://aws.amazon.com/marketplace/seller-profile?id=0af153a3-339f-48c2-8b42-3b9fa26d3367). I don't know exactly what that is, but they have their API subscription price listed and it's expensive. Using IMDB APi wasn't an option anymore.
+
+Luckily, I found an alternative called [The Movie Database (TMDB) API](https://www.themoviedb.org/). Their API is free to use for non-commercial purposes, but you do need to attribute them as the source of the data and/or images. According to their official website, you can place the attribution within your application's "About" or "Credits" section.
+
+My movie review posts consist of two sections: the movie information section (title, release year, genres, director, cast, overview) and my take on the movie section. The data in the information section is fetched from the TMDB API using IMDB id as an identifier. You can get this id in the url when visitng the movie's page on IMDB.
+
+![18×2 Beyond Youthful Days' IMDB page](/content/programming/how-i-made-this-blog/image-1.png "18x2 Beyond Youthful Days' IMDB page")
+
+Using the IMDB id as an identifier, you can get the corresponding movie data from the TMDB API. Since the data in the movie information section is provided by TMDB, I only need to write my take on the movie as the body text and three pieces of data in the frontmatter — category, imdb id, and published date.
+
+```md
+---
+category: movie
+imdbId: tt31039829
+publishedDate: 2025-02-26
+---
+
+_18×2 Beyond Youthful Days_ is a pretty good film.
+```
+
+Remember that we can preprocess data in Velite before using it in our application. In my case, before using the data, I first fetch the corresponding movie data from TMDB using the IMDd id provided in each post. Then, I merge the data from the API with the data from the frontmatter and finally use it.
+
+## Music Chart
+
+I created the Chart section mainly for fun and experimentation. Before bulding this blog, I believe I saw something similar on someone else's blog, but I couldn't remember exactly whose. I built the [Chart](https://mfaisal.xyz/chart) section because I was curious about how to implement it.
+
+To fetch top tracks data from [Spotify API](https://developer.spotify.com/documentation/web-api), you just need to make a request to the `https://api.spotify.com/v1/me/top/tracks{:shell}` endpoint. The available optional query parameters for this endpoint are:
+
+1. `time_range{:shell}`: Over what time frame the affinities are computed. Valid values: `long_term{:shell}` (calculated from ~1 year of data and including all new data as it becomes available), `medium_term{:shell}` (approximately last 6 months), `short_term{:shell}` (approximately last 4 weeks). Default: `medium_term{:shell}`
+2. `limit{:shell}`: The maximum number of items to return. Default: `20{:shell}`. Minimum: `1{:shell}`. Maximum: `50{:shell}`.
+3. `offset{:shell}`: The index of the first item to return. Default: `0{:shell}` (the first item).
+
+I only needed to fetch the first top 10 tracks and I wanted to make it daily updated. In my case, the endpoint and its query parameters would be:
+
+```{ts}
+https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=10
+```
+
+To automatically update the data daily, I used [Incremental Static Regeneration (ISR)](https://nextjs.org/docs/app/guides/incremental-static-regeneration). By using this, NextJS caches my data. To update the data daily, I revalidate the cache using time-based revalidation.
+
+```tsx {11}
+import { getTopTracks } from "../../../lib/spotify";
+import Image from "next/image";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Chart | Faisal M.",
+  description: "My current Spotify heavy rotation. Updated daily.",
+};
+
+// Provide your time in second.
+export const revalidate = 86400;
+
+export default async function Chart() {
+  const { tracks } = await getTopTracks();
+
+  return (
+    // My rendered page/component with the data
+  )
+}
+```
+
+The way this updates is honestly problematic because it's not precise. It will be updated on the first request after the `revalidate{:tsx}` interval (every 24h). Because of this, the cache might revalidate at unexpected times if the page is rarely visited.
+
+I plan to change the way I updated the Chart section daily. I need a solution that gives me control over when revalidation happens. For now, I'm okay with how it works.
+
+## Inspiration
+
+While building this blog, I drew inspiration from existing websites created by awesome figures. To give them credit, please visit these awesome websites which I got inspiration from.
+
+- [Brittany Chiang's portfolio](https://brittanychiang.com/)
+- [Joshua Comeau's blog](https://www.joshwcomeau.com/)
+- [Samuel Kraft's blog](https://samuelkraft.com/)
+
+I also want to list the major technologies used in this blog:
+
+- [Next.Js](https://nextjs.org/)
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [MDX](https://mdxjs.com/)
+- [VeliteJs](https://velite.js.org/)
+- [Shiki](https://shiki.style/)
+- [Rehype Pretty Code](https://rehype-pretty.pages.dev/)
+- [TMDB API](https://www.themoviedb.org/)
+- [Spotify API](https://developer.spotify.com/documentation/web-api)

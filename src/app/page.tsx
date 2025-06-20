@@ -44,9 +44,13 @@ export default async function Home() {
     <>
       <Profile />
       <PostSectionWrapper title="Latest Posts">
-        {sortedContents.map((content, id) => (
-          <PlainCard key={id} post={content} />
-        ))}
+        {sortedContents.length > 0 ? (
+          sortedContents.map((content, id) => (
+            <PlainCard key={id} post={content} />
+          ))
+        ) : (
+          <p>There are no posts yet. Please check back later 😉.</p>
+        )}
       </PostSectionWrapper>
     </>
   );

@@ -53,7 +53,7 @@ export default async function GeneralPage({
 
   return (
     <div className="mx-auto max-w-[65ch] lg:grid lg:max-w-5xl lg:grid-cols-12">
-      <article className="prose prose-p:text-secondary-400 prose-a:no-underline prose-li:text-secondary-400 prose-strong:text-secondary-200 prose-th:text-secondary-200 prose-td:text-secondary-400 checked:bg-accent prose-tr:even:bg-[#172135] prose-tr:odd:bg-primary mt-10 marker:text-gray-500 lg:col-span-8">
+      <article className="prose prose-p:text-secondary-400 prose-a:no-underline prose-li:text-secondary-400 prose-strong:text-secondary-200 prose-th:text-secondary-200 prose-td:text-secondary-400 checked:bg-accent prose-tr:even:bg-[#172135] prose-tr:odd:bg-primary prose-img:rounded mt-10 marker:text-gray-500 lg:col-span-8">
         <div className="flex">
           <time className="not-prose text-secondary-400 mr-2">
             {formatDate(post.publishedDate)}

@@ -2,7 +2,7 @@ const PostSectionWrapper = ({
   children,
   title,
 }: {
-  children: Array<React.ReactNode>;
+  children: Array<React.ReactNode> | React.ReactNode;
   title: string;
 }) => {
   return (

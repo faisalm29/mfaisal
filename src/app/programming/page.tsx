@@ -17,13 +17,19 @@ const ProgrammingPage = () => {
   return (
     <div className="mt-24">
       <h1 className="text-secondary-200 mb-8 font-bold">All Posts</h1>
-      <ul>
-        {allPosts.map((post) => (
-          <li key={post.slug}>
-            <DetailedCard post={post} />
-          </li>
-        ))}
-      </ul>
+      {allPosts.length > 0 ? (
+        <ul>
+          {allPosts.map((post) => (
+            <li key={post.slug}>
+              <DetailedCard post={post} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>
+          There are no posts in this category yet. Please check back later 😉.
+        </p>
+      )}
     </div>
   );
 };

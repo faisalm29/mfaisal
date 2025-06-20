@@ -1,12 +1,14 @@
 import * as runtime from "react/jsx-runtime";
 import Image from "next/image";
-import { MemoryCardGame } from "./Blog";
+import { MemoryCardGame, MarkdownEditor, DestinationCards } from "./Blog";
 import AnchorLink from "./AnchorLink";
 import { RiHashtag } from "@remixicon/react";
 
 const components = {
   Image,
   MemoryCardGame,
+  MarkdownEditor,
+  DestinationCards,
   a: ({ ...props }) => {
     if (props.href.startsWith("#")) {
       return (

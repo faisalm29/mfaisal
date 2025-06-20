@@ -20,44 +20,50 @@ const Movie = async () => {
   return (
     <main className="mt-24">
       <h1 className="text-secondary-200 mb-6 font-bold">All Movies</h1>
-      <ul>
-        {allMovies.map((movie) => {
-          if (movie.slug) {
-            return (
-              <Link
-                href={movie.slug}
-                key={movie.imdbId}
-                className="group mb-6 flex flex-col justify-between last:mb-0 md:grid md:w-full md:grid-cols-12"
-              >
-                {movie.publishedDate && (
-                  <time
-                    dateTime={movie.publishedDate
-                      .replace(/T.*/, "")
-                      .split("-")
-                      .reverse()
-                      .join("-")}
-                    className="group-hover:text-accent col-span-2 mb-1 transition-colors duration-300 ease-in-out md:mb-0"
-                  >
-                    {formatDate(movie.publishedDate)}
-                  </time>
-                )}
-
-                <div className="col-span-10">
-                  <p className="group-hover:text-accent transition-colors duration-300 ease-in-out">
-                    {movie.genres.map(String).join(", ")}
-                  </p>
-                  <h3 className="text-secondary-200 group-hover:text-accent text-base font-medium transition-colors duration-300 ease-in-out">
-                    {movie.title}{" "}
-                    <time dateTime={movie.releaseDate}>
-                      ({new Date(movie.releaseDate).getFullYear()})
+      {allMovies.length > 0 ? (
+        <ul>
+          {allMovies.map((movie) => {
+            if (movie.slug) {
+              return (
+                <Link
+                  href={movie.slug}
+                  key={movie.imdbId}
+                  className="group mb-6 flex flex-col justify-between last:mb-0 md:grid md:w-full md:grid-cols-12"
+                >
+                  {movie.publishedDate && (
+                    <time
+                      dateTime={movie.publishedDate
+                        .replace(/T.*/, "")
+                        .split("-")
+                        .reverse()
+                        .join("-")}
+                      className="group-hover:text-accent col-span-2 mb-1 transition-colors duration-300 ease-in-out md:mb-0"
+                    >
+                      {formatDate(movie.publishedDate)}
                     </time>
-                  </h3>
-                </div>
-              </Link>
-            );
-          }
-        })}
-      </ul>
+                  )}
+
+                  <div className="col-span-10">
+                    <p className="group-hover:text-accent transition-colors duration-300 ease-in-out">
+                      {movie.genres.map(String).join(", ")}
+                    </p>
+                    <h3 className="text-secondary-200 group-hover:text-accent text-base font-medium transition-colors duration-300 ease-in-out">
+                      {movie.title}{" "}
+                      <time dateTime={movie.releaseDate}>
+                        ({new Date(movie.releaseDate).getFullYear()})
+                      </time>
+                    </h3>
+                  </div>
+                </Link>
+              );
+            }
+          })}
+        </ul>
+      ) : (
+        <p>
+          There are no posts in this category yet. Please check back later 😉.
+        </p>
+      )}
     </main>
   );
 };
