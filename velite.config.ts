@@ -7,6 +7,7 @@ import remarkToc from "remark-toc";
 import fs from "node:fs";
 import rehypePrettyCode from "rehype-pretty-code";
 import { transformerNotationDiff } from "@shikijs/transformers";
+import { formatDate } from "./lib/utils";
 
 const highlighterTheme = JSON.parse(
   fs.readFileSync("./highlighter-theme.json", "utf-8"),
@@ -72,6 +73,15 @@ const movies = defineCollection({
     })),
 });
 
+const changelogs = defineCollection({
+  name: "Changelog",
+  pattern: "changelog/**/*.mdx",
+  schema: s.object({
+    date: s.path().transform((value) => formatDate(value.split("/")[1])),
+    body: s.mdx(),
+  }),
+});
+
 export default defineConfig({
   root: "content",
   output: {
@@ -81,6 +91,7 @@ export default defineConfig({
     blogs,
     programmings,
     movies,
+    changelogs,
   },
   mdx: {
     rehypePlugins: [

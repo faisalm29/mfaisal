@@ -31,7 +31,7 @@ export async function generateMetadata({
   if (!post) return {};
 
   return {
-    title: `${post.title} | General`,
+    title: `${post.title} | Programming`,
     description: post.summary,
   };
 }

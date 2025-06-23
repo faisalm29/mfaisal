@@ -1,6 +1,5 @@
 import getMoviesByImdbIds from "../../../lib/tmdb";
 import { blogs, programmings, movies, type Movie } from "#velite";
-import { formatDate } from "../../../lib/utils";
 
 function escapeXML(str: string) {
   return str
@@ -24,6 +23,7 @@ export async function GET() {
     category: movie.category,
     slug: movie.slug,
     description: movie.overview,
+    published: movie.published,
   }));
 
   const allBlogs = blogs.map((post) => ({
@@ -32,6 +32,7 @@ export async function GET() {
     category: post.category,
     slug: post.slug,
     description: post.summary,
+    published: post.published,
   }));
 
   const allProgrammings = programmings.map((post) => ({
@@ -40,9 +41,11 @@ export async function GET() {
     category: post.category,
     slug: post.slug,
     description: post.summary,
+    published: post.published,
   }));
 
   const allContents = [...allBlogs, ...allProgrammings, ...allMovies]
+    .filter((post) => post.published)
     .sort((a, b) => Date.parse(b.publishedDate) - Date.parse(a.publishedDate))
     .slice(0, 20);
 
@@ -62,7 +65,7 @@ export async function GET() {
       <title>${escapeXML(content.title)}</title>
       <link>${baseUrl}/blog/${content.slug}</link>
       <guid>${baseUrl}/blog/${content.slug}</guid>
-      <pubDate>${formatDate(content.publishedDate)}</pubDate>
+      <pubDate>${new Date(content.publishedDate).toUTCString()}</pubDate>
       <description>${escapeXML(content.description)}</description>
     </item>`;
       })
