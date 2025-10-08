@@ -1,7 +1,33 @@
 ---
+import { getTopTracks } from "../../lib/spotify";
+import { Image } from "astro:assets";
 import BaseLayout from "@layouts/BaseLayout.astro";
+
+const tracks = await getTopTracks();
 ---
 
 <BaseLayout pageTitle="Chart">
   <h1>Chart</h1>
+  <ol>
+    {
+      tracks.map((track) => (
+        <li>
+          <a href={track.url} target="_blank">
+            {track.name}
+          </a>
+          <p>
+            {track.artists
+              .map((artist: { name: string }) => artist.name)
+              .join(", ")}
+          </p>
+          <Image
+            src={track.album.image.url}
+            alt={`${track.album.name}'s cover.`}
+            width={track.album.image.width}
+            height={track.album.image.height}
+          />
+        </li>
+      ))
+    }
+  </ol>
 </BaseLayout>
