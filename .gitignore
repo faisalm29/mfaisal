@@ -1,47 +1,65 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# ==========================================================
+# Root Git Ignore (for both Next.js + Astro projects)
+# ==========================================================
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
-
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
+# Node dependencies
+node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
+pnpm-debug.log*
+package-lock.json
+.pnpm-store/
 
-# env files (can opt-in for committing if needed)
-.env*
+# Build outputs
+.next/
+out/
+dist/
+.vercel/
+.netlify/
+.cache/
+build/
 
-# vercel
-.vercel
+# Environment files
+.env
+.env.local
+.env.*.local
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# System files
+.DS_Store
+Thumbs.db
 
-# content collections
-.content-collections
+# IDE/editor settings
+.vscode/
+.idea/
+*.swp
 
-# velite
-.velite
+# Logs
+logs
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Temporary files
+*.tmp
+*.temp
+
+# ==========================================================
+# Astro specific
+# ==========================================================
+astro-app/.astro/
+
+# ==========================================================
+# Optional: If you use testing or tooling
+# ==========================================================
+coverage/
+.playwright/
+.cypress/
+.vitest/
+eslintcache
+
+# ==========================================================
+# Optional: if you use shared assets or build caches
+# ==========================================================
+shared/.cache/
