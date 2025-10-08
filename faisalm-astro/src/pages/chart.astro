@@ -4,10 +4,17 @@ import { Image } from "astro:assets";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 const tracks = await getTopTracks();
+
+const lastUpdated = new Date().toLocaleString("en-US", {
+  timeZone: "Asia/Jakarta",
+  dateStyle: "medium",
+  timeStyle: "short",
+});
 ---
 
 <BaseLayout pageTitle="Chart">
   <h1>Chart</h1>
+  <p><small>Last updated: {lastUpdated}</small></p>
   <ol>
     {
       tracks.map((track) => (
