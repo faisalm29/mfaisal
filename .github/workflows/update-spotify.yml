@@ -1,0 +1,18 @@
+name: Update Spotify (Cloudflare)
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # every midnight UTC
+  workflow_dispatch:
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Cloudflare Pages rebuild
+        run: |
+          curl -X POST "https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/pages/projects/${{ secrets.CLOUDFLARE_PROJECT_NAME }}/deployments" \
+          -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          -d '{"environment": "production"}'
