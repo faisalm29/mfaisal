@@ -19,6 +19,55 @@ declare global {
       };
     }
   }
+
+  namespace Movie {
+    interface Details {
+      imdbId: string;
+      category: string;
+      title: string;
+      overview: string;
+      releaseDate: string;
+      poster: string;
+      director: string;
+      casts: Array<string>;
+      genres: Array<string>;
+      slug: string;
+      publishedDate: Date;
+      body: string;
+    }
+
+    interface Crew {
+      adult: boolean;
+      gender: number;
+      id: number;
+      known_for_department: string;
+      name: string;
+      original_name: string;
+      popularity: number;
+      profile_path: string;
+      credit_id: string;
+      department: string;
+      job: string;
+    }
+    interface Cast {
+      adult: false;
+      gender: number;
+      id: number;
+      known_for_department: string;
+      name: string;
+      original_name: string;
+      popularity: number;
+      profile_path: string;
+      cast_id: number;
+      character: string;
+      credit_id: string;
+      order: number;
+    }
+    interface Genre {
+      id: number;
+      name: string;
+    }
+  }
 }
 
 export {};
