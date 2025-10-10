@@ -8,7 +8,6 @@ const allGeneralPosts = (await getCollection("general")).sort(
 ---
 
 <BaseLayout pageTitle="General">
-  <h1>General</h1>
   <ul>
     {
       allGeneralPosts.map((post) => (

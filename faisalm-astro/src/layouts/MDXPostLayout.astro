@@ -1,0 +1,29 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  frontmatter: {
+    title: string;
+    summary: string;
+    pubDate: Date;
+    category: string;
+    minutesRead?: string;
+  };
+}
+
+const { frontmatter } = Astro.props;
+---
+
+<BaseLayout pageTitle={frontmatter.title}>
+  <time datetime={new Date(frontmatter.pubDate).toLocaleDateString()}
+    >{
+      new Date(frontmatter.pubDate).toLocaleDateString("en-US", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+      })
+    }</time
+  >
+  <p>{frontmatter.minutesRead}</p>
+  <slot />
+</BaseLayout>
