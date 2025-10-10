@@ -1,5 +1,5 @@
 import { defineCollection, z } from "astro:content";
-import { glob } from "astro/loaders";
+import { file, glob } from "astro/loaders";
 
 // General category in blog route
 const general = defineCollection({
@@ -42,4 +42,13 @@ const movies = defineCollection({
   }),
 });
 
-export const collections = { general, programming, movies };
+const social = defineCollection({
+  loader: file("src/data/social.json"),
+  schema: z.object({
+    name: z.string(),
+    url: z.string(),
+    icon: z.string(),
+  }),
+});
+
+export const collections = { general, programming, movies, social };

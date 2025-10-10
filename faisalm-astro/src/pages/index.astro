@@ -1,8 +1,79 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
-import Header from "@components/Header.astro";
+import { Icon } from "astro-icon/components";
+import { getCollection } from "astro:content";
+import { getMovies } from "../../lib/tmdb";
+
+const social = await getCollection("social");
+const allProgrammingPosts = (await getCollection("programming")).map(
+  (post) => ({
+    id: `/programming/${post.id}`,
+    title: post.data.title,
+    pubDate: post.data.pubDate,
+    category: post.data.category,
+  })
+);
+const allGeneralPosts = (await getCollection("general")).map((post) => ({
+  id: `/blog/${post.id}`,
+  title: post.data.title,
+  pubDate: post.data.pubDate,
+  category: post.data.category,
+}));
+const movies = await getCollection("movies");
+const imdbIds = movies.map((movie) => movie.data.imdbId);
+const allMoviePosts = (await getMovies(imdbIds)).map((post) => ({
+  id: `/movie/${post.id}`,
+  title: post.title,
+  pubDate: post.pubDate,
+  category: post.category,
+}));
+
+const allPosts = [
+  ...allProgrammingPosts,
+  ...allGeneralPosts,
+  ...allMoviePosts,
+].sort((a, b) => b.pubDate!.valueOf() - a.pubDate!.valueOf());
 ---
 
 <BaseLayout pageTitle="Faisal M.">
   <h1>Welcome!</h1>
+  <p>
+    Hello, Faisal here! I&apos;m just an ordinary person with an interest in
+    writing and web development. I created this blog as a record and to
+    implement the learning that I have gone through on web development. My
+    journey in learning web development and what I am adding to this blog can be
+    found in the <a href="/programming">code</a> section. The rest can be found in
+    the <a href="/blog">general</a> and <a href="/movie">movies</a> section for what
+    interests me.
+  </p>
+  <ul>
+    {
+      social.map((item) => (
+        <li>
+          <a href={item.data.url} target="_blank">
+            <Icon name={`ri:${item.data.icon}`} />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2>Latest Posts</h2>
+  <ul>
+    {
+      allPosts.map((post) => (
+        <li>
+          <a href={`${post.id}`}>{post.title}</a>
+          <time datetime={post.pubDate?.toLocaleDateString("en-US")}>
+            {post.pubDate?.toLocaleDateString("en-US", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}
+          </time>
+          <p>{post.category}</p>
+        </li>
+      ))
+    }
+  </ul>
 </BaseLayout>
