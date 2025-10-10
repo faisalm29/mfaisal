@@ -21,6 +21,7 @@ const { frontmatter } = Astro.props;
 ---
 
 <BaseLayout pageTitle={frontmatter.title!}>
+  <h1>{frontmatter.title}</h1>
   <h2>Release Date</h2>
   <time
     datetime={new Date(frontmatter.releaseDate!).toLocaleDateString("en-US")}
