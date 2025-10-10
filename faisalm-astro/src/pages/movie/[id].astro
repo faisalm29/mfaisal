@@ -1,7 +1,7 @@
 ---
 import { getCollection, getEntry, render } from "astro:content";
 import { getMovie } from "../../../lib/tmdb";
-import { Image } from "astro:assets";
+import MovieReviewLayout from "@layouts/MovieReviewLayout.astro";
 
 export async function getStaticPaths() {
   const movies = await getCollection("movies");
@@ -17,36 +17,10 @@ const params = Astro.params;
 const movie = await getEntry("movies", params.id);
 if (!movie) throw new Error(`Movie not found: ${params.id}`);
 
-const { Content } = await render(movie);
+const { Content, remarkPluginFrontmatter } = await render(movie);
 const movieData = await getMovie(movie.data.imdbId);
 ---
 
-<h1>{movieData?.title}</h1>
-
-<h2>Release Date</h2>
-<time datetime={movieData?.releaseDate}
-  >{new Date(movieData?.releaseDate).getFullYear()}</time
->
-
-<h2>Genre</h2>
-<p>{movieData?.genres.map(String).join(", ")}</p>
-
-<!-- movie poster -->
-<Image
-  src={movieData!.poster}
-  alt={`${movieData?.title} poster`}
-  width={500}
-  height={750}
-/>
-
-<h2>Director</h2>
-<p>{movieData?.director}</p>
-
-<h2>Cast</h2>
-<p>{movieData?.casts.map(String).join(", ")}</p>
-
-<h2>Overview</h2>
-<p>{movieData?.overview}</p>
-
-<h2>My Take</h2>
-<Content />
+<MovieReviewLayout frontmatter={{ ...movieData, ...remarkPluginFrontmatter }}>
+  <Content />
+</MovieReviewLayout>

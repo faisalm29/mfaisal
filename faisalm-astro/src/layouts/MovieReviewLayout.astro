@@ -1,0 +1,52 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import { Image } from "astro:assets";
+
+interface Props {
+  frontmatter: {
+    id?: string;
+    category?: string;
+    pubDate?: string | Date;
+    title?: string;
+    overview?: string;
+    releaseDate?: string | Date;
+    genres?: Array<string>;
+    poster?: string;
+    director?: string;
+    casts?: Array<string>;
+  };
+}
+
+const { frontmatter } = Astro.props;
+---
+
+<BaseLayout pageTitle={frontmatter.title!}>
+  <h2>Release Date</h2>
+  <time
+    datetime={new Date(frontmatter.releaseDate!).toLocaleDateString("en-US")}
+    >{new Date(frontmatter.releaseDate!).getFullYear()}</time
+  >
+
+  <h2>Genre</h2>
+  <p>{frontmatter.genres!.map(String).join(", ")}</p>
+
+  <!-- movie poster -->
+  <Image
+    src={frontmatter.poster!}
+    alt={`${frontmatter.title} poster`}
+    width={500}
+    height={750}
+  />
+
+  <h2>Director</h2>
+  <p>{frontmatter.director}</p>
+
+  <h2>Cast</h2>
+  <p>{frontmatter.casts!.map(String).join(", ")}</p>
+
+  <h2>Overview</h2>
+  <p>{frontmatter.overview}</p>
+
+  <h2>My Take</h2>
+  <slot />
+</BaseLayout>

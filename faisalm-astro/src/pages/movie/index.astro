@@ -3,13 +3,14 @@ import { getMovies } from "../../../lib/tmdb";
 import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
-const moviePosts = await getCollection("movies");
+const moviePosts = (await getCollection("movies")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
 const imdbIds = moviePosts.map((post) => post.data.imdbId);
 const allMovieData = await getMovies(imdbIds);
 ---
 
 <BaseLayout pageTitle="Movies">
-  <h1>Movies</h1>
   <ul>
     {
       allMovieData.map((movie) => (
