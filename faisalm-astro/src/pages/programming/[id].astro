@@ -1,6 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
-import MDXPostLayout from "@layouts/MDXPostLayout.astro";
+import GeneralPostLayout from "@layouts/GeneralPostLayout.astro";
 
 export async function getStaticPaths() {
   const allProgrammingPosts = await getCollection("programming");
@@ -17,6 +17,6 @@ const { post } = Astro.props;
 const { Content, remarkPluginFrontmatter } = await render(post);
 ---
 
-<MDXPostLayout frontmatter={{ ...post.data, ...remarkPluginFrontmatter }}>
+<GeneralPostLayout frontmatter={{ ...post.data, ...remarkPluginFrontmatter }}>
   <Content />
-</MDXPostLayout>
+</GeneralPostLayout>

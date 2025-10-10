@@ -1,7 +1,7 @@
 ---
 import { getCollection, getEntry, render } from "astro:content";
 import { getMovie } from "../../../lib/tmdb";
-import MovieReviewLayout from "@layouts/MovieReviewLayout.astro";
+import MovieReviewPostLayout from "@layouts/MovieReviewPostLayout.astro";
 
 export async function getStaticPaths() {
   const movies = await getCollection("movies");
@@ -21,6 +21,8 @@ const { Content, remarkPluginFrontmatter } = await render(movie);
 const movieData = await getMovie(movie.data.imdbId);
 ---
 
-<MovieReviewLayout frontmatter={{ ...movieData, ...remarkPluginFrontmatter }}>
+<MovieReviewPostLayout
+  frontmatter={{ ...movieData, ...remarkPluginFrontmatter }}
+>
   <Content />
-</MovieReviewLayout>
+</MovieReviewPostLayout>
