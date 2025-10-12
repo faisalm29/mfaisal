@@ -4,19 +4,30 @@ import GeneralPostLayout from "@layouts/GeneralPostLayout.astro";
 
 export async function getStaticPaths() {
   const allGeneralPosts = await getCollection("general");
-  return allGeneralPosts.map((post) => ({
+
+  const headings = await Promise.all(
+    allGeneralPosts.map(async (generalPost) => {
+      const data = await render(generalPost);
+      return data.headings;
+    })
+  );
+
+  return allGeneralPosts.map((post, index) => ({
     params: {
       id: post.id,
     },
-    props: { post },
+    props: { post, headings: headings[index] },
   }));
 }
 
-const { post } = Astro.props;
+const { post, headings } = Astro.props;
 // remarkPluginFrontmatter contains reading time for the post
 const { Content, remarkPluginFrontmatter } = await render(post);
 ---
 
-<GeneralPostLayout frontmatter={{ ...post.data, ...remarkPluginFrontmatter }}>
+<GeneralPostLayout
+  frontmatter={{ ...post.data, ...remarkPluginFrontmatter }}
+  headings={headings}
+>
   <Content />
 </GeneralPostLayout>

@@ -1,5 +1,7 @@
 ---
+import type { MarkdownHeading } from "astro";
 import BaseLayout from "./BaseLayout.astro";
+import TableOfContents from "@components/TableOfContents.astro";
 
 interface Props {
   frontmatter: {
@@ -9,9 +11,10 @@ interface Props {
     category: string;
     minutesRead?: string;
   };
+  headings: Array<MarkdownHeading>;
 }
 
-const { frontmatter } = Astro.props;
+const { frontmatter, headings } = Astro.props;
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
@@ -26,5 +29,8 @@ const { frontmatter } = Astro.props;
     }</time
   >
   <p>{frontmatter.minutesRead}</p>
+
+  <!-- Table of contents -->
+  <TableOfContents headings={headings} />
   <slot />
 </BaseLayout>
