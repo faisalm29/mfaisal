@@ -12,4 +12,12 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkReadingTime],
   },
+  image: {
+    domains: ["res.cloudinary.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+      },
+    ],
+  },
 });

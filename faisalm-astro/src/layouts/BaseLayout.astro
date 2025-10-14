@@ -1,7 +1,6 @@
 ---
 import Header from "@components/Header.astro";
 import { SEO } from "astro-seo";
-import ogImg from "../../public/opengraph-image.png";
 
 export interface Props {
   metadata: Metadata;
@@ -26,7 +25,7 @@ const { metadata } = Astro.props;
         basic: {
           title: metadata.pageTitle,
           type: `${metadata.ogType ? metadata.ogType : "website"}`,
-          image: `${metadata.ogImg ? metadata.ogImg : ogImg}`,
+          image: `${metadata.ogImg ? metadata.ogImg : "https://res.cloudinary.com/dyiyzhtwq/image/upload/v1760454733/opengraph-image_cuoyyx.png"}`,
         },
         article: {
           publishedTime: metadata.ogArticlePubTime,
@@ -40,7 +39,7 @@ const { metadata } = Astro.props;
         site: "https://x.com/hrrblealtruist",
         creator: "@hrrblealtruist",
         title: metadata.pageTitle,
-        image: `${metadata.ogImg ? metadata.ogImg : ogImg}`,
+        image: `${metadata.ogImg ? metadata.ogImg : "https://res.cloudinary.com/dyiyzhtwq/image/upload/v1760454733/opengraph-image_cuoyyx.png"}`,
         imageAlt: `${metadata.twitterImgAlt ? metadata.twitterImgAlt : "Faisal M."}`,
         description: metadata.description,
       }}
