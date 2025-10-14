@@ -10,9 +10,14 @@ const lastUpdated = new Date().toLocaleString("en-US", {
   dateStyle: "medium",
   timeStyle: "short",
 });
+
+const metadata = {
+  pageTitle: "Chart",
+  description: "My current Spotify heavy rotation. Updated daily.",
+};
 ---
 
-<BaseLayout pageTitle="Chart">
+<BaseLayout metadata={metadata}>
   <h1>Chart</h1>
   <p><small>Last updated: {lastUpdated}</small></p>
   <ol>

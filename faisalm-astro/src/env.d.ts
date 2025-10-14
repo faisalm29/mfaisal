@@ -1,4 +1,15 @@
 declare global {
+  interface Metadata {
+    pageTitle: string;
+    description: string;
+    ogType?: string;
+    ogImg?: string;
+    twitterImgAlt?: string;
+    ogArticlePubTime?: string;
+    ogArticleAuthors?: Array<string>;
+    ogArticleSection?: string;
+    ogArticleTags?: Array<string>;
+  }
   namespace Spotify {
     interface Track {
       id: string;

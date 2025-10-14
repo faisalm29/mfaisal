@@ -8,9 +8,14 @@ const moviePosts = (await getCollection("movies")).sort(
 );
 const imdbIds = moviePosts.map((post) => post.data.imdbId);
 const allMovieData = await getMovies(imdbIds);
+
+const metadata = {
+  pageTitle: "Movies",
+  description: "My take on the movies I've watched recently.",
+};
 ---
 
-<BaseLayout pageTitle="Movies">
+<BaseLayout metadata={metadata}>
   <h1>Movies</h1>
   <ul>
     {

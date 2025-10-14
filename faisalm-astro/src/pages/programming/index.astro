@@ -5,9 +5,14 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 const allProgrammingPosts = (await getCollection("programming")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+
+const metadata = {
+  pageTitle: "Programming",
+  description: "Collection of articles specifically about programming.",
+};
 ---
 
-<BaseLayout pageTitle="Programming">
+<BaseLayout metadata={metadata}>
   <h1>Programming</h1>
   <ul>
     {

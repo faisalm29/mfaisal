@@ -18,9 +18,19 @@ interface Props {
 }
 
 const { frontmatter } = Astro.props;
+
+const metadata = {
+  pageTitle: frontmatter.title!,
+  description: frontmatter.overview!,
+  ogType: "article",
+  ogArticlePubTime: new Date(frontmatter.pubDate!).toLocaleDateString(),
+  ogArticleAuthors: ["Faisal M."],
+  ogArticleSection: frontmatter.category!,
+  ogArticleTags: [frontmatter.category!],
+};
 ---
 
-<BaseLayout pageTitle={frontmatter.title!}>
+<BaseLayout metadata={metadata}>
   <h1>{frontmatter.title}</h1>
   <h2>Release Date</h2>
   <time

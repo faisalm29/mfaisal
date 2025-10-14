@@ -33,9 +33,15 @@ const allPosts = [
   ...allGeneralPosts,
   ...allMoviePosts,
 ].sort((a, b) => b.pubDate!.valueOf() - a.pubDate!.valueOf());
+
+const metadata = {
+  pageTitle: "Faisal M.",
+  description:
+    "Hello, I'm Faisal! Here I write about programming, movies, and anything else that interests me.",
+};
 ---
 
-<BaseLayout pageTitle="Faisal M.">
+<BaseLayout metadata={metadata}>
   <h1>Welcome!</h1>
   <p>
     Hello, Faisal here! I&apos;m just an ordinary person with an interest in

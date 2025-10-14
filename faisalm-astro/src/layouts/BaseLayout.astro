@@ -1,11 +1,12 @@
 ---
 import Header from "@components/Header.astro";
+import { SEO } from "astro-seo";
 
 export interface Props {
-  pageTitle: string;
+  metadata: Metadata;
 }
 
-const { pageTitle } = Astro.props;
+const { metadata } = Astro.props;
 ---
 
 <!doctype html>
@@ -15,7 +16,34 @@ const { pageTitle } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>{pageTitle}</title>
+    <SEO
+      title={metadata.pageTitle}
+      titleTemplate=`${Astro.url.pathname === "/" ? "" : "%s - "}Faisal M.`
+      titleDefault="Faisal M."
+      description={metadata.description}
+      openGraph={{
+        basic: {
+          title: metadata.pageTitle,
+          type: `${metadata.ogType ? metadata.ogType : "website"}`,
+          image: `${metadata.ogImg ? metadata.ogImg : "../../public/opengraph-image.png"}`,
+        },
+        article: {
+          publishedTime: metadata.ogArticlePubTime,
+          authors: metadata.ogArticleAuthors,
+          section: metadata.ogArticleSection,
+          tags: metadata.ogArticleTags,
+        },
+      }}
+      twitter={{
+        card: "summary_large_image",
+        site: "https://x.com/hrrblealtruist",
+        creator: "@hrrblealtruist",
+        title: metadata.pageTitle,
+        image: `${metadata.ogImg ? metadata.ogImg : "../../public/opengraph-image.png"}`,
+        imageAlt: `${metadata.twitterImgAlt ? metadata.twitterImgAlt : "Faisal M."}`,
+        description: metadata.description,
+      }}
+    />
   </head>
   <body>
     <Header />

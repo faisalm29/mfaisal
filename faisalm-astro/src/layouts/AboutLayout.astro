@@ -8,9 +8,14 @@ interface Props {
 }
 
 const { frontmatter } = Astro.props;
+
+const metadata = {
+  pageTitle: frontmatter.title,
+  description: "Find out what this blog about.",
+};
 ---
 
-<BaseLayout pageTitle={frontmatter.title}>
+<BaseLayout metadata={metadata}>
   <h1>{frontmatter.title}</h1>
   <slot />
 </BaseLayout>
