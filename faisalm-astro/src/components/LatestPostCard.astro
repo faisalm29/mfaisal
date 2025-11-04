@@ -12,15 +12,28 @@ const { post } = Astro.props;
 ---
 
 <li>
-  <a href={`${post.id}`}>{post.title}</a>
-  <time datetime={post.pubDate?.toLocaleDateString("en-US")}>
-    {
-      post.pubDate?.toLocaleDateString("en-US", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      })
-    }
-  </time>
-  <p>{post.category}</p>
+  <a href={`${post.id}`} class="spacing-y-05 group flex flex-col">
+    <time
+      datetime={post.pubDate?.toLocaleDateString("en-US")}
+      class="text-secondary-default group-hover:text-primary transition-colors duration-300 ease-in-out"
+    >
+      {
+        post.pubDate?.toLocaleDateString("en-US", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        })
+      }
+    </time>
+    <p
+      class="group-hover:text-primary capitalize transition-colors duration-300 ease-in-out"
+    >
+      {post.category}
+    </p>
+    <h3
+      class="group-hover:text-primary transition-colors duration-300 ease-in-out"
+    >
+      {post.title}
+    </h3>
+  </a>
 </li>

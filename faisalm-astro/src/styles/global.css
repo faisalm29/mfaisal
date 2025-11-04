@@ -162,6 +162,9 @@
     font-weight: bold;
     color: var(--color-secondary-emphasize);
   }
+  h3 {
+    font-weight: bold;
+  }
   a {
     font-family: var(--font-vend-sans);
   }
