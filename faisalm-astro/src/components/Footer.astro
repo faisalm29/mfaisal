@@ -1,0 +1,38 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<footer
+  class="spacing-y-8 border-t-tertiary-default flex flex-col items-center border py-8"
+>
+  <div>
+    <div class="bg-tertiary-default w-fit rounded-full p-1">
+      <button
+        class="bg-neutral border-tertiary-emphasize cursor-pointer rounded-full border p-1.5"
+      >
+        <Icon
+          name="ri:computer-line"
+          class="text-secondary-emphasize text-2xl"
+        />
+      </button>
+      <button
+        class="cursor-pointer rounded-full border border-transparent bg-transparent p-1.5"
+      >
+        <Icon name="ri:sun-line" class="text-secondary-emphasize text-2xl" />
+      </button>
+      <button
+        class="cursor-pointer rounded-full border border-transparent bg-transparent p-1.5"
+      >
+        <Icon
+          name="ri:moon-clear-line"
+          class="text-secondary-emphasize text-2xl"
+        />
+      </button>
+    </div>
+  </div>
+  <p>
+    Coded with ♥️ in Visual Studio Code. Built with Astro, Tailwind CSS, and
+    deployed with Cloudflare Pages.
+  </p>
+  <p>&copy; Faisal M. 2025.</p>
+</footer>
