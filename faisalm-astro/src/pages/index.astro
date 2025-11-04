@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { Icon } from "astro-icon/components";
+import Summary from "@components/Summary.astro";
+import LatestPost from "@components/LatestPost.astro";
 import { getCollection } from "astro:content";
 import { getMovies } from "../../lib/tmdb";
 
@@ -11,7 +12,7 @@ const allProgrammingPosts = (await getCollection("programming")).map(
     title: post.data.title,
     pubDate: post.data.pubDate,
     category: post.data.category,
-  })
+  }),
 );
 const allGeneralPosts = (await getCollection("general")).map((post) => ({
   id: `/blog/${post.id}`,
@@ -42,44 +43,6 @@ const metadata = {
 ---
 
 <BaseLayout metadata={metadata}>
-  <h1>Faisal M.</h1>
-  <p>
-    Hello, Faisal here! I&apos;m just an ordinary person with an interest in
-    writing and web development. I created this blog as a record and to
-    implement the learning that I have gone through on web development. My
-    journey in learning web development and what I am adding to this blog can be
-    found in the <a href="/programming">code</a> section. The rest can be found in
-    the <a href="/blog">general</a> and <a href="/movie">movies</a> section for what
-    interests me.
-  </p>
-  <ul>
-    {
-      social.map((item) => (
-        <li>
-          <a href={item.data.url} target="_blank">
-            <Icon name={`ri:${item.data.icon}`} />
-          </a>
-        </li>
-      ))
-    }
-  </ul>
-
-  <h2>Latest Posts</h2>
-  <ul>
-    {
-      allPosts.map((post) => (
-        <li>
-          <a href={`${post.id}`}>{post.title}</a>
-          <time datetime={post.pubDate?.toLocaleDateString("en-US")}>
-            {post.pubDate?.toLocaleDateString("en-US", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })}
-          </time>
-          <p>{post.category}</p>
-        </li>
-      ))
-    }
-  </ul>
+  <Summary social={social} />
+  <LatestPost allPosts={allPosts} />
 </BaseLayout>

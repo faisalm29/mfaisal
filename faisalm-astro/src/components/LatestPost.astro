@@ -1,0 +1,21 @@
+---
+import LatestPostCard from "./LatestPostCard.astro";
+
+interface Props {
+  allPosts: {
+    id: string;
+    title: string;
+    pubDate?: Date;
+    category?: string;
+  }[];
+}
+
+const { allPosts } = Astro.props;
+---
+
+<section>
+  <h2>Latest Posts</h2>
+  <ul>
+    {allPosts.map((post) => <LatestPostCard post={post} />)}
+  </ul>
+</section>

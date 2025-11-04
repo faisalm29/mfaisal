@@ -1,0 +1,26 @@
+---
+interface Props {
+  post: {
+    id: string;
+    title: string;
+    pubDate?: Date;
+    category?: string;
+  };
+}
+
+const { post } = Astro.props;
+---
+
+<li>
+  <a href={`${post.id}`}>{post.title}</a>
+  <time datetime={post.pubDate?.toLocaleDateString("en-US")}>
+    {
+      post.pubDate?.toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      })
+    }
+  </time>
+  <p>{post.category}</p>
+</li>
