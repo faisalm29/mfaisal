@@ -6,12 +6,16 @@ import mdx from "@astrojs/mdx";
 
 import icon from "astro-icon";
 
+import tailwindcss from "@tailwindcss/vite";
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [mdx(), icon()],
+
   markdown: {
     remarkPlugins: [remarkReadingTime],
   },
+
   image: {
     domains: ["res.cloudinary.com"],
     remotePatterns: [
@@ -19,5 +23,9 @@ export default defineConfig({
         protocol: "https",
       },
     ],
+  },
+
+  vite: {
+    plugins: [tailwindcss()],
   },
 });

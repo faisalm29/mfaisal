@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Vend Sans";
+  src:
+    url("/fonts/VendSans-BoldItalic.woff2") format("woff2"),
+    url("/fonts/VendSans-BoldItalic.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vend Sans";
+  src:
+    url("/fonts/VendSans-Bold.woff2") format("woff2"),
+    url("/fonts/VendSans-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vend Sans";
+  src:
+    url("/fonts/VendSans-Italic.woff2") format("woff2"),
+    url("/fonts/VendSans-Italic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vend Sans";
+  src:
+    url("/fonts/VendSans-Medium.woff2") format("woff2"),
+    url("/fonts/VendSans-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vend Sans";
+  src:
+    url("/fonts/VendSans-Light.woff2") format("woff2"),
+    url("/fonts/VendSans-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vend Sans";
+  src:
+    url("/fonts/VendSans-LightItalic.woff2") format("woff2"),
+    url("/fonts/VendSans-LightItalic.woff") format("woff");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vend Sans";
+  src:
+    url("/fonts/VendSans-SemiBold.woff2") format("woff2"),
+    url("/fonts/VendSans-SemiBold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vend Sans";
+  src:
+    url("/fonts/VendSans-Regular.woff2") format("woff2"),
+    url("/fonts/VendSans-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vend Sans";
+  src:
+    url("/fonts/VendSans-MediumItalic.woff2") format("woff2"),
+    url("/fonts/VendSans-MediumItalic.woff") format("woff");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vend Sans";
+  src:
+    url("/fonts/VendSans-SemiBoldItalic.woff2") format("woff2"),
+    url("/fonts/VendSans-SemiBoldItalic.woff") format("woff");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src:
+    url("/fonts/Inter-Italic.woff2") format("woff2"),
+    url("/fonts/Inter-Italic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src:
+    url("/fonts/Inter-Regular.woff2") format("woff2"),
+    url("/fonts/Inter-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-vend-sans: "Vend Sans", "sans-serif";
+  --font-inter: "Inter", "sanss-serif";
+  --spacing-scale: 4px;
+}
+
+@theme {
+  --color-primary: var(--color-blue-700);
+  --color-neutral: var(--color-gray-50);
+  --color-secondary-default: var(--color-gray-600);
+  --color-secondary-emphasize: var(--color-gray-950);
+  --color-tertiary-default: var(--color-gray-200);
+  --color-tertiary-emphasize: var(--color-gray-400);
+
+  --text-4xl: 29px;
+  --text-5xl: 33px;
+
+  --leading-dense: 1.2;
+  --leading-relaxed: 1.6;
+}
+
+@layer base {
+  p {
+    font-size: var(--text-base);
+    font-family: var(--font-inter);
+    line-height: calc(var(--text-base) * var(--leading-relaxed));
+  }
+  h1 {
+    font-size: var(--text-5xl);
+    font-family: var(--font-vend-sans);
+    line-height: calc(var(--text-5xl) * var(--leading-dense));
+    font-weight: bold;
+  }
+  h2 {
+    font-size: var(--text-4xl);
+    font-family: var(--font-vend-sans);
+    line-height: calc(var(--text-4xl) * var(--leading-dense));
+    font-weight: bold;
+  }
+  a {
+    font-family: var(--font-vend-sans);
+  }
+}
+
+.spacing-y-05 {
+  row-gap: calc(var(--spacing-scale) * 0.5);
+}
+.spacing-y-2 {
+  row-gap: calc(var(--spacing-scale) * 2);
+}
+.spacing-y-4 {
+  row-gap: calc(var(--spacing-scale) * 4);
+}
+.spacing-y-8 {
+  row-gap: calc(var(--spacing-scale) * 8);
+}
+.spacing-y-16 {
+  row-gap: calc(var(--spacing-scale) * 16);
+}

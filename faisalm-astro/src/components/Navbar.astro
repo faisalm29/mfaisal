@@ -1,0 +1,115 @@
+---
+import DesktopNavLink from "./DesktopNavLink.astro";
+import { Icon } from "astro-icon/components";
+
+const pages = [
+  {
+    url: "/about",
+    placeholder: "about",
+  },
+  {
+    url: "/blog",
+    placeholder: "general",
+  },
+  {
+    url: "/programming",
+    placeholder: "programming",
+  },
+  {
+    url: "/movie",
+    placeholder: "movies",
+  },
+  {
+    url: "/chart",
+    placeholder: "chart",
+  },
+];
+---
+
+<header class="bg-neutral/10 sticky top-0 z-10 p-4 backdrop-blur-md">
+  <nav>
+    <div class="flex items-center justify-between">
+      <a href="/">
+        <Icon name="logo" class="text-[32px]" />
+      </a>
+      <button id="hamburger-btn" class="cursor-pointer md:hidden">
+        <Icon name="ri:menu-fill" class="text-[32px]" />
+      </button>
+      <ul class="hidden items-center justify-center gap-4 md:flex">
+        {
+          pages.map((page) => (
+            <li>
+              <DesktopNavLink placeholder={page.placeholder} url={page.url} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <!-- mobile navigation menu -->
+    <div
+      id="mobile-nav-menu"
+      class="bg-neutral fixed top-0 left-0 z-20 hidden h-screen w-screen p-4 md:hidden"
+    >
+      <div class="flex h-full w-full flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <a href="/">
+            <Icon name="logo" class="text-[32px]" />
+          </a>
+          <button id="close-btn" class="cursor-pointer">
+            <Icon name="ri:close-large-fill" class="text-[32px]" />
+          </button>
+        </div>
+        <ul class="spacing-y-16 flex flex-col">
+          {
+            pages.map((page) => (
+              <li class="text-center">
+                <a
+                  href={page.url}
+                  class="hover:text-primary leading-dense text-5xl font-bold uppercase transition-all duration-300 ease-in-out"
+                >
+                  {page.placeholder}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="flex items-center justify-between">
+          <p>&copy; Faisal M.</p>
+          <p>{new Date().getFullYear()}</p>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const hamburgerBtn = document.getElementById("hamburger-btn");
+  const closeBtn = document.getElementById("close-btn");
+  const mobileNavMenu = document.getElementById("mobile-nav-menu");
+
+  hamburgerBtn?.addEventListener("click", () => {
+    mobileNavMenu?.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+  });
+
+  closeBtn?.addEventListener("click", () => {
+    mobileNavMenu?.classList.add("hidden");
+    document.body.style.overflow = "";
+  });
+
+  const toggleScroll = () => {
+    if (
+      window.innerWidth <= 768 &&
+      !mobileNavMenu?.classList.contains("hidden")
+    ) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  };
+
+  toggleScroll();
+
+  window.addEventListener("resize", toggleScroll);
+</script>

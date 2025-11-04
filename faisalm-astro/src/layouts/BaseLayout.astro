@@ -1,6 +1,7 @@
 ---
-import Header from "@components/Header.astro";
+import Navbar from "@components/Navbar.astro";
 import { SEO } from "astro-seo";
+import "../styles/global.css";
 
 export interface Props {
   metadata: Metadata;
@@ -46,7 +47,7 @@ const { metadata } = Astro.props;
     />
   </head>
   <body>
-    <Header />
+    <Navbar />
     <slot />
   </body>
 </html>
