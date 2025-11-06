@@ -9,7 +9,8 @@ import { Icon } from "astro-icon/components";
     <div>
       <div class="bg-tertiary-default w-fit rounded-full p-1">
         <button
-          class="bg-neutral border-tertiary-emphasize cursor-pointer rounded-full border p-1.5"
+          id="system-theme-btn"
+          class="cursor-pointer rounded-full border border-transparent p-1.5"
         >
           <Icon
             name="ri:computer-line"
@@ -17,12 +18,14 @@ import { Icon } from "astro-icon/components";
           />
         </button>
         <button
-          class="cursor-pointer rounded-full border border-transparent bg-transparent p-1.5"
+          id="light-theme-btn"
+          class="cursor-pointer rounded-full border border-transparent p-1.5"
         >
           <Icon name="ri:sun-line" class="text-secondary-emphasize text-2xl" />
         </button>
         <button
-          class="cursor-pointer rounded-full border border-transparent bg-transparent p-1.5"
+          id="dark-theme-btn"
+          class="cursor-pointer rounded-full border border-transparent p-1.5"
         >
           <Icon
             name="ri:moon-clear-line"
@@ -31,13 +34,68 @@ import { Icon } from "astro-icon/components";
         </button>
       </div>
     </div>
-    <p>
+    <p class="text-center">
       Coded with <Icon
         name="ri:heart-3-fill"
         class="inline text-2xl transition-all duration-300 ease-in-out hover:text-red-400"
       /> in Visual Studio Code. Built with Astro, Tailwind CSS, and deployed with
       Cloudflare Pages.
     </p>
-    <p>&copy; Faisal M. 2025.</p>
+    <p class="text-center">&copy; Faisal M. 2025.</p>
   </div>
 </footer>
+<script>
+  const systemThemeBtn = document.getElementById("system-theme-btn");
+  const lightThemeBtn = document.getElementById("light-theme-btn");
+  const darkThemeBtn = document.getElementById("dark-theme-btn");
+
+  const applyTheme = (pref: string) => {
+    switch (pref) {
+      case "dark":
+        document.documentElement.classList.add("dark");
+        darkThemeBtn?.classList.add("active-theme-btn");
+        systemThemeBtn?.classList.remove("active-theme-btn");
+        lightThemeBtn?.classList.remove("active-theme-btn");
+        break;
+      case "light":
+        document.documentElement.classList.remove("dark");
+        lightThemeBtn?.classList.add("active-theme-btn");
+        systemThemeBtn?.classList.remove("active-theme-btn");
+        darkThemeBtn?.classList.remove("active-theme-btn");
+        break;
+      default:
+        document.documentElement.classList.toggle(
+          "dark",
+          window.matchMedia("(prefers-color-scheme: dark)").matches,
+        );
+        systemThemeBtn?.classList.add("active-theme-btn");
+        lightThemeBtn?.classList.remove("active-theme-btn");
+        darkThemeBtn?.classList.remove("active-theme-btn");
+    }
+  };
+
+  const preferences = localStorage.getItem("color-theme") || "system";
+  applyTheme(preferences);
+
+  systemThemeBtn?.addEventListener("click", () => {
+    localStorage.setItem("color-theme", "system");
+    applyTheme("system");
+  });
+  lightThemeBtn?.addEventListener("click", () => {
+    localStorage.setItem("color-theme", "light");
+    applyTheme("light");
+  });
+  darkThemeBtn?.addEventListener("click", () => {
+    localStorage.setItem("color-theme", "dark");
+    applyTheme("dark");
+  });
+
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", (e) => {
+      const pref = localStorage.getItem("color-theme");
+      if (pref == "system") {
+        document.documentElement.classList.toggle("dark", e.matches);
+      }
+    });
+</script>

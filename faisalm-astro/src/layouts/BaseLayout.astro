@@ -46,6 +46,23 @@ const { metadata } = Astro.props;
         description: metadata.description,
       }}
     />
+    <script>
+      const savedTheme = localStorage.getItem("color-theme");
+
+      switch (savedTheme) {
+        case "dark":
+          document.documentElement.classList.add("dark");
+          break;
+        case "light":
+          document.documentElement.classList.remove("dark");
+          break;
+        default:
+          document.documentElement.classList.toggle(
+            "dark",
+            window.matchMedia("(prefers-color-scheme: dark)").matches,
+          );
+      }
+    </script>
   </head>
   <body class="spacing-y-16 bg-neutral flex flex-col">
     <Navbar />

@@ -1,6 +1,7 @@
 ---
 import DesktopNavLink from "./DesktopNavLink.astro";
 import { Icon } from "astro-icon/components";
+import Logo from "@components/Logo.astro";
 
 const pages = [
   {
@@ -30,10 +31,13 @@ const pages = [
   <nav>
     <div class="flex items-center justify-between">
       <a href="/">
-        <Icon name="logo" class="text-[32px]" />
+        <Logo />
       </a>
       <button id="hamburger-btn" class="cursor-pointer md:hidden">
-        <Icon name="ri:menu-fill" class="text-[32px]" />
+        <Icon
+          name="ri:menu-fill"
+          class="text-secondary-emphasize text-[32px]"
+        />
       </button>
       <ul class="hidden items-center justify-center gap-4 md:flex">
         {
@@ -54,10 +58,13 @@ const pages = [
       <div class="flex h-full w-full flex-col justify-between">
         <div class="flex items-center justify-between">
           <a href="/">
-            <Icon name="logo" class="text-[32px]" />
+            <Logo />
           </a>
           <button id="close-btn" class="cursor-pointer">
-            <Icon name="ri:close-large-fill" class="text-[32px]" />
+            <Icon
+              name="ri:close-large-fill"
+              class="text-secondary-emphasize text-[32px]"
+            />
           </button>
         </div>
         <ul class="spacing-y-16 flex flex-col">
@@ -66,7 +73,7 @@ const pages = [
               <li class="text-center">
                 <a
                   href={page.url}
-                  class="hover:text-primary leading-dense text-5xl font-bold uppercase transition-all duration-300 ease-in-out"
+                  class="hover:text-primary leading-dense text-secondary-emphasize text-5xl font-bold uppercase transition-all duration-300 ease-in-out"
                 >
                   {page.placeholder}
                 </a>
