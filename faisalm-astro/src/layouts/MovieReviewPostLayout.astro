@@ -31,33 +31,52 @@ const metadata = {
 ---
 
 <BaseLayout metadata={metadata}>
-  <h1>{frontmatter.title}</h1>
-  <h2>Release Date</h2>
-  <time
-    datetime={new Date(frontmatter.releaseDate!).toLocaleDateString("en-US")}
-    >{new Date(frontmatter.releaseDate!).getFullYear()}</time
-  >
+  <main class="spacing-y-article flex flex-col px-4">
+    <div class="flex">
+      <time
+        datetime={new Date(frontmatter.releaseDate!).toLocaleDateString(
+          "en-US",
+        )}
+        class="mr-2">{new Date(frontmatter.releaseDate!).getFullYear()}</time
+      >
+      <span class="text-secondary-default">•</span>
+      <p class="ml-2">{frontmatter.genres!.map(String).join(", ")}</p>
+    </div>
 
-  <h2>Genre</h2>
-  <p>{frontmatter.genres!.map(String).join(", ")}</p>
+    <h1>{frontmatter.title}</h1>
 
-  <!-- movie poster -->
-  <Image
-    src={frontmatter.poster!}
-    alt={`${frontmatter.title} poster`}
-    width={500}
-    height={750}
-  />
+    <!-- movie poster -->
+    <Image
+      src={frontmatter.poster!}
+      alt={`${frontmatter.title} poster`}
+      width={500}
+      height={750}
+    />
 
-  <h2>Director</h2>
-  <p>{frontmatter.director}</p>
+    <div>
+      <div class="spacing-y-article flex flex-col">
+        <div>
+          <h2 class="text-base font-normal">Director</h2>
+          <p>{frontmatter.director}</p>
+        </div>
 
-  <h2>Cast</h2>
-  <p>{frontmatter.casts!.map(String).join(", ")}</p>
+        <div>
+          <h2 class="text-base font-normal">Cast</h2>
+          <p>{frontmatter.casts!.map(String).join(", ")}</p>
+        </div>
 
-  <h2>Overview</h2>
-  <p>{frontmatter.overview}</p>
+        <div class="gap-y-0">
+          <h2 class="text-base font-normal">Overview</h2>
+          <p>{frontmatter.overview}</p>
+        </div>
+      </div>
 
-  <h2>My Take</h2>
-  <slot />
+      <div class="spacing-y-article flex flex-col pt-12">
+        <h2>My Take</h2>
+        <article class="prose">
+          <slot />
+        </article>
+      </div>
+    </div>
+  </main>
 </BaseLayout>

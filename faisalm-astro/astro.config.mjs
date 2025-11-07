@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import { remarkReadingTime } from "./remark-reading-time.mjs";
+import shikiDark from "./shiki-dark.json";
 
 import mdx from "@astrojs/mdx";
 
@@ -11,9 +12,18 @@ import tailwindcss from "@tailwindcss/vite";
 // https://astro.build/config
 export default defineConfig({
   integrations: [mdx(), icon()],
-
   markdown: {
     remarkPlugins: [remarkReadingTime],
+    syntaxHighlight: {
+      type: "shiki",
+    },
+    shikiConfig: {
+      themes: {
+        // @ts-ignore
+        dark: shikiDark,
+        light: "catppuccin-latte",
+      },
+    },
   },
 
   image: {

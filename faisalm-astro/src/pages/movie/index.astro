@@ -4,7 +4,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 const moviePosts = (await getCollection("movies")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 const imdbIds = moviePosts.map((post) => post.data.imdbId);
 const allMovieData = await getMovies(imdbIds);
@@ -16,27 +16,39 @@ const metadata = {
 ---
 
 <BaseLayout metadata={metadata}>
-  <h1>Movies</h1>
-  <ul>
-    {
-      allMovieData.map((movie) => (
-        <li>
-          <a href={`/movie/${movie.id}`}>
-            {movie.title}{" "}
-            <time datetime={new Date(movie.releaseDate).toLocaleDateString()}>
-              ({new Date(movie.releaseDate).getFullYear()})
-            </time>
-          </a>
-          <time datetime={movie.pubDate?.toLocaleDateString()}>
-            {movie.pubDate?.toLocaleDateString("en-US", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })}
-          </time>
-          <p>{movie.genres.map(String).join(", ")}</p>
-        </li>
-      ))
-    }
-  </ul>
+  <main class="spacing-y-article flex flex-col px-4">
+    <h1>Movies</h1>
+    <ul class="spacing-y-article flex flex-col">
+      {
+        allMovieData.map((movie) => (
+          <li>
+            <a href={`/movie/${movie.id}`} class="group">
+              <h2 class="group-hover:text-primary transition-all duration-300 ease-in-out">
+                {movie.title}{" "}
+                <time
+                  datetime={new Date(movie.releaseDate).toLocaleDateString()}
+                  class="text-secondary-emphasize group-hover:text-primary transition-all duration-300 ease-in-out"
+                >
+                  ({new Date(movie.releaseDate).getFullYear()})
+                </time>
+              </h2>
+              <time
+                datetime={movie.pubDate?.toLocaleDateString()}
+                class="group-hover:text-primary transition-all duration-300 ease-in-out"
+              >
+                {movie.pubDate?.toLocaleDateString("en-US", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </time>
+              <p class="group-hover:text-primary transition-all duration-300 ease-in-out">
+                {movie.genres.map(String).join(", ")}
+              </p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
 </BaseLayout>

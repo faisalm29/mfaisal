@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 const allGeneralPosts = (await getCollection("general")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
 const metadata = {
@@ -13,15 +13,23 @@ const metadata = {
 ---
 
 <BaseLayout metadata={metadata}>
-  <h1>General</h1>
-  <ul>
-    {
-      allGeneralPosts.map((post) => (
-        <li>
-          <a href={`/blog/${post.id}`}>{post.data.title}</a>
-          <p>{post.data.summary}</p>
-        </li>
-      ))
-    }
-  </ul>
+  <main class="spacing-y-article flex flex-col px-4">
+    <h1>General</h1>
+    <ul class="spacing-y-article flex flex-col">
+      {
+        allGeneralPosts.map((post) => (
+          <li>
+            <a href={`/blog/${post.id}`} class="group">
+              <h2 class="group-hover:text-primary transition-all duration-300 ease-in-out">
+                {post.data.title}
+              </h2>
+              <p class="group-hover:text-primary transition-all duration-300 ease-in-out">
+                {post.data.summary}
+              </p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
 </BaseLayout>

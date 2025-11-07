@@ -16,6 +16,10 @@ const metadata = {
 ---
 
 <BaseLayout metadata={metadata}>
-  <h1>{frontmatter.title}</h1>
-  <slot />
+  <main>
+    <h1>{frontmatter.title}</h1>
+    <article class="prose marker:text-tertiary-emphasize">
+      <slot />
+    </article>
+  </main>
 </BaseLayout>

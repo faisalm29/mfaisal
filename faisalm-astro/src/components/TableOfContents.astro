@@ -8,7 +8,7 @@ interface Props {
 const { headings } = Astro.props;
 ---
 
-<ul>
+<ul class="hidden">
   {
     headings.map((heading) => (
       <li>
@@ -39,7 +39,7 @@ const { headings } = Astro.props;
     {
       rootMargin: "-18% 0px -80% 0px",
       threshold: 0,
-    }
+    },
   );
 
   headings.forEach((heading) => observer.observe(heading));

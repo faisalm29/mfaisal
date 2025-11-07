@@ -5,7 +5,7 @@ category: programming
 pubDate: 2025-06-20
 ---
 
-It's been years since I typed my first line of code. I don't remember exactly what made me interested in learning to code, but I remember for sure the feeling when the first time I saw the output — `"Hello, World!"{:js}` — of my first line of code. As far as I remember, I wrote my first line of code in PHP.
+It's been years since I typed my first line of code. I don't remember exactly what made me interested in learning to code, but I remember for sure the feeling when the first time I saw the output — `"Hello, World!"` — of my first line of code. As far as I remember, I wrote my first line of code in PHP.
 
 PHP was very popular because, as someone with limited knowledge on programming back then, I had heard of it once or twice before actually learning it myself. When I typed "Which programming language should I learn" into Google, PHP definitely came up as one of them, and it showed how popular this programming language was.
 
@@ -77,7 +77,7 @@ import rehypePrettyCode from "rehype-pretty-code";
 import { transformerNotationDiff } from "@shikijs/transformers";
 
 const highlighterTheme = JSON.parse(
-  fs.readFileSync("./highlighter-theme.json", "utf-8")
+  fs.readFileSync("./highlighter-theme.json", "utf-8"),
 );
 
 export default defineConfig({
@@ -136,11 +136,11 @@ Remember that we can preprocess data in Velite before using it in our applicatio
 
 I created the Chart section mainly for fun and experimentation. Before bulding this blog, I believe I saw something similar on someone else's blog, but I couldn't remember exactly whose. I built the [Chart](https://mfaisal.xyz/chart) section because I was curious about how to implement it.
 
-To fetch top tracks data from [Spotify API](https://developer.spotify.com/documentation/web-api), you just need to make a request to the `https://api.spotify.com/v1/me/top/tracks{:shell}` endpoint. The available optional query parameters for this endpoint are:
+To fetch top tracks data from [Spotify API](https://developer.spotify.com/documentation/web-api), you just need to make a request to the `https://api.spotify.com/v1/me/top/tracks` endpoint. The available optional query parameters for this endpoint are:
 
-1. `time_range{:shell}`: Over what time frame the affinities are computed. Valid values: `long_term{:shell}` (calculated from ~1 year of data and including all new data as it becomes available), `medium_term{:shell}` (approximately last 6 months), `short_term{:shell}` (approximately last 4 weeks). Default: `medium_term{:shell}`
-2. `limit{:shell}`: The maximum number of items to return. Default: `20{:shell}`. Minimum: `1{:shell}`. Maximum: `50{:shell}`.
-3. `offset{:shell}`: The index of the first item to return. Default: `0{:shell}` (the first item).
+1. `time_range`: Over what time frame the affinities are computed. Valid values: `long_term` (calculated from ~1 year of data and including all new data as it becomes available), `medium_term` (approximately last 6 months), `short_term` (approximately last 4 weeks). Default: `medium_term`
+2. `limit`: The maximum number of items to return. Default: `20`. Minimum: `1`. Maximum: `50`.
+3. `offset`: The index of the first item to return. Default: `0` (the first item).
 
 I only needed to fetch the first top 10 tracks and I wanted to make it daily updated. In my case, the endpoint and its query parameters would be:
 
@@ -172,7 +172,7 @@ export default async function Chart() {
 }
 ```
 
-The way this updates is honestly problematic because it's not precise. It will be updated on the first request after the `revalidate{:tsx}` interval (every 24h). Because of this, the cache might revalidate at unexpected times if the page is rarely visited.
+The way this updates is honestly problematic because it's not precise. It will be updated on the first request after the `revalidate` interval (every 24h). Because of this, the cache might revalidate at unexpected times if the page is rarely visited.
 
 I plan to change the way I updated the Chart section daily. I need a solution that gives me control over when revalidation happens. For now, I'm okay with how it works.
 

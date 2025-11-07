@@ -13,9 +13,9 @@ interface Props {
 const { allPosts } = Astro.props;
 ---
 
-<section class="spacing-y-4 flex flex-col">
+<section class="spacing-y-article flex flex-col">
   <h2>Latest Posts</h2>
-  <ul class="spacing-y-4 flex flex-col">
+  <ul class="spacing-y-article flex flex-col">
     {allPosts.map((post) => <LatestPostCard post={post} />)}
   </ul>
 </section>

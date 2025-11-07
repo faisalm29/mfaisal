@@ -12,7 +12,7 @@ const { post } = Astro.props;
 ---
 
 <li>
-  <a href={`${post.id}`} class="spacing-y-05 group flex flex-col">
+  <a href={`${post.id}`} class="spacing-y-densest group flex flex-col">
     <time
       datetime={post.pubDate?.toLocaleDateString("en-US")}
       class="text-secondary-default group-hover:text-primary transition-colors duration-300 ease-in-out"
@@ -31,7 +31,7 @@ const { post } = Astro.props;
       {post.category}
     </p>
     <h3
-      class="group-hover:text-primary transition-colors duration-300 ease-in-out"
+      class="group-hover:text-primary leading-[1.6] transition-colors duration-300 ease-in-out"
     >
       {post.title}
     </h3>
