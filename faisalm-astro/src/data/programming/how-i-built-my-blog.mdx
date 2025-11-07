@@ -71,7 +71,7 @@ Shiki is perhaps one of the best when it comes to syntax Highlighter. Unfortunat
 
 Rehype-pretty-code is basically a [rehype](https://github.com/rehypejs/rehype) plugin version of Shiki because it's based on Shiki. With rehype-pretty-code, integrating Shiki syntax highlighter with NextJS is much easier. I just needed to import it into my Velite config file as a plugin, choose a theme, and let it handle the rest.
 
-```ts {23-28}
+```ts
 import { defineConfig } from "velite";
 import rehypePrettyCode from "rehype-pretty-code";
 import { transformerNotationDiff } from "@shikijs/transformers";
@@ -150,7 +150,7 @@ https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=10
 
 To automatically update the data daily, I used [Incremental Static Regeneration (ISR)](https://nextjs.org/docs/app/guides/incremental-static-regeneration). By using this, NextJS caches my data. To update the data daily, I revalidate the cache using time-based revalidation.
 
-```tsx {11}
+```tsx
 import { getTopTracks } from "../../../lib/spotify";
 import Image from "next/image";
 import type { Metadata } from "next";
