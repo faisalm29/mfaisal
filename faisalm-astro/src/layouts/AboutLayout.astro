@@ -16,9 +16,9 @@ const metadata = {
 ---
 
 <BaseLayout metadata={metadata}>
-  <main>
+  <main class="mx-auto w-[65ch] max-w-full px-4 lg:px-0">
     <h1>{frontmatter.title}</h1>
-    <article class="prose marker:text-tertiary-emphasize">
+    <article class="prose marker:text-tertiary-emphasize max-w-none">
       <slot />
     </article>
   </main>

@@ -43,7 +43,9 @@ const metadata = {
 ---
 
 <BaseLayout metadata={metadata}>
-  <main class="spacing-y-loosest flex flex-col px-4">
+  <main
+    class="spacing-y-loosest mx-auto flex w-[112ch] max-w-full flex-col px-4 lg:px-0"
+  >
     <Summary social={social} />
     <LatestPost allPosts={allPosts} />
   </main>

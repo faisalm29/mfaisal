@@ -9,38 +9,41 @@ interface Props {
 const { social } = Astro.props;
 ---
 
-<section class="spacing-y-article flex flex-col">
-  <h1>Faisal M.</h1>
-  <p>
-    I&apos;m Faisal, an ordinary person with an interest in writing and web
-    development. I created this blog as a record and to implement the learning
-    that I have gone through on web development. My journey in learning web
-    development and what I am adding to this blog can be found in the <a
-      href="/programming"
-      class="text-secondary-emphasize hover:text-primary font-medium transition-colors duration-300 ease-in-out"
-      >code</a
-    > section. The rest can be found in the <a
-      href="/blog"
-      class="text-secondary-emphasize hover:text-primary font-medium transition-colors duration-300 ease-in-out"
-      >general</a
-    > and <a
-      href="/movie"
-      class="text-secondary-emphasize hover:text-primary font-medium transition-colors duration-300 ease-in-out"
-      >movies</a
-    > section for what interests me.
-  </p>
-  <ul class="flex items-center gap-6">
-    {
-      social.map((item) => (
-        <li>
-          <a href={item.data.url} target="_blank">
-            <Icon
-              name={`ri:${item.data.icon}`}
-              class="text-secondary-default hover:text-primary text-[32px] transition-all duration-300 ease-in-out"
-            />
-          </a>
-        </li>
-      ))
-    }
-  </ul>
+<section class="spacing-y-article flex flex-col md:grid md:grid-cols-12">
+  <h1 class="md:col-span-6">Faisal M.</h1>
+
+  <div class="spacing-y-article flex flex-col md:col-span-6">
+    <p>
+      I&apos;m Faisal, an ordinary person with an interest in writing and web
+      development. I created this blog as a record and to implement the learning
+      that I have gone through on web development. My journey in learning web
+      development and what I am adding to this blog can be found in the <a
+        href="/programming"
+        class="text-secondary-emphasize hover:text-primary font-medium transition-colors duration-300 ease-in-out"
+        >code</a
+      > section. The rest can be found in the <a
+        href="/blog"
+        class="text-secondary-emphasize hover:text-primary font-medium transition-colors duration-300 ease-in-out"
+        >general</a
+      > and <a
+        href="/movie"
+        class="text-secondary-emphasize hover:text-primary font-medium transition-colors duration-300 ease-in-out"
+        >movies</a
+      > section for what interests me.
+    </p>
+    <ul class="flex items-center gap-6">
+      {
+        social.map((item) => (
+          <li>
+            <a href={item.data.url} target="_blank">
+              <Icon
+                name={`ri:${item.data.icon}`}
+                class="text-secondary-default hover:text-primary text-[32px] transition-all duration-300 ease-in-out"
+              />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </section>

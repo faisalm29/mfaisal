@@ -220,6 +220,11 @@
   }
 }
 
+.active-nav-link {
+  background-color: var(--color-secondary-emphasize);
+  color: var(--color-neutral);
+}
+
 .active-theme-btn {
   background-color: var(--color-neutral);
   border: 1px solid var(--color-tertiary-emphasize);

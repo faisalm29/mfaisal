@@ -12,10 +12,13 @@ const { post } = Astro.props;
 ---
 
 <li>
-  <a href={`${post.id}`} class="spacing-y-densest group flex flex-col">
+  <a
+    href={`${post.id}`}
+    class="spacing-y-densest group flex flex-col md:grid md:grid-cols-12"
+  >
     <time
       datetime={post.pubDate?.toLocaleDateString("en-US")}
-      class="text-secondary-default group-hover:text-primary transition-colors duration-300 ease-in-out"
+      class="text-secondary-default group-hover:text-primary transition-colors duration-300 ease-in-out md:col-span-2"
     >
       {
         post.pubDate?.toLocaleDateString("en-US", {
@@ -25,15 +28,18 @@ const { post } = Astro.props;
         })
       }
     </time>
-    <p
-      class="group-hover:text-primary capitalize transition-colors duration-300 ease-in-out"
-    >
-      {post.category}
-    </p>
-    <h3
-      class="group-hover:text-primary leading-[1.6] transition-colors duration-300 ease-in-out"
-    >
-      {post.title}
-    </h3>
+
+    <div class="spacing-y-densest flex flex-col md:col-span-10">
+      <p
+        class="group-hover:text-primary capitalize transition-colors duration-300 ease-in-out"
+      >
+        {post.category}
+      </p>
+      <h3
+        class="group-hover:text-primary leading-[1.6] transition-colors duration-300 ease-in-out"
+      >
+        {post.title}
+      </h3>
+    </div>
   </a>
 </li>

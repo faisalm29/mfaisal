@@ -4,10 +4,37 @@ interface Props {
   url: string;
 }
 
+const currentRoute = Astro.url.pathname;
 const { placeholder, url } = Astro.props;
 ---
 
 <a
-  class="border-secondary-emphasize text-secondary-emphasize hover:bg-secondary-emphasize hover:text-neutral rounded-full border bg-transparent px-6 py-0.5 font-medium capitalize transition-all duration-300 ease-in-out"
+  id="nav-link"
+  data-route={url}
+  class={`border-secondary-emphasize text-secondary-emphasize rounded-full border bg-transparent px-6 py-0.5 font-medium capitalize transition-all duration-300 ease-in-out ${currentRoute.startsWith(url) ? "active-nav-link" : ""}`}
   href={url}>{placeholder}</a
 >
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const navLinks = document.querySelectorAll("#nav-link");
+    const activeNavLink = document.querySelector(".active-nav-link");
+
+    let hovered: Element | null = null;
+
+    navLinks.forEach((navLink) => {
+      navLink.addEventListener("mouseenter", () => {
+        if (activeNavLink) activeNavLink.classList.remove("active-nav-link");
+        navLink.classList.add("active-nav-link");
+        hovered = navLink;
+      });
+
+      navLink.addEventListener("mouseleave", () => {
+        navLink.classList.remove("active-nav-link");
+        if (!hovered || hovered === navLink) {
+          if (activeNavLink) activeNavLink.classList.add("active-nav-link");
+        }
+      });
+    });
+  });
+</script>

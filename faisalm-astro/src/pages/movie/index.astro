@@ -16,35 +16,43 @@ const metadata = {
 ---
 
 <BaseLayout metadata={metadata}>
-  <main class="spacing-y-article flex flex-col px-4">
+  <main
+    class="spacing-y-article mx-auto flex w-[112ch] max-w-full flex-col px-4 lg:px-0"
+  >
     <h1>Movies</h1>
     <ul class="spacing-y-article flex flex-col">
       {
         allMovieData.map((movie) => (
           <li>
-            <a href={`/movie/${movie.id}`} class="group">
-              <h2 class="group-hover:text-primary transition-all duration-300 ease-in-out">
-                {movie.title}{" "}
-                <time
-                  datetime={new Date(movie.releaseDate).toLocaleDateString()}
-                  class="text-secondary-emphasize group-hover:text-primary transition-all duration-300 ease-in-out"
-                >
-                  ({new Date(movie.releaseDate).getFullYear()})
-                </time>
-              </h2>
+            <a
+              href={`/movie/${movie.id}`}
+              class="spacing-y-densest group flex flex-col md:grid md:grid-cols-12"
+            >
               <time
                 datetime={movie.pubDate?.toLocaleDateString()}
-                class="group-hover:text-primary transition-all duration-300 ease-in-out"
+                class="group-hover:text-primary transition-all duration-300 ease-in-out md:col-span-2"
               >
                 {movie.pubDate?.toLocaleDateString("en-US", {
                   day: "numeric",
-                  month: "long",
+                  month: "short",
                   year: "numeric",
                 })}
               </time>
-              <p class="group-hover:text-primary transition-all duration-300 ease-in-out">
-                {movie.genres.map(String).join(", ")}
-              </p>
+
+              <div class="spacing-y-densest flex flex-col md:col-span-10">
+                <p class="group-hover:text-primary transition-all duration-300 ease-in-out">
+                  {movie.genres.map(String).join(", ")}
+                </p>
+                <h2 class="group-hover:text-primary text-base leading-[1.6] transition-all duration-300 ease-in-out">
+                  {movie.title}{" "}
+                  <time
+                    datetime={new Date(movie.releaseDate).toLocaleDateString()}
+                    class="text-secondary-emphasize group-hover:text-primary transition-all duration-300 ease-in-out"
+                  >
+                    ({new Date(movie.releaseDate).getFullYear()})
+                  </time>
+                </h2>
+              </div>
             </a>
           </li>
         ))

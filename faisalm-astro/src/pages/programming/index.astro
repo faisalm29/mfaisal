@@ -13,19 +13,37 @@ const metadata = {
 ---
 
 <BaseLayout metadata={metadata}>
-  <main class="spacing-y-article flex flex-col px-4">
+  <main
+    class="spacing-y-article mx-auto flex w-[112ch] max-w-full flex-col px-4 lg:px-0"
+  >
     <h1>Programming</h1>
     <ul class="spacing-y-article flex flex-col">
       {
         allProgrammingPosts.map((post) => (
           <li>
-            <a href={`/programming/${post.id}`} class="group">
-              <h2 class="group-hover:text-primary transition-all duration-300 ease-in-out">
-                {post.data.title}
-              </h2>
-              <p class="group-hover:text-primary transition-all duration-300 ease-in-out">
-                {post.data.summary}
-              </p>
+            <a
+              href={`/programming/${post.id}`}
+              class="spacing-y-densest group flex flex-col md:grid md:grid-cols-12"
+            >
+              <time
+                datetime={post.data.pubDate.toLocaleDateString()}
+                class="group-hover:text-primary hidden transition-all duration-300 ease-in-out md:col-span-2 md:inline"
+              >
+                {post.data.pubDate.toLocaleDateString("en-US", {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                })}
+              </time>
+
+              <div class="spacing-y-densest flex flex-col md:col-span-10">
+                <h2 class="group-hover:text-primary text-base leading-[1.6] transition-all duration-300 ease-in-out">
+                  {post.data.title}
+                </h2>
+                <p class="group-hover:text-primary transition-all duration-300 ease-in-out">
+                  {post.data.summary}
+                </p>
+              </div>
             </a>
           </li>
         ))
