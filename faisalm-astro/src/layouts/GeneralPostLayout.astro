@@ -28,30 +28,33 @@ const metadata: Metadata = {
 ---
 
 <BaseLayout metadata={metadata}>
-  <main class="spacing-y-article flex flex-col px-4">
-    <div class="flex">
-      <time
-        datetime={new Date(frontmatter.pubDate).toLocaleDateString()}
-        class="mr-2"
-        >{
-          new Date(frontmatter.pubDate).toLocaleDateString("en-US", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-          })
-        }</time
+  <main class="spacing-y-article flex flex-col px-4 lg:grid lg:grid-cols-12">
+    <div class="spacing-y-article flex flex-col lg:col-span-8">
+      <div class="flex">
+        <time
+          datetime={new Date(frontmatter.pubDate).toLocaleDateString()}
+          class="mr-2"
+          >{
+            new Date(frontmatter.pubDate).toLocaleDateString("en-US", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+            })
+          }</time
+        >
+        <span class="text-secondary-default">•</span>
+        <p class="ml-2">{frontmatter.minutesRead}</p>
+      </div>
+      <h1>{frontmatter.title}</h1>
+
+      <article
+        class="prose prose-headings:text-secondary-emphasize prose-a:text-secondary-emphasize prose-a:no-underline prose-a:hover:text-primary prose-a:transition-all prose-a:duration-300 prose-a:ease-in-out prose-ol:text-secondary-default prose-headings:scroll-mt-[82px]"
       >
-      <span class="text-secondary-default">•</span>
-      <p class="ml-2">{frontmatter.minutesRead}</p>
+        <slot />
+      </article>
     </div>
-    <h1>{frontmatter.title}</h1>
 
     <!-- Table of contents -->
     <TableOfContents headings={headings} />
-    <article
-      class="prose prose-headings:text-secondary-emphasize prose-a:text-secondary-emphasize prose-a:no-underline prose-a:hover:text-primary prose-a:transition-all prose-a:duration-300 prose-a:ease-in-out prose-ol:text-secondary-default"
-    >
-      <slot />
-    </article>
   </main>
 </BaseLayout>

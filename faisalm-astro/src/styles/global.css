@@ -138,6 +138,7 @@
   --color-tertiary-default: var(--color-gray-200);
   --color-tertiary-emphasize: var(--color-gray-400);
 
+  --text-sm: 14px;
   --text-4xl: 29px;
   --text-5xl: 33px;
 
@@ -230,9 +231,22 @@
   border: 1px solid var(--color-tertiary-emphasize);
 }
 
+.toc-link {
+  color: var(--color-secondary-default);
+}
+
+.toc-link.active {
+  color: var(--color-primary);
+}
+
 .spacing-y-densest {
   row-gap: var(--spacing-05);
 }
+
+.spacing-y-denser {
+  row-gap: var(--spacing-2);
+}
+
 .spacing-y-dense {
   row-gap: var(--spacing-4);
 }
