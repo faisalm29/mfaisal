@@ -1,6 +1,10 @@
 ---
 import { getCollection, render } from "astro:content";
 import GeneralPostLayout from "@layouts/GeneralPostLayout.astro";
+import CustomAnchorLinkHeading from "@components/CustomAnchorLinkHeading.astro";
+import CustomHeading2 from "@components/CustomHeading2.astro";
+import Customheading3 from "@components/CustomHeading3.astro";
+import Customheading4 from "@components/CustomHeading4.astro";
 
 export async function getStaticPaths() {
   const allGeneralPosts = await getCollection("general");
@@ -9,7 +13,7 @@ export async function getStaticPaths() {
     allGeneralPosts.map(async (generalPost) => {
       const data = await render(generalPost);
       return data.headings;
-    })
+    }),
   );
 
   return allGeneralPosts.map((post, index) => ({
@@ -29,5 +33,12 @@ const { Content, remarkPluginFrontmatter } = await render(post);
   frontmatter={{ ...post.data, ...remarkPluginFrontmatter }}
   headings={headings}
 >
-  <Content />
+  <Content
+    components={{
+      a: CustomAnchorLinkHeading,
+      h2: CustomHeading2,
+      h3: Customheading3,
+      h4: Customheading4,
+    }}
+  />
 </GeneralPostLayout>

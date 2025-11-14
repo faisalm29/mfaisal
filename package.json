@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@hbsnow/rehype-sectionize": "^1.0.7",
-    "remark-sectionize": "^2.1.0"
-  }
-}

@@ -175,6 +175,10 @@
     }
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   p {
     font-size: var(--text-base);
     font-family: var(--font-inter);
@@ -219,6 +223,10 @@
       background-color: hsla(217, 19%, 27%, 0.5);
     }
   }
+}
+
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 }
 
 .active-nav-link {

@@ -28,8 +28,12 @@ const metadata: Metadata = {
 ---
 
 <BaseLayout metadata={metadata}>
-  <main class="spacing-y-article flex flex-col px-4 lg:grid lg:grid-cols-12">
-    <div class="spacing-y-article flex flex-col lg:col-span-8">
+  <main
+    class="spacing-y-article mx-auto flex w-[112ch] max-w-full flex-col px-4 lg:grid lg:grid-cols-12 lg:px-0"
+  >
+    <div
+      class="spacing-y-article mx-auto flex w-[65ch] max-w-full flex-col lg:col-span-8 lg:mx-0"
+    >
       <div class="flex">
         <time
           datetime={new Date(frontmatter.pubDate).toLocaleDateString()}
@@ -48,7 +52,7 @@ const metadata: Metadata = {
       <h1>{frontmatter.title}</h1>
 
       <article
-        class="prose prose-headings:text-secondary-emphasize prose-a:text-secondary-emphasize prose-a:no-underline prose-a:hover:text-primary prose-a:transition-all prose-a:duration-300 prose-a:ease-in-out prose-ol:text-secondary-default prose-headings:scroll-mt-[82px]"
+        class="prose prose-headings:text-secondary-emphasize prose-a:text-secondary-emphasize prose-a:no-underline prose-a:hover:text-primary prose-a:transition-all prose-a:duration-300 prose-a:ease-in-out prose-ol:text-secondary-default prose-headings:scroll-mt-[82px] max-w-none"
       >
         <slot />
       </article>

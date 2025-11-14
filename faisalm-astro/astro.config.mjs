@@ -2,6 +2,8 @@
 import { defineConfig } from "astro/config";
 import { remarkReadingTime } from "./remark-reading-time.mjs";
 import sectionize from "remark-sectionize";
+import { rehypeHeadingIds } from "@astrojs/markdown-remark";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import shikiDark from "./shiki-dark.json";
 
 import mdx from "@astrojs/mdx";
@@ -14,6 +16,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   integrations: [mdx(), icon()],
   markdown: {
+    rehypePlugins: [rehypeHeadingIds, rehypeAutolinkHeadings],
     remarkPlugins: [remarkReadingTime, sectionize],
     syntaxHighlight: {
       type: "shiki",

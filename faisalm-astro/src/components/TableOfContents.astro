@@ -16,17 +16,19 @@ const { headings } = Astro.props;
       <Icon
         id="back-to-top-btn"
         name="ri:arrow-up-line"
-        class="text-secondary-emphasize translate-y-4 text-2xl opacity-0 transition-all duration-300 ease-in-out"
+        class="text-secondary-emphasize translate-y-4 cursor-pointer text-2xl opacity-0 transition-all duration-300 ease-in-out"
       />
     </div>
-    <div>
+    <div class="no-scrollbar h-[60vh] overflow-y-auto">
       <ul class="spacing-y-denser lg:flex lg:flex-col">
         {
           headings.map((heading) => (
-            <li>
+            <li
+              class={`${heading.depth === 3 ? "pl-6" : ""} ${heading.depth === 4 ? "pl-12" : ""}`}
+            >
               <a
                 id={`#${heading.slug}`}
-                class={`${heading.depth === 3 ? "pl-6" : ""} ${heading.depth === 4 ? "pl-12" : ""} toc-link text-sm leading-[1.6]`}
+                class="toc-link text-sm leading-[1.6]"
                 href={`#${heading.slug}`}
               >
                 {heading.text}
