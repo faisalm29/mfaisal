@@ -2,6 +2,7 @@
 import DesktopNavLink from "./DesktopNavLink.astro";
 import { Icon } from "astro-icon/components";
 import Logo from "@components/Logo.astro";
+import Search from "./Search.astro";
 
 const pages = [
   {
@@ -35,27 +36,35 @@ const pages = [
       <a href="/">
         <Logo />
       </a>
-      <button id="hamburger-btn" class="cursor-pointer md:hidden">
-        <Icon
-          name="ri:menu-fill"
-          class="text-secondary-emphasize text-[32px]"
-        />
-      </button>
-      <ul class="hidden items-center justify-center gap-4 md:flex">
-        {
-          pages.map((page) => (
-            <li>
-              <DesktopNavLink placeholder={page.placeholder} url={page.url} />
-            </li>
-          ))
-        }
-      </ul>
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-4">
+          <Search />
+          <ul class="hidden items-center gap-4 md:flex">
+            {
+              pages.map((page) => (
+                <li>
+                  <DesktopNavLink
+                    placeholder={page.placeholder}
+                    url={page.url}
+                  />
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <button id="hamburger-btn" class="cursor-pointer md:hidden">
+          <Icon
+            name="ri:menu-fill"
+            class="text-secondary-emphasize text-[32px]"
+          />
+        </button>
+      </div>
     </div>
 
     <!-- mobile navigation menu -->
     <div
       id="mobile-nav-menu"
-      class="bg-neutral fixed top-0 left-0 z-50 hidden h-screen w-screen p-4 md:hidden"
+      class="bg-neutral fixed top-0 left-0 z-40 hidden h-screen w-screen p-4 md:hidden"
     >
       <div class="flex h-full w-full flex-col justify-between">
         <div class="flex items-center justify-between">

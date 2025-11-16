@@ -18,6 +18,25 @@ const { metadata } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <script>
+      const savedTheme = localStorage.getItem("color-theme");
+
+      switch (savedTheme) {
+        case "dark":
+          document.documentElement.classList.add("dark");
+          break;
+        case "light":
+          document.documentElement.classList.remove("dark");
+          break;
+        default:
+          document.documentElement.classList.toggle(
+            "dark",
+            window.matchMedia("(prefers-color-scheme: dark)").matches,
+          );
+      }
+    </script>
+    <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+    <script src="/pagefind/pagefind-ui.js" is:inline></script>
     <SEO
       title={metadata.pageTitle}
       titleTemplate=`${Astro.url.pathname === "/" ? "" : "%s - "}Faisal M.`
@@ -46,23 +65,6 @@ const { metadata } = Astro.props;
         description: metadata.description,
       }}
     />
-    <script>
-      const savedTheme = localStorage.getItem("color-theme");
-
-      switch (savedTheme) {
-        case "dark":
-          document.documentElement.classList.add("dark");
-          break;
-        case "light":
-          document.documentElement.classList.remove("dark");
-          break;
-        default:
-          document.documentElement.classList.toggle(
-            "dark",
-            window.matchMedia("(prefers-color-scheme: dark)").matches,
-          );
-      }
-    </script>
   </head>
   <body class="spacing-y-loosest bg-neutral flex flex-col">
     <Navbar />

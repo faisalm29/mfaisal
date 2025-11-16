@@ -230,8 +230,11 @@
 }
 
 .active-nav-link {
-  background-color: var(--color-secondary-emphasize);
-  color: var(--color-neutral);
+  color: var(--color-secondary-emphasize);
+}
+
+.active-nav-link::before {
+  opacity: 100;
 }
 
 .active-theme-btn {

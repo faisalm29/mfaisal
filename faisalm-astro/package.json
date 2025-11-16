@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && pagefind --site dist && cp -r dist/pagefind public/",
     "preview": "astro preview",
     "astro": "astro",
     "postinstall": "patch-package"
@@ -17,6 +17,7 @@
     "astro-icon": "^1.1.5",
     "astro-seo": "^0.8.4",
     "mdast-util-to-string": "^4.0.0",
+    "pagefind": "^1.4.0",
     "patch-package": "^8.0.1",
     "reading-time": "^1.5.0",
     "rehype-autolink-headings": "^7.1.0",

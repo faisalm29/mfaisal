@@ -1,0 +1,137 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div>
+  <button
+    id="search-btn"
+    class="bg-tertiary-default flex items-center gap-2 rounded-full px-6 py-[1px] transition-all duration-300"
+  >
+    <Icon
+      name="ri:search-line"
+      class="text-secondary-default text-base transition-all duration-300 ease-in-out"
+    />
+    <p>Search</p>
+  </button>
+
+  <form
+    id="search-form"
+    action=""
+    class="fixed top-0 left-0 z-50 hidden h-screen w-full bg-gray-950/90"
+  >
+    <div
+      class="absolute top-1/5 left-1/2 flex -translate-x-1/2 -translate-y-1/5 items-center gap-4"
+    >
+      <div class="relative">
+        <input
+          type="text"
+          id="search-input"
+          class="w-xs rounded-md border border-gray-50 bg-gray-700 p-3 text-gray-50 md:w-xl dark:bg-gray-900"
+          placeholder="Search article"
+          autofocus
+        />
+        <ul
+          id="result-container"
+          class="no-scrollbar absolute mt-4 flex h-[300px] w-full flex-col gap-4 overflow-auto"
+        >
+          <!-- Appending result here -->
+        </ul>
+      </div>
+      <div
+        id="close-search-btn"
+        class="rounded-md border border-gray-50 bg-gray-700 p-3 dark:bg-gray-900"
+      >
+        <Icon name="ri:close-large-fill" class="text-[24px] text-gray-50" />
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  const searchBtn = document.getElementById("search-btn");
+  const searchForm = document.getElementById("search-form");
+  const closeSearchBtn = document.getElementById("close-search-btn");
+
+  searchBtn?.addEventListener("click", () => {
+    searchForm?.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+    searchForm?.querySelector("input")?.focus();
+  });
+
+  closeSearchBtn?.addEventListener("click", () => {
+    searchForm?.classList.add("hidden");
+    document.body.style.overflow = "";
+  });
+</script>
+
+<script defer>
+  const resultUrl = document.getElementById("result-url");
+  const resultTitle = document.getElementById("result-title");
+  const resultExcerpt = document.getElementById("result-excerpt");
+  const resultContainer = document.getElementById("result-container");
+
+  let pagefind;
+  document
+    .querySelector("#search-input")
+    .addEventListener("focus", async (e) => {
+      if (!pagefind) {
+        pagefind = await import("/pagefind/pagefind.js");
+        await pagefind.options({
+          highlightParam: "highlight",
+          excerptLength: 10,
+        });
+        pagefind.init();
+      }
+    });
+
+  document
+    .querySelector("#search-input")
+    .addEventListener("input", async (e) => {
+      const search = await pagefind.debouncedSearch(e.target.value, {}, 1000);
+
+      if (search === null) {
+        resultContainer.innerHTML = "";
+      } else {
+        const results = await Promise.all(
+          search.results.slice(0, 5).map((r) => r.data()),
+        );
+
+        if (results.length > 0) {
+          resultContainer.innerHTML = results
+            .map(
+              (
+                result,
+              ) => `<li class="rounded-md border border-gray-50 bg-gray-700 p-3 dark:bg-gray-900 w-full">
+            <a
+              href="${result.url}"
+            >
+              <h3 class="mb-2">${result.meta.title}</h3>
+              <p>${result.excerpt}</p>
+            </a>
+          </li>`,
+            )
+            .join("");
+        } else {
+          resultContainer.innerHTML = `<li class="p-3 bg-red-50">No results</li>`;
+        }
+
+        if (e.target.value === "") {
+          resultContainer.innerHTML = "";
+        }
+
+        console.log(results);
+      }
+
+      // const results = await (
+      //   await pagefind.debouncedSearch(e.target.value, {}, 1000)
+      // ).results;
+      // for (const result of results) {
+      //   const data = await result.data();
+      //   resultUrl.classList.remove("hidden");
+      //   resultUrl.setAttribute("href", data.url);
+      //   resultTitle.textContent = data.meta.title;
+      //   resultExcerpt.innerHTML = data.excerpt;
+      //   console.log(data, data.meta.title, data.excerpt);
+      // }
+    });
+</script>
