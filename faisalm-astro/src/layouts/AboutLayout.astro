@@ -2,7 +2,6 @@
 import BaseLayout from "./BaseLayout.astro";
 import Card from "@components/Card.astro";
 import AstroLogo from "@components/Logo/Astro.astro";
-import CloudflareLogo from "@components/Logo/Cloudflare.astro";
 import PagefindLogo from "@components/Logo/Pagefind.astro";
 import SpotifyLogo from "@components/Logo/Spotify.astro";
 import TailwindLogo from "@components/Logo/Tailwind.astro";
@@ -14,44 +13,6 @@ interface Props {
     title: string;
   };
 }
-
-const stacks = [
-  {
-    name: "Astro",
-    iconName: "astro",
-    link: "https://astro.build/",
-  },
-  {
-    name: "Cloudflare Pages",
-    iconName: "cloudflare",
-    link: "https://pages.cloudflare.com/",
-  },
-  {
-    name: "Pagefind",
-    iconName: "pagefind",
-    link: "https://pagefind.app/",
-  },
-  {
-    name: "Spotify API",
-    iconName: "spotify-full",
-    link: "https://developer.spotify.com/",
-  },
-  {
-    name: "TailwindCSS",
-    iconName: "tailwindcss",
-    link: "https://tailwindcss.com/",
-  },
-  {
-    name: "TMDB API",
-    iconName: "tmdb",
-    link: "https://www.themoviedb.org/",
-  },
-  {
-    name: "VS Code",
-    iconName: "vscode",
-    link: "https://code.visualstudio.com/",
-  },
-];
 
 const { frontmatter } = Astro.props;
 
