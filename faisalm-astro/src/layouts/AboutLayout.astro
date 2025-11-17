@@ -1,11 +1,57 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import Card from "@components/Card.astro";
+import AstroLogo from "@components/Logo/Astro.astro";
+import CloudflareLogo from "@components/Logo/Cloudflare.astro";
+import PagefindLogo from "@components/Logo/Pagefind.astro";
+import SpotifyLogo from "@components/Logo/Spotify.astro";
+import TailwindLogo from "@components/Logo/Tailwind.astro";
+import TMDBLogo from "@components/Logo/TMDB.astro";
+import MDXLogo from "@components/Logo/MDX.astro";
 
 interface Props {
   frontmatter: {
     title: string;
   };
 }
+
+const stacks = [
+  {
+    name: "Astro",
+    iconName: "astro",
+    link: "https://astro.build/",
+  },
+  {
+    name: "Cloudflare Pages",
+    iconName: "cloudflare",
+    link: "https://pages.cloudflare.com/",
+  },
+  {
+    name: "Pagefind",
+    iconName: "pagefind",
+    link: "https://pagefind.app/",
+  },
+  {
+    name: "Spotify API",
+    iconName: "spotify-full",
+    link: "https://developer.spotify.com/",
+  },
+  {
+    name: "TailwindCSS",
+    iconName: "tailwindcss",
+    link: "https://tailwindcss.com/",
+  },
+  {
+    name: "TMDB API",
+    iconName: "tmdb",
+    link: "https://www.themoviedb.org/",
+  },
+  {
+    name: "VS Code",
+    iconName: "vscode",
+    link: "https://code.visualstudio.com/",
+  },
+];
 
 const { frontmatter } = Astro.props;
 
@@ -21,5 +67,69 @@ const metadata = {
     <article class="prose marker:text-tertiary-emphasize max-w-none">
       <slot />
     </article>
+    <div class="spacing-y-article flex flex-col">
+      <h1>This Blog Core Stacks</h1>
+      <p>
+        This blog is coded in <a
+          href="https://code.visualstudio.com/"
+          target="_blank"
+          class="text-secondary-emphasize hover:text-primary font-medium transition-colors duration-300 ease-in-out"
+          >Visual Studio Code</a
+        > and deployed by <a
+          href="https://pages.cloudflare.com/"
+          class="text-secondary-emphasize hover:text-primary font-medium transition-colors duration-300 ease-in-out"
+          >Cloudflare Pages</a
+        > using below core stacks:
+      </p>
+      <div>
+        <ul
+          class="grid h-[600px] grid-cols-4 grid-rows-6 gap-4 sm:h-[322px] sm:grid-cols-12 sm:grid-rows-8 sm:gap-2"
+        >
+          <!-- goes here -->
+          <li
+            class="col-start-1 col-end-3 row-start-1 row-end-3 text-inherit sm:col-start-1 sm:col-end-5 sm:row-start-1 sm:row-end-5"
+          >
+            <Card link="https://astro.build/" name="Astro">
+              <AstroLogo />
+            </Card>
+          </li>
+          <li
+            class="col-start-3 col-end-5 row-start-1 row-end-3 text-inherit sm:col-start-5 sm:col-end-9 sm:row-start-1 sm:row-end-5"
+          >
+            <Card link="https://mdxjs.com/" name="MDX">
+              <MDXLogo />
+            </Card>
+          </li>
+          <li
+            class="col-start-1 col-end-3 row-start-3 row-end-5 text-inherit sm:col-start-9 sm:col-end-13 sm:row-start-1 sm:row-end-5"
+          >
+            <Card link="https://tailwindcss.com/" name="TailwindCSS">
+              <TailwindLogo />
+            </Card>
+          </li>
+          <li
+            class="col-start-3 col-end-5 row-start-3 row-end-5 text-inherit sm:col-start-1 sm:col-end-5 sm:row-start-5 sm:row-end-9"
+          >
+            <Card link="https://www.themoviedb.org/" name="TMDB API">
+              <TMDBLogo />
+            </Card>
+          </li>
+          <li
+            class="col-start-1 col-end-3 row-start-5 row-end-7 text-inherit sm:col-start-5 sm:col-end-9 sm:row-start-5 sm:row-end-9"
+          >
+            <Card link="https://developer.spotify.com/" name="Spotify API">
+              <SpotifyLogo />
+            </Card>
+          </li>
+          <li
+            class="col-start-3 col-end-5 row-start-5 row-end-7 text-inherit sm:col-start-9 sm:col-end-13 sm:row-start-5 sm:row-end-9"
+          >
+            <Card link="https://pagefind.app/" name="Pagefind">
+              <PagefindLogo />
+            </Card>
+          </li>
+        </ul>
+      </div>
+    </div>
   </main>
 </BaseLayout>

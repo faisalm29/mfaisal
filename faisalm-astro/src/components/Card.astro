@@ -1,0 +1,20 @@
+---
+interface Props {
+  name: string;
+
+  link: string;
+}
+
+const { name, link } = Astro.props;
+---
+
+<a
+  href={link}
+  class="bg-tertiary-default hover:border-tertiary-emphasize block h-full w-full rounded-2xl border border-transparent p-3"
+  target="_blank"
+>
+  <div class="flex h-full w-full flex-col items-center justify-between gap-4">
+    <slot />
+    <p>{name}</p>
+  </div>
+</a>
