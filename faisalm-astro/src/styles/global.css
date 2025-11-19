@@ -217,6 +217,11 @@
     border-radius: 0.2rem;
   }
 
+  mark {
+    background-color: transparent;
+    color: var(--color-primary);
+  }
+
   @media (prefers-color-scheme: dark) {
     html.dark code,
     html.dark code span {
@@ -236,6 +241,22 @@
 
 @utility no-scrollbar {
   @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+
+.body-lock {
+  position: fixed;
+  overflow: hidden;
+  width: 100%;
+}
+
+.rounded-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 9999px; /* For a full pill shape */
+  /* Or use a specific value like: border-radius: 8px; */
+}
+
+/* Optional: Style the scrollbar track as well */
+.rounded-scrollbar::-webkit-scrollbar-track {
+  border-radius: 9999px; /* Match the thumb's border-radius if desired */
 }
 
 .active-nav-link {

@@ -14,60 +14,49 @@ import { Icon } from "astro-icon/components";
     <p>Search</p>
   </button>
 
-  <form
-    id="search-form"
-    action=""
+  <div
+    id="backdrop"
     class="fixed top-0 left-0 z-50 hidden h-screen w-full bg-gray-950/90"
   >
-    <div
-      class="absolute top-1/5 left-1/2 flex -translate-x-1/2 -translate-y-1/5 items-center gap-4"
+  </div>
+
+  <form id="search-form" action="" class="fixed top-0 left-1/2 z-[60] w-full">
+    <input
+      type="text"
+      id="search-input"
+      class="absolute w-xs rounded-md border border-gray-50 bg-gray-700 p-3 text-gray-50 md:w-xl dark:bg-gray-900"
+      placeholder="Search article"
+      autofocus
+    />
+    <ul
+      id="result-container"
+      class="no-scrollbar absolute mt-4 flex max-h-[300px] w-fit flex-col gap-4 overflow-auto"
     >
-      <div class="relative">
-        <input
-          type="text"
-          id="search-input"
-          class="w-xs rounded-md border border-gray-50 bg-gray-700 p-3 text-gray-50 md:w-xl dark:bg-gray-900"
-          placeholder="Search article"
-          autofocus
-        />
-        <ul
-          id="result-container"
-          class="no-scrollbar absolute mt-4 flex h-[300px] w-full flex-col gap-4 overflow-auto"
-        >
-          <!-- Appending result here -->
-        </ul>
-      </div>
-      <div
-        id="close-search-btn"
-        class="rounded-md border border-gray-50 bg-gray-700 p-3 dark:bg-gray-900"
-      >
-        <Icon name="ri:close-large-fill" class="text-[24px] text-gray-50" />
-      </div>
-    </div>
+      <!-- Appending result here -->
+    </ul>
   </form>
 </div>
 
 <script>
   const searchBtn = document.getElementById("search-btn");
   const searchForm = document.getElementById("search-form");
-  const closeSearchBtn = document.getElementById("close-search-btn");
+  const backdrop = document.getElementById("backdrop");
 
   searchBtn?.addEventListener("click", () => {
+    backdrop?.classList.remove("hidden");
     searchForm?.classList.remove("hidden");
     document.body.style.overflow = "hidden";
     searchForm?.querySelector("input")?.focus();
   });
 
-  closeSearchBtn?.addEventListener("click", () => {
+  backdrop?.addEventListener("click", () => {
     searchForm?.classList.add("hidden");
+    backdrop.classList.add("hidden");
     document.body.style.overflow = "";
   });
 </script>
 
 <script defer>
-  const resultUrl = document.getElementById("result-url");
-  const resultTitle = document.getElementById("result-title");
-  const resultExcerpt = document.getElementById("result-excerpt");
   const resultContainer = document.getElementById("result-container");
 
   let pagefind;
@@ -121,17 +110,5 @@ import { Icon } from "astro-icon/components";
 
         console.log(results);
       }
-
-      // const results = await (
-      //   await pagefind.debouncedSearch(e.target.value, {}, 1000)
-      // ).results;
-      // for (const result of results) {
-      //   const data = await result.data();
-      //   resultUrl.classList.remove("hidden");
-      //   resultUrl.setAttribute("href", data.url);
-      //   resultTitle.textContent = data.meta.title;
-      //   resultExcerpt.innerHTML = data.excerpt;
-      //   console.log(data, data.meta.title, data.excerpt);
-      // }
     });
 </script>

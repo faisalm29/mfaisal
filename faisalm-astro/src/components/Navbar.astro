@@ -2,7 +2,6 @@
 import DesktopNavLink from "./DesktopNavLink.astro";
 import { Icon } from "astro-icon/components";
 import Logo from "@components/Logo.astro";
-import Search from "./Search.astro";
 
 const pages = [
   {
@@ -28,9 +27,7 @@ const pages = [
 ];
 ---
 
-<header
-  class="bg-neutral/10 sticky top-0 z-10 px-4 py-4 backdrop-blur-md lg:px-0"
->
+<header class="bg-neutral/10 sticky top-0 px-4 py-4 backdrop-blur-md lg:px-0">
   <nav class="mx-auto max-w-[112ch]">
     <div class="flex items-center justify-between">
       <a href="/">
@@ -38,7 +35,19 @@ const pages = [
       </a>
       <div class="flex items-center gap-4">
         <div class="flex items-center gap-4">
-          <Search />
+          <!-- Search Button -->
+          <button
+            id="search-btn"
+            class="bg-tertiary-default flex items-center gap-2 rounded-full px-6 py-[1px] transition-all duration-300"
+          >
+            <Icon
+              name="ri:search-line"
+              class="text-secondary-default text-base transition-all duration-300 ease-in-out"
+            />
+            <p>Search</p>
+          </button>
+          <!--  -->
+
           <ul class="hidden items-center gap-4 md:flex">
             {
               pages.map((page) => (
@@ -64,7 +73,7 @@ const pages = [
     <!-- mobile navigation menu -->
     <div
       id="mobile-nav-menu"
-      class="bg-neutral fixed top-0 left-0 z-40 hidden h-screen w-screen p-4 md:hidden"
+      class="bg-neutral fixed top-0 left-0 hidden h-screen w-screen p-4 md:hidden"
     >
       <div class="flex h-full w-full flex-col justify-between">
         <div class="flex items-center justify-between">
@@ -101,7 +110,97 @@ const pages = [
   </nav>
 </header>
 
+<!-- Search overlay -->
+<div id="search-overlay" class="fixed inset-0 z-50 hidden bg-gray-950/90"></div>
+
+<!-- Search results -->
+<div
+  id="search-container"
+  class="fixed top-[10%] left-1/2 z-[100] hidden w-[90%] -translate-x-1/2 md:w-xl"
+>
+  <input
+    type="text"
+    id="search-input"
+    placeholder="Search article"
+    class="text-secondary-emphasize bg-neutral w-full rounded-md p-3"
+  />
+
+  <div class="mt-4 max-h-[500px] overflow-hidden rounded-md md:max-h-[300px]">
+    <ul
+      id="search-results"
+      class="spacing-y-dense bg-neutral hidden max-h-[inherit] flex-col overflow-y-auto p-3"
+    >
+      <!-- Append result here -->
+    </ul>
+  </div>
+</div>
+
+<script defer>
+  const searchResults = document.getElementById("search-results");
+  const searchInput = document.getElementById("search-input");
+
+  let pagefind;
+  document
+    .querySelector("#search-input")
+    .addEventListener("focus", async (e) => {
+      if (!pagefind) {
+        pagefind = await import("/pagefind/pagefind.js");
+        await pagefind.options({
+          highlightParam: "highlight",
+          excerptLength: 10,
+        });
+        pagefind.init();
+      }
+    });
+
+  document
+    .querySelector("#search-input")
+    .addEventListener("input", async (e) => {
+      const search = await pagefind.debouncedSearch(e.target.value, {}, 1000);
+      const value = searchInput.value.trim();
+
+      if (value === "") {
+        searchResults.classList.add("hidden");
+        searchResults.classList.remove("flex");
+        searchResults.innerHTML = "";
+        return;
+      }
+
+      if (search === null) {
+        searchResults.innerHTML = "";
+      } else {
+        const results = await Promise.all(
+          search.results.slice(0, 5).map((r) => r.data()),
+        );
+
+        if (results.length > 0) {
+          searchResults.classList.remove("hidden");
+          searchResults.classList.add("flex");
+          searchResults.innerHTML = results
+            .map(
+              (
+                result,
+              ) => `<li class="bg-tertiary-default p-3 w-full rounded-md">
+            <a
+              href="${result.url}"
+            >
+              <h3 class="mb-2">${result.meta.title}</h3>
+              <p>${result.excerpt}</p>
+            </a>
+          </li>`,
+            )
+            .join("");
+        } else {
+          searchResults.classList.remove("hidden");
+          searchResults.classList.add("flex");
+          searchResults.innerHTML = `<li class="p-3 bg-red-50">No results</li>`;
+        }
+      }
+    });
+</script>
+
 <script>
+  // Mobile menu functionality
   const hamburgerBtn = document.getElementById("hamburger-btn");
   const closeBtn = document.getElementById("close-btn");
   const mobileNavMenu = document.getElementById("mobile-nav-menu");
@@ -130,4 +229,23 @@ const pages = [
   toggleScroll();
 
   window.addEventListener("resize", toggleScroll);
+
+  // Search functionality
+  const searchBtn = document.getElementById("search-btn");
+  const searchOverlay = document.getElementById("search-overlay");
+  const searchContainer = document.getElementById("search-container");
+  const searchInput = document.getElementById("search-input");
+
+  searchBtn?.addEventListener("click", () => {
+    searchOverlay?.classList.remove("hidden");
+    searchContainer?.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+    searchInput?.focus();
+  });
+
+  searchOverlay?.addEventListener("click", () => {
+    searchOverlay.classList.add("hidden");
+    searchContainer?.classList.add("hidden");
+    document.body.style.overflow = "";
+  });
 </script>
