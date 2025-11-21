@@ -14,10 +14,12 @@ import tailwindcss from "@tailwindcss/vite";
 
 import sitemap from "@astrojs/sitemap";
 
+import react from "@astrojs/react";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://mfaisal.xyz",
-  integrations: [mdx(), icon(), sitemap()],
+  integrations: [mdx(), icon(), sitemap(), react()],
   markdown: {
     rehypePlugins: [rehypeHeadingIds, rehypeAutolinkHeadings],
     remarkPlugins: [remarkReadingTime, sectionize],

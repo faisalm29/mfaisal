@@ -2,6 +2,7 @@
 import { getMovies } from "../../../lib/tmdb";
 import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
+import MovieList from "@components/MovieList";
 
 const moviePosts = (await getCollection("movies")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -21,7 +22,8 @@ const metadata = {
   >
     <h1>Movies</h1>
     <ul class="spacing-y-article flex flex-col">
-      {
+      {allMovieData.map((movie) => <MovieList movie={movie} client:load />)}
+      <!-- {
         allMovieData.map((movie) => (
           <li>
             <a
@@ -56,7 +58,7 @@ const metadata = {
             </a>
           </li>
         ))
-      }
+      } -->
     </ul>
   </main>
 </BaseLayout>

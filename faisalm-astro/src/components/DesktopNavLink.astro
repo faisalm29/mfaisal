@@ -11,7 +11,7 @@ const { placeholder, url } = Astro.props;
 <a
   id="nav-link"
   href={url}
-  class={`text-secondary-default before:content-[] relative font-medium capitalize transition-all duration-300 ease-in-out before:absolute before:top-[26px] before:block before:h-1 before:w-full before:rounded-full before:bg-red-50 before:opacity-0 before:transition-all before:duration-300 before:ease-in-out ${currentRoute.startsWith(url) ? "active-nav-link" : ""}`}
+  class={`text-secondary-default before:content-[] relative font-medium capitalize transition-all duration-300 ease-in-out before:absolute before:top-[26px] before:block before:h-1 before:w-full before:rounded-full before:bg-secondary-emphasize before:opacity-0 before:transition-all before:duration-300 before:ease-in-out ${currentRoute.startsWith(url) ? "active-nav-link" : ""}`}
 >
   {placeholder}
 </a>
