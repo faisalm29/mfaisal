@@ -36,8 +36,6 @@ const { metadata } = Astro.props;
           );
       }
     </script>
-    <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
-    <script src="/pagefind/pagefind-ui.js" is:inline></script>
     <SEO
       title={metadata.pageTitle}
       titleTemplate=`${Astro.url.pathname === "/" ? "" : "%s - "}Faisal M.`
