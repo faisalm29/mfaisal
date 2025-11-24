@@ -4,111 +4,43 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Add font here */
+/* Inter */
 @font-face {
-  font-family: "Vend Sans";
-  src:
-    url("/fonts/VendSans-BoldItalic.woff2") format("woff2"),
-    url("/fonts/VendSans-BoldItalic.woff") format("woff");
-  font-weight: bold;
-  font-style: italic;
+  font-family: "Inter";
+  src: url("/fonts/Inter-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Vend Sans";
-  src:
-    url("/fonts/VendSans-Bold.woff2") format("woff2"),
-    url("/fonts/VendSans-Bold.woff") format("woff");
+  font-family: "Inter";
+  src: url("/fonts/Inter-Bold.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Vend Sans";
-  src:
-    url("/fonts/VendSans-Italic.woff2") format("woff2"),
-    url("/fonts/VendSans-Italic.woff") format("woff");
-  font-weight: normal;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Vend Sans";
-  src:
-    url("/fonts/VendSans-Medium.woff2") format("woff2"),
-    url("/fonts/VendSans-Medium.woff") format("woff");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Vend Sans";
-  src:
-    url("/fonts/VendSans-Light.woff2") format("woff2"),
-    url("/fonts/VendSans-Light.woff") format("woff");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Vend Sans";
-  src:
-    url("/fonts/VendSans-LightItalic.woff2") format("woff2"),
-    url("/fonts/VendSans-LightItalic.woff") format("woff");
-  font-weight: 300;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Vend Sans";
-  src:
-    url("/fonts/VendSans-SemiBold.woff2") format("woff2"),
-    url("/fonts/VendSans-SemiBold.woff") format("woff");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Vend Sans";
-  src:
-    url("/fonts/VendSans-Regular.woff2") format("woff2"),
-    url("/fonts/VendSans-Regular.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Vend Sans";
-  src:
-    url("/fonts/VendSans-MediumItalic.woff2") format("woff2"),
-    url("/fonts/VendSans-MediumItalic.woff") format("woff");
-  font-weight: 500;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Vend Sans";
-  src:
-    url("/fonts/VendSans-SemiBoldItalic.woff2") format("woff2"),
-    url("/fonts/VendSans-SemiBoldItalic.woff") format("woff");
-  font-weight: 600;
+  font-family: "Inter";
+  src: url("/fonts/Inter-BlackItalic.woff2") format("woff2");
+  font-weight: 900;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Inter";
-  src:
-    url("/fonts/Inter-Italic.woff2") format("woff2"),
-    url("/fonts/Inter-Italic.woff") format("woff");
+  src: url("/fonts/Inter-ExtraLightItalic.woff2") format("woff2");
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Italic.woff2") format("woff2");
   font-weight: normal;
   font-style: italic;
   font-display: swap;
@@ -116,17 +48,320 @@
 
 @font-face {
   font-family: "Inter";
-  src:
-    url("/fonts/Inter-Regular.woff2") format("woff2"),
-    url("/fonts/Inter-Regular.woff") format("woff");
+  src: url("/fonts/Inter-ExtraBoldItalic.woff2") format("woff2");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-BoldItalic.woff2") format("woff2");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-ExtraBold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-LightItalic.woff2") format("woff2");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-MediumItalic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-SemiBoldItalic.woff2") format("woff2");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-ThinItalic.woff2") format("woff2");
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+/* Maple Mono */
+@font-face {
+  font-family: "Maple Mono";
+  src: url("/fonts/MapleMono-BoldItalic.woff2") format("woff2");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Maple Mono";
+  src: url("/fonts/MapleMono-Bold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Maple Mono";
+  src: url("/fonts/MapleMono-ExtraBold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Maple Mono";
+  src: url("/fonts/MapleMono-ExtraBoldItalic.woff2") format("woff2");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Maple Mono";
+  src: url("/fonts/MapleMono-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Maple Mono";
+  src: url("/fonts/MapleMono-ExtraLightItalic.woff2") format("woff2");
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Maple Mono";
+  src: url("/fonts/MapleMono-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Maple Mono";
+  src: url("/fonts/MapleMono-Italic.woff2") format("woff2");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Maple Mono";
+  src: url("/fonts/MapleMono-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Maple Mono";
+  src: url("/fonts/MapleMono-LightItalic.woff2") format("woff2");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Maple Mono";
+  src: url("/fonts/MapleMono-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Maple Mono";
+  src: url("/fonts/MapleMono-MediumItalic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Maple Mono";
+  src: url("/fonts/MapleMono-SemiBoldItalic.woff2") format("woff2");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Maple Mono";
+  src: url("/fonts/MapleMono-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Maple Mono";
+  src: url("/fonts/MapleMono-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Maple Mono";
+  src: url("/fonts/MapleMono-ThinItalic.woff2") format("woff2");
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+/* Vend Sans */
+@font-face {
+  font-family: "Vend Sans";
+  src: url("/fonts/VendSans-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vend Sans";
+  src: url("/fonts/VendSans-Bold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vend Sans";
+  src: url("/fonts/VendSans-Italic.woff2") format("woff2");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vend Sans";
+  src: url("/fonts/VendSans-LightItalic.woff2") format("woff2");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vend Sans";
+  src: url("/fonts/VendSans-BoldItalic.woff2") format("woff2");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vend Sans";
+  src: url("/fonts/VendSans-MediumItalic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vend Sans";
+  src: url("/fonts/VendSans-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vend Sans";
+  src: url("/fonts/VendSans-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vend Sans";
+  src: url("/fonts/VendSans-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vend Sans";
+  src: url("/fonts/VendSans-SemiBoldItalic.woff2") format("woff2");
+  font-weight: 600;
+  font-style: italic;
   font-display: swap;
 }
 
 :root {
   --font-vend-sans: "Vend Sans", "sans-serif";
   --font-inter: "Inter", "sanss-serif";
+  --font-maple-mono: "Maple Mono", monospace;
   --spacing-scale: 4px;
 }
 
@@ -215,6 +450,11 @@
     background-color: hsla(220, 13%, 91%, 0.7);
     padding: 0.1rem 0.3rem 0.2rem;
     border-radius: 0.2rem;
+    font-family: var(--font-maple-mono);
+  }
+
+  pre {
+    font-family: var(--font-maple-mono);
   }
 
   mark {
