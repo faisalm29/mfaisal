@@ -2,6 +2,7 @@
 import type { MarkdownHeading } from "astro";
 import BaseLayout from "./BaseLayout.astro";
 import TableOfContents from "@components/TableOfContents.astro";
+import CommentForm from "@components/CommentForm.astro";
 
 interface Props {
   frontmatter: {
@@ -62,4 +63,5 @@ const metadata: Metadata = {
     <!-- Table of contents -->
     <TableOfContents headings={headings} />
   </main>
+  <CommentForm />
 </BaseLayout>

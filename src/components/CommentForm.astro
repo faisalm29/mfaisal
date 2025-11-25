@@ -1,0 +1,44 @@
+---
+
+---
+
+<form id="comment-form" class="text-secondary-default">
+  <input name="name" required placeholder="Your Name" />
+  <textarea name="message" required placeholder="Write a comment..."></textarea>
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  document
+    .getElementById("comment-form")
+    ?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const form = e.currentTarget as HTMLFormElement;
+      const fd = new FormData(form);
+      const post = window.location.pathname.replace(/^\/+|\/+$/g, "");
+
+      if (!fd.get("name") || !fd.get("message"))
+        return alert("Fill all fields.");
+
+      try {
+        const res = await fetch("http://127.0.0.1:8787", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            post,
+            name: fd.get("name"),
+            message: fd.get("message"),
+          }),
+        });
+
+        if (!res.ok) throw new Error("Request failed.");
+
+        alert("Comment submitted! It will appear after moderation.");
+        form.reset();
+      } catch (err) {
+        console.log(err);
+        alert("Submission failed. Please try again later.");
+      }
+    });
+</script>
