@@ -1,0 +1,28 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  comment: {
+    name: string;
+    timestamp: Date;
+    avatar: string;
+    website?: string;
+    slug: string;
+  };
+}
+
+const { comment } = Astro.props;
+---
+
+<div>
+  <div class="flex items-center gap-4">
+    <Image src={comment.avatar} alt={`${comment.name}'s avatar'`} inferSize />
+    <div class="spacing-y-densest flex flex-col">
+      <a href={comment.website} target="_blank">{comment.name}</a>
+      <time datetime="">{comment.timestamp.toLocaleDateString()}</time>
+    </div>
+  </div>
+  <div class="prose">
+    <slot />
+  </div>
+</div>

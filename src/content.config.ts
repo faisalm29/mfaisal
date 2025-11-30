@@ -42,6 +42,20 @@ const movies = defineCollection({
   }),
 });
 
+const comments = defineCollection({
+  loader: glob({
+    pattern: "{general,movies}/*/comments/*.mdx",
+    base: "./src/data",
+  }),
+  schema: z.object({
+    name: z.string(),
+    timestamp: z.date(),
+    avatar: z.string(),
+    website: z.string().optional(),
+    slug: z.string(),
+  }),
+});
+
 const social = defineCollection({
   loader: file("src/data/social.json"),
   schema: z.object({
@@ -51,4 +65,4 @@ const social = defineCollection({
   }),
 });
 
-export const collections = { general, programming, movies, social };
+export const collections = { general, programming, movies, comments, social };

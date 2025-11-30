@@ -2,6 +2,7 @@
 import BaseLayout from "./BaseLayout.astro";
 import { Image } from "astro:assets";
 import CommentForm from "@components/CommentForm.astro";
+import { getCollection } from "astro:content";
 
 interface Props {
   frontmatter: {
@@ -29,6 +30,17 @@ const metadata = {
   ogArticleSection: frontmatter.category!,
   ogArticleTags: [frontmatter.category!],
 };
+
+const slug = Astro.url.pathname.replace(/^\/+|\/+$/g, "");
+
+const getComments = async () => {
+  const commentFiles = await getCollection("comments");
+  return commentFiles.find((file) => file.id === slug);
+};
+
+const comments = await getComments();
+
+console.log(comments);
 ---
 
 <BaseLayout metadata={metadata}>
@@ -91,6 +103,12 @@ const metadata = {
       </div>
     </div>
   </main>
+  <!-- Comment section -->
+  <div>
+    <h4>Comments</h4>
+  </div>
+
+  <!-- Comment form -->
   <div class="mx-auto w-[65ch] max-w-full px-4 md:px-0">
     <CommentForm />
   </div>
