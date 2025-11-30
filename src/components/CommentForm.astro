@@ -23,7 +23,7 @@
         class="text-secondary-emphasize placeholder:text-secondary-default bg-tertiary-default border-tertiary-emphasize rounded-md border p-2"
       />
     </div>
-    <div class="spacing-y-denser flex flex-col">
+    <!-- <div class="spacing-y-denser flex flex-col">
       <label
         style="font-family: var(--font-vend-sans);"
         for="email"
@@ -36,7 +36,7 @@
         type="email"
         class="text-secondary-emphasize placeholder:text-secondary-default bg-tertiary-default border-tertiary-emphasize rounded-md border p-2"
       />
-    </div>
+    </div> -->
     <div class="spacing-y-denser flex flex-col">
       <label
         style="font-family: var(--font-vend-sans);"
@@ -46,6 +46,7 @@
       <input
         id="website"
         name="website"
+        type="url"
         placeholder="https://example.com"
         class="text-secondary-emphasize placeholder:text-secondary-default bg-tertiary-default border-tertiary-emphasize rounded-md border p-2"
       />
@@ -86,6 +87,7 @@
       const fd = new FormData(form);
       const name = (fd.get("name") || "").toString().trim();
       const comment = (fd.get("comment") || "").toString().trim();
+      const website = fd.get("website")?.toString().trim() || "";
       if (!name || !comment) {
         alert("Please fill both fields.");
         return;
@@ -94,7 +96,7 @@
       // extract slug, remove leading/trailing slashes
       const slug = window.location.pathname.replace(/^\/+|\/+$/g, "");
 
-      const payload = { name, comment, slug };
+      const payload = { name, comment, slug, website };
 
       try {
         const res = await fetch("http://127.0.0.1:8787", {

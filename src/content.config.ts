@@ -4,7 +4,7 @@ import { file, glob } from "astro/loaders";
 // General category in blog route
 const general = defineCollection({
   loader: glob({
-    pattern: "*.mdx",
+    pattern: "*/index.mdx",
     base: "./src/data/general",
   }),
   schema: z.object({
@@ -32,7 +32,7 @@ const programming = defineCollection({
 // Movies category in movie route
 const movies = defineCollection({
   loader: glob({
-    pattern: "*.mdx",
+    pattern: "*/index.mdx",
     base: "./src/data/movies",
   }),
   schema: z.object({
