@@ -29,7 +29,7 @@ const programming = defineCollection({
   }),
 });
 
-// Movies category in movie route
+// Movies category in movies route
 const movies = defineCollection({
   loader: glob({
     pattern: "*/index.mdx",

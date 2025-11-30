@@ -70,7 +70,7 @@ const MovieList = ({ movie }: Movie) => {
   return (
     <li ref={movieItemRef} id="movie-item">
       <a
-        href={`/movie/${movie.id}`}
+        href={`/movies/${movie.id}`}
         className="spacing-y-densest group flex flex-col md:grid md:grid-cols-12"
       >
         <time

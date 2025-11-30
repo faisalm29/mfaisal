@@ -23,7 +23,7 @@ const allGeneralPosts = (await getCollection("general")).map((post) => ({
 const movies = await getCollection("movies");
 const imdbIds = movies.map((movie) => movie.data.imdbId);
 const allMoviePosts = (await getMovies(imdbIds)).map((post) => ({
-  id: `/movie/${post.id}`,
+  id: `/movies/${post.id}`,
   title: post.title,
   pubDate: post.pubDate,
   category: post.category,
