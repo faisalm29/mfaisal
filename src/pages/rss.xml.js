@@ -20,7 +20,7 @@ export async function GET(context) {
   const movies = await getCollection("movies");
   const imdbIds = movies.map((movie) => movie.data.imdbId);
   const moviePosts = (await getMovies(imdbIds)).map((post) => ({
-    id: `movie/${post.id}`,
+    id: `movies/${post.id}`,
     title: post.title,
     pubDate: post.pubDate,
     description: post.overview,
