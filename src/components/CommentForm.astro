@@ -1,0 +1,119 @@
+<div
+  class="spacing-y-article border-t-tertiary-default flex flex-col border-t py-8"
+>
+  <div>
+    <h4>Leave a Comment</h4>
+    <small class="text-danger"
+      ><span class="text-lg">*</span> Required fields</small
+    >
+  </div>
+  <form id="comment-form" class="spacing-y-loose flex flex-col">
+    <div class="spacing-y-denser flex flex-col">
+      <label
+        style="font-family: var(--font-vend-sans);"
+        for="name"
+        class="text-secondary-emphasize"
+        >Name <span class="text-danger text-lg font-bold">*</span></label
+      >
+      <input
+        id="name"
+        name="name"
+        placeholder="Your Name"
+        required
+        class="text-secondary-emphasize placeholder:text-secondary-default bg-tertiary-default border-tertiary-emphasize rounded-md border p-2"
+      />
+    </div>
+    <div class="spacing-y-denser flex flex-col">
+      <label
+        style="font-family: var(--font-vend-sans);"
+        for="email"
+        class="text-secondary-emphasize">Email</label
+      >
+      <input
+        id="email"
+        name="email"
+        placeholder="example@email.com"
+        type="email"
+        class="text-secondary-emphasize placeholder:text-secondary-default bg-tertiary-default border-tertiary-emphasize rounded-md border p-2"
+      />
+    </div>
+    <div class="spacing-y-denser flex flex-col">
+      <label
+        style="font-family: var(--font-vend-sans);"
+        for="website"
+        class="text-secondary-emphasize">Website</label
+      >
+      <input
+        id="website"
+        name="website"
+        placeholder="https://example.com"
+        class="text-secondary-emphasize placeholder:text-secondary-default bg-tertiary-default border-tertiary-emphasize rounded-md border p-2"
+      />
+    </div>
+    <div class="spacing-y-denser flex flex-col">
+      <label
+        style="font-family: var(--font-vend-sans);"
+        for="comment"
+        class="text-secondary-emphasize"
+        >Comment <span class="text-danger text-lg font-bold">*</span></label
+      >
+      <textarea
+        id="comment"
+        name="comment"
+        placeholder="Write a comment..."
+        required
+        class="text-secondary-emphasize bg-tertiary-default border-tertiary-emphasize placeholder:text-secondary-default rounded-md border p-2"
+      ></textarea>
+    </div>
+
+    <button
+      style="font-family: var(--font-vend-sans);"
+      type="submit"
+      class="bg-secondary-emphasize text-neutral inline-block w-fit rounded-md px-6 py-2 font-medium"
+      >Submit</button
+    >
+  </form>
+</div>
+
+<script>
+  document
+    .getElementById("comment-form")
+    ?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const form = e.currentTarget;
+      if (!(form instanceof HTMLFormElement)) return;
+
+      const fd = new FormData(form);
+      const name = (fd.get("name") || "").toString().trim();
+      const comment = (fd.get("comment") || "").toString().trim();
+      if (!name || !comment) {
+        alert("Please fill both fields.");
+        return;
+      }
+
+      // extract slug, remove leading/trailing slashes
+      const slug = window.location.pathname.replace(/^\/+|\/+$/g, "");
+
+      const payload = { name, comment, slug };
+
+      try {
+        const res = await fetch("http://127.0.0.1:8787", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          const text = await res.text();
+          console.error("Worker error:", text);
+          throw new Error("Submission failed");
+        }
+
+        alert("Comment submitted! It will appear after moderation.");
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        alert("Submission failed — try again later.");
+      }
+    });
+</script>

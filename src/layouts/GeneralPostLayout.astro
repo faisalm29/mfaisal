@@ -2,6 +2,7 @@
 import type { MarkdownHeading } from "astro";
 import BaseLayout from "./BaseLayout.astro";
 import TableOfContents from "@components/TableOfContents.astro";
+import CommentForm from "@components/CommentForm.astro";
 
 interface Props {
   frontmatter: {
@@ -13,6 +14,9 @@ interface Props {
   };
   headings: Array<MarkdownHeading>;
 }
+
+const route = Astro.url.pathname.replace(/^\/+|\/+$/g, "");
+const postCategory = route.split("/")[0];
 
 const { frontmatter, headings } = Astro.props;
 
@@ -62,4 +66,15 @@ const metadata: Metadata = {
     <!-- Table of contents -->
     <TableOfContents headings={headings} />
   </main>
+
+  <!-- Comment form -->
+  {
+    postCategory === "blog" && (
+      <div class="mx-auto w-[112ch] max-w-full px-4 lg:grid lg:grid-cols-12 lg:px-0">
+        <div class="mx-auto w-[65ch] max-w-full lg:col-span-8 lg:mx-0">
+          <CommentForm />
+        </div>
+      </div>
+    )
+  }
 </BaseLayout>
