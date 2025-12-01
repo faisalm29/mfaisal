@@ -4,7 +4,6 @@ import { Image } from "astro:assets";
 import CommentForm from "@components/CommentForm.astro";
 import Comment from "@components/Comment.astro";
 import { getCollection, render } from "astro:content";
-import { date } from "astro:schema";
 
 interface Props {
   frontmatter: {
@@ -37,7 +36,9 @@ const slug = Astro.url.pathname.replace(/^\/+|\/+$/g, "");
 
 const getComments = async () => {
   const commentFiles = await getCollection("comments");
-  return commentFiles.filter((file) => file.id.includes(slug));
+  return commentFiles
+    .filter((file) => file.data.postName === slug)
+    .sort((a, b) => b.data.timestamp.valueOf() - a.data.timestamp.valueOf());
 };
 
 const comments = await getComments();
