@@ -2,7 +2,9 @@
 import BaseLayout from "./BaseLayout.astro";
 import { Image } from "astro:assets";
 import CommentForm from "@components/CommentForm.astro";
-import { getCollection } from "astro:content";
+import Comment from "@components/Comment.astro";
+import { getCollection, render } from "astro:content";
+import { date } from "astro:schema";
 
 interface Props {
   frontmatter: {
@@ -35,12 +37,20 @@ const slug = Astro.url.pathname.replace(/^\/+|\/+$/g, "");
 
 const getComments = async () => {
   const commentFiles = await getCollection("comments");
-  return commentFiles.find((file) => file.id === slug);
+  return commentFiles.filter((file) => file.id.includes(slug));
 };
 
 const comments = await getComments();
 
-console.log(comments);
+const renderedComments = await Promise.all(
+  comments.map(async (comment) => {
+    const { Content } = await render(comment);
+    return {
+      data: comment.data,
+      Content,
+    };
+  }),
+);
 ---
 
 <BaseLayout metadata={metadata}>
@@ -104,8 +114,19 @@ console.log(comments);
     </div>
   </main>
   <!-- Comment section -->
-  <div>
+  <div
+    class="spacing-y-article border-t-tertiary-default mx-auto flex w-[65ch] max-w-full flex-col border-t px-4 pt-8 md:px-0"
+  >
     <h4>Comments</h4>
+    <div class="spacing-y-article flex flex-col">
+      {
+        renderedComments.map(({ data, Content }) => (
+          <Comment comment={data}>
+            <Content />
+          </Comment>
+        ))
+      }
+    </div>
   </div>
 
   <!-- Comment form -->
