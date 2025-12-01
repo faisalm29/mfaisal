@@ -163,6 +163,7 @@
   --spacing-4: calc(var(--spacing-scale) * 4);
   --spacing-5: calc(var(--spacing-scale) * 5);
   --spacing-8: calc(var(--spacing-scale) * 8);
+  --spacing-12: calc(var(--spacing-scale) * 12);
   --spacing-16: calc(var(--spacing-scale) * 16);
 }
 
@@ -318,6 +319,9 @@
 
 .spacing-y-loose {
   row-gap: var(--spacing-8);
+}
+.spacing-y-looser {
+  row-gap: var(--spacing-12);
 }
 
 .spacing-y-loosest {

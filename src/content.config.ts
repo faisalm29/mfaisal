@@ -44,7 +44,7 @@ const movies = defineCollection({
 
 const comments = defineCollection({
   loader: glob({
-    pattern: "{general,movies}/*/comments/*.mdx",
+    pattern: "**/comments/*.mdx",
     base: "./src/data",
   }),
   schema: z.object({
@@ -52,7 +52,7 @@ const comments = defineCollection({
     timestamp: z.date(),
     avatar: z.string(),
     website: z.string().optional(),
-    slug: z.string(),
+    postName: z.string(),
   }),
 });
 

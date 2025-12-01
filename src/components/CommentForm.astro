@@ -1,6 +1,4 @@
-<div
-  class="spacing-y-article border-t-tertiary-default flex flex-col border-t py-8"
->
+<div class="spacing-y-article flex flex-col">
   <div>
     <h4>Leave a Comment</h4>
     <small class="text-danger"
@@ -93,10 +91,10 @@
         return;
       }
 
-      // extract slug, remove leading/trailing slashes
-      const slug = window.location.pathname.replace(/^\/+|\/+$/g, "");
+      // extract slug for post name, remove leading/trailing slashes
+      const postName = window.location.pathname.replace(/^\/+|\/+$/g, "");
 
-      const payload = { name, comment, slug, website };
+      const payload = { name, comment, postName, website };
 
       try {
         const res = await fetch("http://127.0.0.1:8787", {

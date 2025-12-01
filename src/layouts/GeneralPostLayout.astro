@@ -3,6 +3,12 @@ import type { MarkdownHeading } from "astro";
 import BaseLayout from "./BaseLayout.astro";
 import TableOfContents from "@components/TableOfContents.astro";
 import CommentForm from "@components/CommentForm.astro";
+import Comment from "@components/Comment.astro";
+import { getCollection, render } from "astro:content";
+import CustomAnchorLinkHeading from "@components/CustomAnchorLinkHeading.astro";
+import CustomHeading2 from "@components/CustomHeading2.astro";
+import CustomHeading3 from "@components/CustomHeading3.astro";
+import CustomHeading4 from "@components/CustomHeading4.astro";
 
 interface Props {
   frontmatter: {
@@ -29,6 +35,21 @@ const metadata: Metadata = {
   ogArticleSection: frontmatter.category,
   ogArticleTags: [frontmatter.category],
 };
+
+const slug = Astro.url.pathname.replace(/^\/+|\/+$/g, "");
+
+const allComments = await getCollection("comments");
+
+const comments = allComments
+  .filter((file) => file.data.postName === slug)
+  .sort((a, b) => b.data.timestamp.valueOf() - a.data.timestamp.valueOf());
+
+const renderedComments = await Promise.all(
+  comments.map(async (comment) => {
+    const { Content } = await render(comment);
+    return { data: comment.data, Content };
+  }),
+);
 ---
 
 <BaseLayout metadata={metadata}>
@@ -67,14 +88,34 @@ const metadata: Metadata = {
     <TableOfContents headings={headings} />
   </main>
 
-  <!-- Comment form -->
-  {
-    postCategory === "blog" && (
-      <div class="mx-auto w-[112ch] max-w-full px-4 lg:grid lg:grid-cols-12 lg:px-0">
-        <div class="mx-auto w-[65ch] max-w-full lg:col-span-8 lg:mx-0">
-          <CommentForm />
+  <!-- Comment section -->
+  <div class="spacing-y-looser flex flex-col">
+    {
+      postCategory === "blog" && (
+        <div class="mx-auto w-[112ch] max-w-full px-4 lg:grid lg:grid-cols-12 lg:px-0">
+          <div class="spacing-y-article border-t-tertiary-default mx-auto flex w-[65ch] max-w-full flex-col border-t pt-12 lg:col-span-8 lg:mx-0">
+            <h4>Comments</h4>
+            <div class="spacing-y-article flex flex-col">
+              {renderedComments.map(({ data, Content }) => (
+                <Comment comment={data}>
+                  <Content />
+                </Comment>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
-    )
-  }
+      )
+    }
+
+    <!-- Comment form -->
+    {
+      postCategory === "blog" && (
+        <div class="mx-auto w-[112ch] max-w-full px-4 lg:grid lg:grid-cols-12 lg:px-0">
+          <div class="mx-auto w-[65ch] max-w-full lg:col-span-8 lg:mx-0">
+            <CommentForm />
+          </div>
+        </div>
+      )
+    }
+  </div>
 </BaseLayout>
