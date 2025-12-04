@@ -4,6 +4,7 @@ import BaseLayout from "./BaseLayout.astro";
 import TableOfContents from "@components/TableOfContents.astro";
 import CommentForm from "@components/CommentForm.astro";
 import Comment from "@components/Comment.astro";
+import GiscusComments from "@components/GiscusComments.astro";
 import { getCollection, render } from "astro:content";
 
 interface Props {
@@ -89,34 +90,39 @@ const renderedComments = await Promise.all(
     <TableOfContents headings={headings} />
   </main>
 
-  <!-- Comment section -->
-  <div class="spacing-y-looser flex flex-col">
-    {
-      postCategory === "blog" && (
-        <div class="mx-auto w-[112ch] max-w-full px-4 lg:grid lg:grid-cols-12 lg:px-0">
-          <div class="spacing-y-article border-t-tertiary-default mx-auto flex w-[65ch] max-w-full flex-col border-t pt-12 lg:col-span-8 lg:mx-0">
-            <h4>Comments</h4>
-            <div class="spacing-y-article flex flex-col">
-              {renderedComments.map(({ data, Content }) => (
-                <Comment comment={data}>
-                  <Content />
-                </Comment>
-              ))}
-            </div>
-          </div>
-        </div>
-      )
-    }
+  <!-- Giscus comment for programming post -->
+   {postCategory === "programming" && <GiscusComments />}
 
-    <!-- Comment form -->
-    {
-      postCategory === "blog" && (
-        <div class="mx-auto w-[112ch] max-w-full px-4 lg:grid lg:grid-cols-12 lg:px-0">
-          <div class="mx-auto w-[65ch] max-w-full lg:col-span-8 lg:mx-0">
-            <CommentForm />
-          </div>
+  <!-- Comment section -->
+  {postCategory === "blog" && (
+    <div class="spacing-y-looser flex flex-col">
+    <div
+      class="mx-auto w-[112ch] max-w-full px-4 lg:grid lg:grid-cols-12 lg:px-0"
+    >
+      <div
+        class="spacing-y-article border-t-tertiary-default mx-auto flex w-[65ch] max-w-full flex-col border-t pt-12 lg:col-span-8 lg:mx-0"
+      >
+        <h4>Comments</h4>
+        <div class="spacing-y-article flex flex-col">
+          {
+            renderedComments.map(({ data, Content }) => (
+              <Comment comment={data}>
+                <Content />
+              </Comment>
+            ))
+          }
         </div>
-      )
-    }
+      </div>
+    </div>
+
+    <!-- Comment form for general post-->
+    <div
+      class="mx-auto w-[112ch] max-w-full px-4 lg:grid lg:grid-cols-12 lg:px-0"
+    >
+      <div class="mx-auto w-[65ch] max-w-full lg:col-span-8 lg:mx-0">
+        <CommentForm />
+      </div>
+    </div>
   </div>
+  )}
 </BaseLayout>

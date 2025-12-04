@@ -327,3 +327,8 @@
 .spacing-y-loosest {
   row-gap: var(--spacing-16);
 }
+
+/* Utterances comments */
+.utterances {
+  grid-column: 1 / 9;
+}
