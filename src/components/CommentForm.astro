@@ -98,11 +98,14 @@
       const payload = { name, comment, postName, website };
 
       try {
-        const res = await fetch("http://127.0.0.1:8787", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
+        const res = await fetch(
+          "https://mfaisal-comment-worker.faisal-muhammad2911.workers.dev",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          },
+        );
 
         if (!res.ok) {
           const text = await res.text();
