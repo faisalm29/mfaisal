@@ -4,7 +4,7 @@ import { file, glob } from "astro/loaders";
 // General category in blog route
 const general = defineCollection({
   loader: glob({
-    pattern: "*.mdx",
+    pattern: "*/index.mdx",
     base: "./src/data/general",
   }),
   schema: z.object({
@@ -29,16 +29,30 @@ const programming = defineCollection({
   }),
 });
 
-// Movies category in movie route
+// Movies category in movies route
 const movies = defineCollection({
   loader: glob({
-    pattern: "*.mdx",
+    pattern: "*/index.mdx",
     base: "./src/data/movies",
   }),
   schema: z.object({
     category: z.string(),
     imdbId: z.string(),
     pubDate: z.date(),
+  }),
+});
+
+const comments = defineCollection({
+  loader: glob({
+    pattern: "**/comments/*.mdx",
+    base: "./src/data",
+  }),
+  schema: z.object({
+    name: z.string(),
+    timestamp: z.date(),
+    avatar: z.string(),
+    website: z.string().optional(),
+    postName: z.string(),
   }),
 });
 
@@ -51,4 +65,4 @@ const social = defineCollection({
   }),
 });
 
-export const collections = { general, programming, movies, social };
+export const collections = { general, programming, movies, comments, social };

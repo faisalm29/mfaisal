@@ -1,0 +1,65 @@
+<section class="mx-auto grid w-[112ch] max-w-full grid-cols-12">
+  <section class="col-span-8 col-start-3">
+    <script is:inline>
+      const isDark = document.documentElement.classList.contains("dark");
+      const giscusTheme = isDark ? "dark_protanopia" : "light_protanopia";
+
+      const s = document.createElement("script");
+      s.src = "https://giscus.app/client.js";
+      s.async = true;
+      s.setAttribute("data-repo", "faisalm29/mfaisal");
+      s.setAttribute("data-repo-id", "R_kgDON5yxyA");
+      s.setAttribute("data-category", "Announcements");
+      s.setAttribute("data-category-id", "DIC_kwDON5yxyM4CzTlH");
+      s.setAttribute("data-mapping", "pathname");
+      s.setAttribute("data-strict", "0");
+      s.setAttribute("data-reactions-enabled", "1");
+      s.setAttribute("data-emit-metadata", "0");
+      s.setAttribute("data-input-position", "top");
+      s.setAttribute("data-theme", giscusTheme);
+      s.setAttribute("data-lang", "en");
+      s.setAttribute("data-loading", "lazy");
+      s.setAttribute("crossorigin", "anonymous");
+
+      document.currentScript.parentNode.appendChild(s);
+    </script>
+  </section>
+</section>
+
+<script is:inline>
+  function getGiscusTheme() {
+    // If using Tailwind's <html class="dark">
+    const isDark = document.documentElement.classList.contains("dark");
+    return isDark ? "dark_protanopia" : "light_protanopia";
+  }
+
+  function setGiscusTheme() {
+    const iframe = document.querySelector("iframe.giscus-frame");
+    if (!iframe) return;
+
+    iframe.contentWindow?.postMessage(
+      {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(),
+          },
+        },
+      },
+      "https://giscus.app",
+    );
+  }
+
+  // When the page loads
+  window.addEventListener("message", (event) => {
+    if (event.origin !== "https://giscus.app") return;
+
+    // Giscus fully loaded
+    if (event.data?.giscus?.discussion) {
+      setGiscusTheme();
+    }
+  });
+
+  // If your site allows theme switching — update Giscus too:
+  const observer = new MutationObserver(() => setGiscusTheme());
+  observer.observe(document.documentElement, { attributes: true });
+</script>

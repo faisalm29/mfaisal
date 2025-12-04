@@ -40,20 +40,21 @@ const { metadata } = Astro.props;
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="generator" content={Astro.generator} />
     <script is:inline>
-      const savedTheme = localStorage.getItem("color-theme");
+      const getInitialTheme = () => {
+        const saved = localStorage.getItem("color-theme");
 
-      switch (savedTheme) {
-        case "dark":
-          document.documentElement.classList.add("dark");
-          break;
-        case "light":
-          document.documentElement.classList.remove("dark");
-          break;
-        default:
-          document.documentElement.classList.toggle(
-            "dark",
-            window.matchMedia("(prefers-color-scheme: dark)").matches,
-          );
+        if (saved === "dark")  return "dark";
+        if (saved === "light") return "light"
+
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+
+      const initialTheme = getInitialTheme();
+
+      if (initialTheme === "dark") {
+        document.documentElement.classList.add("dark")
+      } else {
+        document.documentElement.classList.remove("dark")
       }
     </script>
     <SEO

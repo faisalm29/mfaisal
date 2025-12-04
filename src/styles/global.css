@@ -4,291 +4,21 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Add font here */
-/* Inter */
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-Black.woff2") format("woff2");
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-Bold.woff2") format("woff2");
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-BlackItalic.woff2") format("woff2");
-  font-weight: 900;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-ExtraLightItalic.woff2") format("woff2");
-  font-weight: 200;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-Italic.woff2") format("woff2");
-  font-weight: normal;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-ExtraBoldItalic.woff2") format("woff2");
-  font-weight: bold;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-BoldItalic.woff2") format("woff2");
-  font-weight: bold;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-ExtraLight.woff2") format("woff2");
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-ExtraBold.woff2") format("woff2");
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-Light.woff2") format("woff2");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-LightItalic.woff2") format("woff2");
-  font-weight: 300;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-MediumItalic.woff2") format("woff2");
-  font-weight: 500;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-SemiBold.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-Regular.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-SemiBoldItalic.woff2") format("woff2");
-  font-weight: 600;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-ThinItalic.woff2") format("woff2");
-  font-weight: 100;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-Thin.woff2") format("woff2");
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-}
-/* Maple Mono */
-@font-face {
-  font-family: "Maple Mono";
-  src: url("/fonts/MapleMono-BoldItalic.woff2") format("woff2");
-  font-weight: bold;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Maple Mono";
-  src: url("/fonts/MapleMono-Bold.woff2") format("woff2");
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Maple Mono";
-  src: url("/fonts/MapleMono-ExtraBold.woff2") format("woff2");
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Maple Mono";
-  src: url("/fonts/MapleMono-ExtraBoldItalic.woff2") format("woff2");
-  font-weight: bold;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Maple Mono";
-  src: url("/fonts/MapleMono-ExtraLight.woff2") format("woff2");
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Maple Mono";
-  src: url("/fonts/MapleMono-ExtraLightItalic.woff2") format("woff2");
-  font-weight: 200;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Maple Mono";
-  src: url("/fonts/MapleMono-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Maple Mono";
-  src: url("/fonts/MapleMono-Italic.woff2") format("woff2");
-  font-weight: normal;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Maple Mono";
-  src: url("/fonts/MapleMono-Light.woff2") format("woff2");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Maple Mono";
-  src: url("/fonts/MapleMono-LightItalic.woff2") format("woff2");
-  font-weight: 300;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Maple Mono";
-  src: url("/fonts/MapleMono-Thin.woff2") format("woff2");
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Maple Mono";
-  src: url("/fonts/MapleMono-MediumItalic.woff2") format("woff2");
-  font-weight: 500;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Maple Mono";
-  src: url("/fonts/MapleMono-SemiBoldItalic.woff2") format("woff2");
-  font-weight: 600;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Maple Mono";
-  src: url("/fonts/MapleMono-Regular.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Maple Mono";
-  src: url("/fonts/MapleMono-SemiBold.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Maple Mono";
-  src: url("/fonts/MapleMono-ThinItalic.woff2") format("woff2");
-  font-weight: 100;
-  font-style: italic;
-  font-display: swap;
-}
-/* Vend Sans */
 @font-face {
   font-family: "Vend Sans";
-  src: url("/fonts/VendSans-Light.woff2") format("woff2");
-  font-weight: 300;
-  font-style: normal;
+  src:
+    url("/fonts/VendSans-BoldItalic.woff2") format("woff2"),
+    url("/fonts/VendSans-BoldItalic.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Vend Sans";
-  src: url("/fonts/VendSans-Bold.woff2") format("woff2");
+  src:
+    url("/fonts/VendSans-Bold.woff2") format("woff2"),
+    url("/fonts/VendSans-Bold.woff") format("woff");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -296,7 +26,9 @@
 
 @font-face {
   font-family: "Vend Sans";
-  src: url("/fonts/VendSans-Italic.woff2") format("woff2");
+  src:
+    url("/fonts/VendSans-Italic.woff2") format("woff2"),
+    url("/fonts/VendSans-Italic.woff") format("woff");
   font-weight: normal;
   font-style: italic;
   font-display: swap;
@@ -304,7 +36,29 @@
 
 @font-face {
   font-family: "Vend Sans";
-  src: url("/fonts/VendSans-LightItalic.woff2") format("woff2");
+  src:
+    url("/fonts/VendSans-Medium.woff2") format("woff2"),
+    url("/fonts/VendSans-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vend Sans";
+  src:
+    url("/fonts/VendSans-Light.woff2") format("woff2"),
+    url("/fonts/VendSans-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vend Sans";
+  src:
+    url("/fonts/VendSans-LightItalic.woff2") format("woff2"),
+    url("/fonts/VendSans-LightItalic.woff") format("woff");
   font-weight: 300;
   font-style: italic;
   font-display: swap;
@@ -312,31 +66,19 @@
 
 @font-face {
   font-family: "Vend Sans";
-  src: url("/fonts/VendSans-BoldItalic.woff2") format("woff2");
-  font-weight: bold;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Vend Sans";
-  src: url("/fonts/VendSans-MediumItalic.woff2") format("woff2");
-  font-weight: 500;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Vend Sans";
-  src: url("/fonts/VendSans-Medium.woff2") format("woff2");
-  font-weight: 500;
+  src:
+    url("/fonts/VendSans-SemiBold.woff2") format("woff2"),
+    url("/fonts/VendSans-SemiBold.woff") format("woff");
+  font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Vend Sans";
-  src: url("/fonts/VendSans-Regular.woff2") format("woff2");
+  src:
+    url("/fonts/VendSans-Regular.woff2") format("woff2"),
+    url("/fonts/VendSans-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -344,24 +86,48 @@
 
 @font-face {
   font-family: "Vend Sans";
-  src: url("/fonts/VendSans-SemiBold.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
+  src:
+    url("/fonts/VendSans-MediumItalic.woff2") format("woff2"),
+    url("/fonts/VendSans-MediumItalic.woff") format("woff");
+  font-weight: 500;
+  font-style: italic;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Vend Sans";
-  src: url("/fonts/VendSans-SemiBoldItalic.woff2") format("woff2");
+  src:
+    url("/fonts/VendSans-SemiBoldItalic.woff2") format("woff2"),
+    url("/fonts/VendSans-SemiBoldItalic.woff") format("woff");
   font-weight: 600;
   font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src:
+    url("/fonts/Inter-Italic.woff2") format("woff2"),
+    url("/fonts/Inter-Italic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src:
+    url("/fonts/Inter-Regular.woff2") format("woff2"),
+    url("/fonts/Inter-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
   font-display: swap;
 }
 
 :root {
   --font-vend-sans: "Vend Sans", "sans-serif";
   --font-inter: "Inter", "sanss-serif";
-  --font-maple-mono: "Maple Mono", monospace;
+  --font-scale: 1.125;
   --spacing-scale: 4px;
 }
 
@@ -372,10 +138,22 @@
   --color-secondary-emphasize: var(--color-gray-950);
   --color-tertiary-default: var(--color-gray-200);
   --color-tertiary-emphasize: var(--color-gray-400);
+  --color-danger: var(--color-red-600);
 
-  --text-sm: 14px;
-  --text-4xl: 29px;
-  --text-5xl: 33px;
+  --text-base: 1rem;
+  /* --text-base--line-height: calc(1 / 0.75); */
+  --text-xs: calc(
+    var(--text-base) * calc(1 / calc(var(--font-scale) * var(--font-scale)))
+  ); /* 12.642px */
+  --text-sm: calc(
+    var(--text-base) * calc(1 / var(--font-scale))
+  ); /* 14.222px */
+  --text-lg: calc(var(--text-base) * var(--font-scale)); /* 18px */
+  --text-xl: calc(var(--text-lg) * var(--font-scale)); /* 20.25px */
+  --text-2xl: calc(var(--text-xl) * var(--font-scale)); /* 22.7812px */
+  --text-3xl: calc(var(--text-2xl) * var(--font-scale)); /* 25.6289x */
+  --text-4xl: calc(var(--text-3xl) * var(--font-scale)); /* 28.8325px */
+  --text-5xl: calc(var(--text-4xl) * var(--font-scale)); /* 32.4366px */
 
   --leading-dense: 1.2;
   --leading-relaxed: 1.6;
@@ -385,6 +163,7 @@
   --spacing-4: calc(var(--spacing-scale) * 4);
   --spacing-5: calc(var(--spacing-scale) * 5);
   --spacing-8: calc(var(--spacing-scale) * 8);
+  --spacing-12: calc(var(--spacing-scale) * 12);
   --spacing-16: calc(var(--spacing-scale) * 16);
 }
 
@@ -396,6 +175,7 @@
     --color-secondary-emphasize: var(--color-gray-50);
     --color-tertiary-default: var(--color-gray-700);
     --color-tertiary-emphasize: var(--color-gray-500);
+    --color-danger: var(--color-red-400);
   }
 
   @media (prefers-color-scheme: dark) {
@@ -420,23 +200,29 @@
     line-height: calc(var(--text-base) * var(--leading-relaxed));
     color: var(--color-secondary-default);
   }
-  h1 {
-    font-size: var(--text-5xl);
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-vend-sans);
-    line-height: calc(var(--text-5xl) * var(--leading-dense));
     font-weight: bold;
     color: var(--color-secondary-emphasize);
+  }
+  h1 {
+    font-size: var(--text-5xl);
+    line-height: calc(var(--text-5xl) * var(--leading-dense));
   }
   h2 {
     font-size: var(--text-4xl);
-    font-family: var(--font-vend-sans);
     line-height: calc(var(--text-4xl) * var(--leading-dense));
-    font-weight: bold;
-    color: var(--color-secondary-emphasize);
   }
   h3 {
-    font-weight: bold;
-    color: var(--color-secondary-emphasize);
+    font-size: var(--text-2xl);
+    line-height: calc(var(--text-4xl) * var(--leading-dense));
+  }
+  h4 {
+    font-size: var(--text-2xl);
+    line-height: calc(var(--text-4xl) * var(--leading-dense));
   }
   a {
     font-family: var(--font-vend-sans);
@@ -450,11 +236,6 @@
     background-color: hsla(220, 13%, 91%, 0.7);
     padding: 0.1rem 0.3rem 0.2rem;
     border-radius: 0.2rem;
-    font-family: var(--font-maple-mono);
-  }
-
-  pre {
-    font-family: var(--font-maple-mono);
   }
 
   mark {
@@ -539,7 +320,15 @@
 .spacing-y-loose {
   row-gap: var(--spacing-8);
 }
+.spacing-y-looser {
+  row-gap: var(--spacing-12);
+}
 
 .spacing-y-loosest {
   row-gap: var(--spacing-16);
+}
+
+/* Utterances comments */
+.utterances {
+  grid-column: 1 / 9;
 }

@@ -1,6 +1,9 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import { Image } from "astro:assets";
+import CommentForm from "@components/CommentForm.astro";
+import Comment from "@components/Comment.astro";
+import { getCollection, render } from "astro:content";
 
 interface Props {
   frontmatter: {
@@ -28,6 +31,27 @@ const metadata = {
   ogArticleSection: frontmatter.category!,
   ogArticleTags: [frontmatter.category!],
 };
+
+const slug = Astro.url.pathname.replace(/^\/+|\/+$/g, "");
+
+const getComments = async () => {
+  const commentFiles = await getCollection("comments");
+  return commentFiles
+    .filter((file) => file.data.postName === slug)
+    .sort((a, b) => b.data.timestamp.valueOf() - a.data.timestamp.valueOf());
+};
+
+const comments = await getComments();
+
+const renderedComments = await Promise.all(
+  comments.map(async (comment) => {
+    const { Content } = await render(comment);
+    return {
+      data: comment.data,
+      Content,
+    };
+  }),
+);
 ---
 
 <BaseLayout metadata={metadata}>
@@ -90,4 +114,24 @@ const metadata = {
       </div>
     </div>
   </main>
+  <!-- Comment section -->
+  <div
+    class="spacing-y-article border-t-tertiary-default mx-auto flex w-[65ch] max-w-full flex-col border-t px-4 pt-8 md:px-0"
+  >
+    <h4>Comments</h4>
+    <div class="spacing-y-article flex flex-col">
+      {
+        renderedComments.map(({ data, Content }) => (
+          <Comment comment={data}>
+            <Content />
+          </Comment>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Comment form -->
+  <div class="mx-auto w-[65ch] max-w-full px-4 md:px-0">
+    <CommentForm />
+  </div>
 </BaseLayout>

@@ -66,6 +66,47 @@ import { Icon } from "astro-icon/components";
   const lightThemeBtn = document.getElementById("light-theme-btn");
   const darkThemeBtn = document.getElementById("dark-theme-btn");
 
+  const getActualTheme = () => {
+    const pref = localStorage.getItem("color-theme") || "system";
+
+    if (pref === "dark") return "dark";
+    if (pref === "light") return "light";
+
+    // System mode, follow OS theme
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  };
+
+  const updateGiscusTheme = () => {
+    const iframe = document.querySelector(
+      "iframe.giscus-frame",
+    ) as HTMLIFrameElement;
+    if (!iframe) return;
+
+    const actual = getActualTheme();
+    const theme = actual === "dark" ? "dark_protanopia" : "light_protanopia";
+
+    iframe.contentWindow?.postMessage(
+      {
+        giscus: {
+          setConfig: {
+            theme,
+          },
+        },
+      },
+      "https://giscus.app",
+    );
+  };
+
+  window.addEventListener("message", (event) => {
+    if (event.origin !== "https://giscus.app") return;
+
+    if (event.data?.giscus?.discussion) {
+      updateGiscusTheme();
+    }
+  });
+
   const applyTheme = (pref: string) => {
     switch (pref) {
       case "dark":
@@ -81,18 +122,19 @@ import { Icon } from "astro-icon/components";
         darkThemeBtn?.classList.remove("active-theme-btn");
         break;
       default:
-        document.documentElement.classList.toggle(
-          "dark",
-          window.matchMedia("(prefers-color-scheme: dark)").matches,
-        );
+        const isDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        document.documentElement.classList.toggle("dark", isDark);
         systemThemeBtn?.classList.add("active-theme-btn");
         lightThemeBtn?.classList.remove("active-theme-btn");
         darkThemeBtn?.classList.remove("active-theme-btn");
     }
+    updateGiscusTheme();
   };
 
-  const preferences = localStorage.getItem("color-theme") || "system";
-  applyTheme(preferences);
+  // initial load
+  applyTheme(localStorage.getItem("color-theme") || "system");
 
   systemThemeBtn?.addEventListener("click", () => {
     localStorage.setItem("color-theme", "system");
@@ -109,10 +151,9 @@ import { Icon } from "astro-icon/components";
 
   window
     .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", (e) => {
-      const pref = localStorage.getItem("color-theme");
-      if (pref == "system") {
-        document.documentElement.classList.toggle("dark", e.matches);
+    .addEventListener("change", () => {
+      if (localStorage.getItem("color-theme") === "system") {
+        applyTheme("system");
       }
     });
 </script>

@@ -1,0 +1,68 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  comment: {
+    name: string;
+    timestamp: Date;
+    avatar: string;
+    website?: string;
+  };
+}
+
+const { comment } = Astro.props;
+---
+
+<div
+  class="spacing-y-denser border-tertiary-default flex flex-col rounded-lg border"
+>
+  <div class="flex items-center gap-4 px-4 pt-4 pb-2">
+    <div class="w-12">
+      <Image
+        src={comment.avatar}
+        alt={`${comment.name}'s avatar'`}
+        inferSize
+        class="rounded-full"
+      />
+    </div>
+    <div class="spacing-y-densest flex flex-col">
+      {
+        comment.website ? (
+          <a
+            href={comment.website}
+            target="_blank"
+            class="text-secondary-emphasize font-medium"
+          >
+            {comment.name}
+          </a>
+        ) : (
+          <p
+            style="font-family: var(--font-vend-sans);"
+            class="text-secondary-emphasize font-medium"
+          >
+            {comment.name}
+          </p>
+        )
+      }
+      <time
+        datetime={comment.timestamp.toLocaleDateString("en-US", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        })}
+        >{
+          comment.timestamp.toLocaleDateString("en-US", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          })
+        }</time
+      >
+    </div>
+  </div>
+  <div
+    class="prose border-t-tertiary-default prose-p:text-sm prose-headings:text-secondary-emphasize prose-a:text-secondary-emphasize prose-a:no-underline prose-a:hover:text-primary prose-a:transition-all prose-a:duration-300 prose-a:ease-in-out prose-ol:text-secondary-default prose-headings:scroll-mt-[82px] max-w-none border-t p-4"
+  >
+    <slot />
+  </div>
+</div>
