@@ -36,9 +36,7 @@ const postCategory = slug.split("/")[0];
 
 const getComments = async () => {
   const commentFiles = await getCollection("comments");
-  return commentFiles
-    .filter((file) => file.data.postName === slug)
-    .sort((a, b) => b.data.timestamp.valueOf() - a.data.timestamp.valueOf());
+  return commentFiles.filter((file) => file.data.postName === slug);
 };
 
 const comments = await getComments();
@@ -91,38 +89,33 @@ const renderedComments = await Promise.all(
   </main>
 
   <!-- Giscus comment for programming post -->
-   {postCategory === "programming" && <GiscusComments />}
+  {postCategory === "programming" && <GiscusComments />}
 
   <!-- Comment section -->
-  {postCategory === "blog" && (
-    <div class="spacing-y-looser flex flex-col">
-    <div
-      class="mx-auto w-[112ch] max-w-full px-4 lg:grid lg:grid-cols-12 lg:px-0"
-    >
-      <div
-        class="spacing-y-article border-t-tertiary-default mx-auto flex w-[65ch] max-w-full flex-col border-t pt-12 lg:col-span-8 lg:mx-0"
-      >
-        <h4>Comments</h4>
-        <div class="spacing-y-article flex flex-col">
-          {
-            renderedComments.map(({ data, Content }) => (
-              <Comment comment={data}>
-                <Content />
-              </Comment>
-            ))
-          }
+  {
+    postCategory === "blog" && (
+      <div class="spacing-y-looser flex flex-col">
+        {/* Comment form */}
+        <div class="mx-auto w-[112ch] max-w-full px-4 lg:grid lg:grid-cols-12 lg:px-0">
+          <div class="mx-auto w-[65ch] max-w-full lg:col-span-8 lg:mx-0">
+            <CommentForm />
+          </div>
+        </div>
+
+        {/* Comments */}
+        <div class="mx-auto w-[112ch] max-w-full px-4 lg:grid lg:grid-cols-12 lg:px-0">
+          <div class="spacing-y-article border-t-tertiary-default mx-auto flex w-[65ch] max-w-full flex-col border-t pt-12 lg:col-span-8 lg:mx-0">
+            <h4>Comments</h4>
+            <div class="spacing-y-article flex flex-col">
+              {renderedComments.map(({ data, Content }) => (
+                <Comment comment={data}>
+                  <Content />
+                </Comment>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-
-    <!-- Comment form for general post-->
-    <div
-      class="mx-auto w-[112ch] max-w-full px-4 lg:grid lg:grid-cols-12 lg:px-0"
-    >
-      <div class="mx-auto w-[65ch] max-w-full lg:col-span-8 lg:mx-0">
-        <CommentForm />
-      </div>
-    </div>
-  </div>
-  )}
+    )
+  }
 </BaseLayout>

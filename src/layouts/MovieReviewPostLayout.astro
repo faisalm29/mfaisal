@@ -36,9 +36,7 @@ const slug = Astro.url.pathname.replace(/^\/+|\/+$/g, "");
 
 const getComments = async () => {
   const commentFiles = await getCollection("comments");
-  return commentFiles
-    .filter((file) => file.data.postName === slug)
-    .sort((a, b) => b.data.timestamp.valueOf() - a.data.timestamp.valueOf());
+  return commentFiles.filter((file) => file.data.postName === slug);
 };
 
 const comments = await getComments();
@@ -114,6 +112,12 @@ const renderedComments = await Promise.all(
       </div>
     </div>
   </main>
+
+  <!-- Comment form -->
+  <div class="mx-auto w-[65ch] max-w-full px-4 md:px-0">
+    <CommentForm />
+  </div>
+
   <!-- Comment section -->
   <div
     class="spacing-y-article border-t-tertiary-default mx-auto flex w-[65ch] max-w-full flex-col border-t px-4 pt-8 md:px-0"
@@ -128,10 +132,5 @@ const renderedComments = await Promise.all(
         ))
       }
     </div>
-  </div>
-
-  <!-- Comment form -->
-  <div class="mx-auto w-[65ch] max-w-full px-4 md:px-0">
-    <CommentForm />
   </div>
 </BaseLayout>
