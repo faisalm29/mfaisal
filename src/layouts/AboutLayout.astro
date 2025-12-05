@@ -23,12 +23,19 @@ const metadata = {
 ---
 
 <BaseLayout metadata={metadata}>
-  <main class="mx-auto w-[65ch] max-w-full px-4 lg:px-0">
-    <h1>{frontmatter.title}</h1>
-    <article class="prose marker:text-tertiary-emphasize max-w-none">
-      <slot />
-    </article>
-    <div class="spacing-y-article flex flex-col">
+  <main
+    class="spacing-y-loosest mx-auto flex w-[65ch] max-w-full flex-col px-4 lg:px-0"
+  >
+    <section>
+      <h1>{frontmatter.title}</h1>
+      <article class="prose marker:text-tertiary-emphasize max-w-none">
+        <slot />
+      </article>
+    </section>
+
+    <!-- Core stacks detailZ -->
+
+    <section class="spacing-y-article flex flex-col">
       <h1>This Blog Core Stacks</h1>
       <p>
         This blog is coded in <a
@@ -91,6 +98,6 @@ const metadata = {
           </li>
         </ul>
       </div>
-    </div>
+    </section>
   </main>
 </BaseLayout>
