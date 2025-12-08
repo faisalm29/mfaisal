@@ -23,7 +23,7 @@ const metadata = {
   >
     <h1>Chart</h1>
     <p>My current Spotify heavy rotation. Updated daily.</p>
-    <ol class="spacing-y-article flex flex-col">
+    <ol id="song-list" class="spacing-y-article flex flex-col">
       {
         tracks.map((track, id) => (
           <li>
@@ -66,3 +66,9 @@ const metadata = {
     <p><small>Last updated: {lastUpdated}</small></p>
   </main>
 </BaseLayout>
+
+<script>
+  const songList = document.getElementById("song-list") as HTMLOListElement;
+  const allSongs = [...songList.children];
+  console.log(allSongs);
+</script>

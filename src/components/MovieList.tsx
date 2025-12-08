@@ -68,7 +68,7 @@ const MovieList = ({ movie }: Movie) => {
   }, []);
 
   return (
-    <li ref={movieItemRef} id="movie-item">
+    <li ref={movieItemRef} id="movie-item" data-genre={movie.genres.join(", ")}>
       <a
         href={`/movies/${movie.id}`}
         className="spacing-y-densest group flex flex-col md:grid md:grid-cols-12"

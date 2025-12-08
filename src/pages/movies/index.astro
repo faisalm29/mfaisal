@@ -3,6 +3,7 @@ import { getMovies } from "../../../lib/tmdb";
 import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import MovieList from "@components/MovieList";
+import { Icon } from "astro-icon/components";
 
 const moviePosts = (await getCollection("movies")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -10,55 +11,168 @@ const moviePosts = (await getCollection("movies")).sort(
 const imdbIds = moviePosts.map((post) => post.data.imdbId);
 const allMovieData = await getMovies(imdbIds);
 
+const genres: Array<string> = [
+  ...new Set(allMovieData.flatMap((movie) => movie.genres)),
+];
+
 const metadata = {
   pageTitle: "Movies",
   description: "My take on the movies I've watched recently.",
 };
 ---
 
+<style>
+  .active {
+    background-color: var(--color-secondary-emphasize);
+    color: var(--color-neutral);
+  }
+</style>
+
 <BaseLayout metadata={metadata}>
   <main
     class="spacing-y-article mx-auto flex w-[112ch] max-w-full flex-col px-4 lg:px-0"
   >
     <h1>Movies</h1>
-    <ul class="spacing-y-article flex flex-col">
-      {allMovieData.map((movie) => <MovieList movie={movie} client:load />)}
-      <!-- {
-        allMovieData.map((movie) => (
+    <p>Is there any genre you like?</p>
+    <!-- filter -->
+    <ul class="flex flex-wrap gap-2">
+      {
+        genres.map((genre) => (
           <li>
-            <a
-              href={`/movie/${movie.id}`}
-              class="spacing-y-densest group flex flex-col md:grid md:grid-cols-12"
+            <button
+              id="badge"
+              class="bg-tertiary-default text-secondary-default block w-fit rounded-full px-4 py-0.5"
+              data-genre={genre}
             >
-              <time
-                datetime={movie.pubDate?.toLocaleDateString()}
-                class="group-hover:text-primary transition-all duration-300 ease-in-out md:col-span-2"
-              >
-                {movie.pubDate?.toLocaleDateString("en-US", {
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                })}
-              </time>
-
-              <div class="spacing-y-densest flex flex-col md:col-span-10">
-                <p class="group-hover:text-primary transition-all duration-300 ease-in-out">
-                  {movie.genres.map(String).join(", ")}
-                </p>
-                <h2 class="group-hover:text-primary text-base leading-[1.6] transition-all duration-300 ease-in-out">
-                  {movie.title}{" "}
-                  <time
-                    datetime={new Date(movie.releaseDate).toLocaleDateString()}
-                    class="text-secondary-emphasize group-hover:text-primary transition-all duration-300 ease-in-out"
-                  >
-                    ({new Date(movie.releaseDate).getFullYear()})
-                  </time>
-                </h2>
-              </div>
-            </a>
+              {genre}
+            </button>
           </li>
         ))
-      } -->
+      }
+      <!-- reset filter button -->
+      <button
+        id="reset-filter-btn"
+        class="hidden w-fit rounded-full bg-red-100 px-4 py-0.5 text-red-400"
+        data-genre="reset"
+      >
+        <span class="flex items-center gap-2">
+          <Icon name="ri:delete-bin-line" /> Reset
+        </span>
+      </button>
+    </ul>
+    <p>
+      Currently showing <span id="movie-total" class="text-secondary-emphasize"
+        >{allMovieData.length} movies</span
+      >.
+    </p>
+    <ul id="movie-list" class="spacing-y-article flex flex-col">
+      {allMovieData.map((movie) => <MovieList movie={movie} client:load />)}
     </ul>
   </main>
 </BaseLayout>
+
+<script>
+  const genreBadges = document.querySelectorAll(
+    "#badge",
+  ) as NodeListOf<HTMLButtonElement>;
+  const movieItems = document.querySelectorAll(
+    "#movie-item",
+  ) as NodeListOf<HTMLLIElement>;
+  const resetFilterBtn = document.getElementById(
+    "reset-filter-btn",
+  ) as HTMLButtonElement;
+  const movieList = document.getElementById("movie-list") as HTMLUListElement;
+  const movieTotal = document.getElementById("movie-total") as HTMLSpanElement;
+
+  // cache all movie posts
+  const allMoviePosts = [...movieItems].map((el) => el.outerHTML);
+
+  // track selected genres
+  let selectedGenres = new Set();
+
+  genreBadges.forEach((badge) =>
+    badge.addEventListener("click", () => {
+      const genre = badge.dataset.genre;
+
+      // toggle selection
+      if (selectedGenres.has(genre)) {
+        selectedGenres.delete(genre);
+        badge.classList.remove("active");
+      } else {
+        selectedGenres.add(genre);
+        badge.classList.add("active");
+      }
+
+      updateMovies();
+      updateMovieTotal();
+      if (selectedGenres.size > 0) {
+        resetFilterBtn.classList.remove("hidden");
+      } else {
+        resetFilterBtn.classList.add("hidden");
+      }
+    }),
+  );
+
+  // reset filter
+  resetFilterBtn.addEventListener("click", () => {
+    resetFilterBtn.classList.add("hidden");
+    genreBadges.forEach((badge) => {
+      badge.classList.remove("active");
+    });
+    selectedGenres.clear();
+    movieList.innerHTML = "";
+    allMoviePosts.forEach((item) => {
+      const temp = document.createElement("div") as HTMLDivElement;
+      temp.innerHTML = item;
+      movieList.appendChild(temp.firstElementChild as Node);
+    });
+    updateMovieTotal();
+    return;
+  });
+
+  const updateMovies = () => {
+    movieList.innerHTML = "";
+
+    // if one or more genre selected, make remove filter button appear
+    if (selectedGenres.size > 0) {
+      resetFilterBtn.classList.remove("hidden");
+    } else {
+      resetFilterBtn.classList.add("hidden");
+    }
+
+    // if none selected, show all movies
+    if (selectedGenres.size === 0) {
+      movieList.innerHTML = "";
+      allMoviePosts.forEach((item) => {
+        const temp = document.createElement("div") as HTMLDivElement;
+        temp.innerHTML = item;
+        movieList.appendChild(temp.firstElementChild as Node);
+      });
+      updateMovieTotal();
+      return;
+    }
+
+    // otherwise, only show matching movies
+    allMoviePosts.forEach((item) => {
+      const temp = document.createElement("div");
+      temp.innerHTML = item;
+
+      const movie = temp.firstElementChild as HTMLDivElement;
+      const genres = movie.dataset.genre?.split(", ");
+
+      // check if movie matches any selected genre
+      const match = [...selectedGenres].some((genre) =>
+        genres?.includes(genre as string),
+      );
+
+      if (match) {
+        movieList.appendChild(movie);
+      }
+    });
+  };
+
+  const updateMovieTotal = () => {
+    let total = movieList.children.length;
+    movieTotal.textContent = `${total.toString()} ${total > 1 ? "movies" : "movie"}`;
+  };
+</script>
