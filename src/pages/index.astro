@@ -7,21 +7,29 @@ import { getMovies } from "../../lib/tmdb";
 import siteDetails from "../siteDetails";
 
 const social = await getCollection("social");
-const allProgrammingPosts = (await getCollection("programming")).map(
-  (post) => ({
-    id: `/programming/${post.id}`,
-    title: post.data.title,
-    pubDate: post.data.pubDate,
-    category: post.data.category,
-  }),
-);
-const allGeneralPosts = (await getCollection("general")).map((post) => ({
+const allProgrammingPosts = (
+  await getCollection("programming", ({ data }) => {
+    return import.meta.env.PROD ? data.published === true : true;
+  })
+).map((post) => ({
+  id: `/programming/${post.id}`,
+  title: post.data.title,
+  pubDate: post.data.pubDate,
+  category: post.data.category,
+}));
+const allGeneralPosts = (
+  await getCollection("general", ({ data }) => {
+    return import.meta.env.PROD ? data.published === true : true;
+  })
+).map((post) => ({
   id: `/blog/${post.id}`,
   title: post.data.title,
   pubDate: post.data.pubDate,
   category: post.data.category,
 }));
-const movies = await getCollection("movies");
+const movies = await getCollection("movies", ({ data }) => {
+  return import.meta.env.PROD ? data.published === true : true;
+});
 const imdbIds = movies.map((movie) => movie.data.imdbId);
 const allMoviePosts = (await getMovies(imdbIds)).map((post) => ({
   id: `/movies/${post.id}`,
@@ -47,6 +55,14 @@ const metadata = {
     class="spacing-y-loosest mx-auto flex w-[112ch] max-w-full flex-col px-4 lg:px-0"
   >
     <Summary social={social} />
-    <LatestPost allPosts={allPosts} />
+    {
+      allPosts.length > 0 ? (
+        <LatestPost allPosts={allPosts} />
+      ) : (
+        <div class="h-[50vh]">
+          <p>Sorry, there are no posts yet. Please come back later 😉.</p>
+        </div>
+      )
+    }
   </main>
 </BaseLayout>

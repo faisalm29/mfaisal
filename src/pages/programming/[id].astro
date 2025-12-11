@@ -7,16 +7,18 @@ import CustomHeading3 from "@components/CustomHeading3.astro";
 import CustomHeading4 from "@components/CustomHeading4.astro";
 
 export async function getStaticPaths() {
-  const allProgrammingPosts = await getCollection("programming");
+  const programmingEntries = await getCollection("programming", ({ data }) => {
+    return import.meta.env.PROD ? data.published === true : true;
+  });
 
   const headings = await Promise.all(
-    allProgrammingPosts.map(async (programmingPost) => {
-      const data = await render(programmingPost);
+    programmingEntries.map(async (programmingEntry) => {
+      const data = await render(programmingEntry);
       return data.headings;
     }),
   );
 
-  return allProgrammingPosts.map((post, index) => ({
+  return programmingEntries.map((post, index) => ({
     params: {
       id: post.id,
     },

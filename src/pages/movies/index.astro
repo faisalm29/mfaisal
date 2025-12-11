@@ -6,12 +6,16 @@ import MovieList from "@components/MovieList";
 import { Icon } from "astro-icon/components";
 
 // get all local movie post from content collections, then sort it
-const localMovies = (await getCollection("movies")).sort(
+const movieEntries = await getCollection("movies", ({ data }) => {
+  return import.meta.env.PROD ? data.published === true : true;
+});
+
+const sortedMovieEntries = movieEntries.sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
 // get the imdb id from each local movie post
-const imdbIds = localMovies.map((post) => post.data.imdbId);
+const imdbIds = sortedMovieEntries.map((post) => post.data.imdbId);
 
 // fetch remote movie data from tmdb api using their imdb ids
 const remoteMovieData = await getMovies(imdbIds);
@@ -41,7 +45,7 @@ const metadata = {
     class="spacing-y-article mx-auto flex w-[112ch] max-w-full flex-col px-4 lg:px-0"
   >
     <h1>Movies</h1>
-    <p>Is there any genre you like?</p>
+    {remoteMovieData.length > 0 ? <p>Is there any genre you like?</p>
     <!-- filter -->
     <ul class="flex flex-wrap gap-2">
       {
@@ -75,7 +79,9 @@ const metadata = {
     </p>
     <ul id="movie-list-container" class="spacing-y-article flex flex-col">
       {remoteMovieData.map((movie) => <MovieList movie={movie} client:load />)}
-    </ul>
+    </ul> : <div class="h-[50vh]">
+          <p>Sorry, there are no posts yet. Please come back later 😉.</p>
+        </div>}
   </main>
 </BaseLayout>
 

@@ -12,6 +12,7 @@ const general = defineCollection({
     summary: z.string(),
     pubDate: z.date(),
     category: z.string(),
+    published: z.boolean(),
   }),
 });
 
@@ -26,6 +27,7 @@ const programming = defineCollection({
     summary: z.string(),
     pubDate: z.date(),
     category: z.string(),
+    published: z.boolean(),
   }),
 });
 
@@ -39,6 +41,7 @@ const movies = defineCollection({
     category: z.string(),
     imdbId: z.string(),
     pubDate: z.date(),
+    published: z.boolean(),
   }),
 });
 

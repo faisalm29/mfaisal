@@ -5,7 +5,9 @@ import MovieReviewPostLayout from "@layouts/MovieReviewPostLayout.astro";
 
 // get local movie post from movies content collections
 export async function getStaticPaths() {
-  const localMovies = await getCollection("movies");
+  const localMovies = await getCollection("movies", ({ data }) => {
+    return import.meta.env.PROD ? data.published === true : true;
+  });
   // set the movie id as params
   return localMovies.map((localMovie) => ({
     params: {

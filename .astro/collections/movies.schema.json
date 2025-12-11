@@ -26,6 +26,9 @@
             }
           ]
         },
+        "published": {
+          "type": "boolean"
+        },
         "$schema": {
           "type": "string"
         }
@@ -33,7 +36,8 @@
       "required": [
         "category",
         "imdbId",
-        "pubDate"
+        "pubDate",
+        "published"
       ],
       "additionalProperties": false
     }
