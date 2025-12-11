@@ -4,6 +4,7 @@ import Summary from "@components/Summary.astro";
 import LatestPost from "@components/LatestPost.astro";
 import { getCollection } from "astro:content";
 import { getMovies } from "../../lib/tmdb";
+import siteDetails from "../siteDetails";
 
 const social = await getCollection("social");
 const allProgrammingPosts = (await getCollection("programming")).map(
@@ -36,9 +37,8 @@ const allPosts = [
 ].sort((a, b) => b.pubDate!.valueOf() - a.pubDate!.valueOf());
 
 const metadata = {
-  pageTitle: "Faisal M.",
-  description:
-    "Hello, I'm Faisal! Here I write about programming, movies, and anything else that interests me.",
+  pageTitle: siteDetails.title,
+  description: siteDetails.description,
 };
 ---
 

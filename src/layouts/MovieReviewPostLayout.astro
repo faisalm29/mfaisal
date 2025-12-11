@@ -6,41 +6,45 @@ import Comment from "@components/Comment.astro";
 import { getCollection, render } from "astro:content";
 
 interface Props {
-  frontmatter: {
-    id?: string;
-    category?: string;
-    pubDate?: string | Date;
-    title?: string;
-    overview?: string;
-    releaseDate?: string | Date;
-    genres?: Array<string>;
-    poster?: string;
-    director?: string;
-    casts?: Array<string>;
+  movie: {
+    id: string;
+    category: string;
+    pubDate: Date;
+    title: string;
+    overview: string;
+    releaseDate: string;
+    genres: Array<string>;
+    poster: string;
+    directors: Array<string>;
+    casts: Array<string>;
   };
 }
 
-const { frontmatter } = Astro.props;
+// passing movie data
+const { movie } = Astro.props;
 
+// create metadata for SEO from movie data
 const metadata = {
-  pageTitle: frontmatter.title!,
-  description: frontmatter.overview!,
+  pageTitle: movie.title,
+  description: movie.overview,
   ogType: "article",
-  ogArticlePubTime: new Date(frontmatter.pubDate!).toLocaleDateString(),
+  ogArticlePubTime: new Date(movie.pubDate).toLocaleDateString(),
   ogArticleAuthors: ["Faisal M."],
-  ogArticleSection: frontmatter.category!,
-  ogArticleTags: [frontmatter.category!],
+  ogArticleSection: movie.category,
+  ogArticleTags: [movie.category],
 };
 
+// get slug from current url
 const slug = Astro.url.pathname.replace(/^\/+|\/+$/g, "");
 
+// get comments for the current movie post based on the slug obtained previously
 const getComments = async () => {
   const commentFiles = await getCollection("comments");
   return commentFiles.filter((file) => file.data.postName === slug);
 };
-
 const comments = await getComments();
 
+// render all comments for the current post
 const renderedComments = await Promise.all(
   comments.map(async (comment) => {
     const { Content } = await render(comment);
@@ -57,25 +61,23 @@ const renderedComments = await Promise.all(
     class="spacing-y-article mx-auto flex max-w-[65ch] flex-col px-4 md:px-0"
     data-pagefind-body
   >
-    <!-- Date and genre -->
+    <!-- date and genre -->
     <div class="flex justify-center">
       <time
-        datetime={new Date(frontmatter.releaseDate!).toLocaleDateString(
-          "en-US",
-        )}
-        class="mr-2">{new Date(frontmatter.releaseDate!).getFullYear()}</time
+        datetime={new Date(movie.releaseDate).toLocaleDateString("en-US")}
+        class="mr-2">{new Date(movie.releaseDate).getFullYear()}</time
       >
       <span class="text-secondary-default">•</span>
-      <p class="ml-2">{frontmatter.genres!.map(String).join(", ")}</p>
+      <p class="ml-2">{movie.genres.map(String).join(", ")}</p>
     </div>
 
-    <!-- Title -->
-    <h1 class="text-center">{frontmatter.title}</h1>
+    <!-- title -->
+    <h1 class="text-center">{movie.title}</h1>
 
     <!-- movie poster -->
     <Image
-      src={frontmatter.poster!}
-      alt={`${frontmatter.title} poster`}
+      src={movie.poster}
+      alt={`${movie.title} poster`}
       inferSize
       layout="full-width"
       style="width: 100%; height: auto; object-fit: cover;"
@@ -84,26 +86,26 @@ const renderedComments = await Promise.all(
 
     <div>
       <div class="spacing-y-article flex flex-col">
-        <!-- Director -->
+        <!-- director -->
         <div>
           <h2 class="text-base font-normal">Director</h2>
-          <p>{frontmatter.director}</p>
+          <p>{movie.directors.map(String).join(", ")}</p>
         </div>
 
-        <!-- Casts -->
+        <!-- casts -->
         <div>
           <h2 class="text-base font-normal">Cast</h2>
-          <p>{frontmatter.casts!.map(String).join(", ")}</p>
+          <p>{movie.casts.map(String).join(", ")}</p>
         </div>
 
-        <!-- Overview -->
+        <!-- overview -->
         <div class="gap-y-0">
           <h2 class="text-base font-normal">Overview</h2>
-          <p>{frontmatter.overview}</p>
+          <p>{movie.overview}</p>
         </div>
       </div>
 
-      <!-- Author take -->
+      <!-- author take -->
       <div class="spacing-y-article flex flex-col pt-12">
         <h2>My Take</h2>
         <article class="prose">
@@ -113,12 +115,12 @@ const renderedComments = await Promise.all(
     </div>
   </main>
 
-  <!-- Comment form -->
+  <!-- comment form -->
   <div class="mx-auto w-[65ch] max-w-full px-4 md:px-0">
     <CommentForm />
   </div>
 
-  <!-- Comment section -->
+  <!-- comment section -->
   <div
     class="spacing-y-article border-t-tertiary-default mx-auto flex w-[65ch] max-w-full flex-col border-t px-4 pt-8 md:px-0"
   >

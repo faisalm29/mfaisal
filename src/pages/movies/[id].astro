@@ -3,26 +3,36 @@ import { getCollection, getEntry, render } from "astro:content";
 import { getMovie } from "../../../lib/tmdb";
 import MovieReviewPostLayout from "@layouts/MovieReviewPostLayout.astro";
 
+// get local movie post from movies content collections
 export async function getStaticPaths() {
-  const movies = await getCollection("movies");
-  return movies.map((movie) => ({
+  const localMovies = await getCollection("movies");
+  // set the movie id as params
+  return localMovies.map((localMovie) => ({
     params: {
-      id: movie.id,
+      id: localMovie.id,
     },
   }));
 }
 
+// catch the params
 const params = Astro.params;
 
-const movie = await getEntry("movies", params.id);
-if (!movie) throw new Error(`Movie not found: ${params.id}`);
+// get current movie post using their id as params
+const localMovie = await getEntry("movies", params.id);
+if (!localMovie) throw new Error(`Movie not found: ${params.id}`);
 
-const { Content, remarkPluginFrontmatter } = await render(movie);
-const movieData = await getMovie(movie.data.imdbId);
+const { Content, remarkPluginFrontmatter } = await render(localMovie);
+// get curent movie remote data using their imdb id
+const remoteMovieData = await getMovie(localMovie.data.imdbId);
+if (!remoteMovieData) return null;
+
+// merged remote movie data from tmdb api and local movie data from content collections
+const mergedMovieData = {
+  ...remoteMovieData,
+  ...remarkPluginFrontmatter,
+};
 ---
 
-<MovieReviewPostLayout
-  frontmatter={{ ...movieData, ...remarkPluginFrontmatter }}
->
+<MovieReviewPostLayout movie={mergedMovieData}>
   <Content />
 </MovieReviewPostLayout>

@@ -5,22 +5,30 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import MovieList from "@components/MovieList";
 import { Icon } from "astro-icon/components";
 
-const moviePosts = (await getCollection("movies")).sort(
+// get all local movie post from content collections, then sort it
+const localMovies = (await getCollection("movies")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
-const imdbIds = moviePosts.map((post) => post.data.imdbId);
-const allMovieData = await getMovies(imdbIds);
 
+// get the imdb id from each local movie post
+const imdbIds = localMovies.map((post) => post.data.imdbId);
+
+// fetch remote movie data from tmdb api using their imdb ids
+const remoteMovieData = await getMovies(imdbIds);
+
+// get all genre from retrieved remote movie data for the filter feature
 const genres: Array<string> = [
-  ...new Set(allMovieData.flatMap((movie) => movie.genres)),
+  ...new Set(remoteMovieData.flatMap((movie) => movie.genres)),
 ];
 
+// metadata for SEO
 const metadata = {
   pageTitle: "Movies",
   description: "My take on the movies I've watched recently.",
 };
 ---
 
+<!-- style for active genre badges -->
 <style>
   .active {
     background-color: var(--color-secondary-emphasize);
@@ -62,11 +70,11 @@ const metadata = {
     </ul>
     <p>
       Currently showing <span id="movie-total" class="text-secondary-emphasize"
-        >{allMovieData.length} movies</span
+        >{remoteMovieData.length} movies</span
       >.
     </p>
-    <ul id="movie-list" class="spacing-y-article flex flex-col">
-      {allMovieData.map((movie) => <MovieList movie={movie} client:load />)}
+    <ul id="movie-list-container" class="spacing-y-article flex flex-col">
+      {remoteMovieData.map((movie) => <MovieList movie={movie} client:load />)}
     </ul>
   </main>
 </BaseLayout>
@@ -81,7 +89,9 @@ const metadata = {
   const resetFilterBtn = document.getElementById(
     "reset-filter-btn",
   ) as HTMLButtonElement;
-  const movieList = document.getElementById("movie-list") as HTMLUListElement;
+  const movieListContainer = document.getElementById(
+    "movie-list-container",
+  ) as HTMLUListElement;
   const movieTotal = document.getElementById("movie-total") as HTMLSpanElement;
 
   // cache all movie posts
@@ -120,18 +130,18 @@ const metadata = {
       badge.classList.remove("active");
     });
     selectedGenres.clear();
-    movieList.innerHTML = "";
+    movieListContainer.innerHTML = "";
     allMoviePosts.forEach((item) => {
       const temp = document.createElement("div") as HTMLDivElement;
       temp.innerHTML = item;
-      movieList.appendChild(temp.firstElementChild as Node);
+      movieListContainer.appendChild(temp.firstElementChild as Node);
     });
     updateMovieTotal();
     return;
   });
 
   const updateMovies = () => {
-    movieList.innerHTML = "";
+    movieListContainer.innerHTML = "";
 
     // if one or more genre selected, make remove filter button appear
     if (selectedGenres.size > 0) {
@@ -142,11 +152,11 @@ const metadata = {
 
     // if none selected, show all movies
     if (selectedGenres.size === 0) {
-      movieList.innerHTML = "";
+      movieListContainer.innerHTML = "";
       allMoviePosts.forEach((item) => {
         const temp = document.createElement("div") as HTMLDivElement;
         temp.innerHTML = item;
-        movieList.appendChild(temp.firstElementChild as Node);
+        movieListContainer.appendChild(temp.firstElementChild as Node);
       });
       updateMovieTotal();
       return;
@@ -166,13 +176,13 @@ const metadata = {
       );
 
       if (match) {
-        movieList.appendChild(movie);
+        movieListContainer.appendChild(movie);
       }
     });
   };
 
   const updateMovieTotal = () => {
-    let total = movieList.children.length;
+    let total = movieListContainer.children.length;
     movieTotal.textContent = `${total.toString()} ${total > 1 ? "movies" : "movie"}`;
   };
 </script>

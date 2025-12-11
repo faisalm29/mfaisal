@@ -1,0 +1,22 @@
+---
+interface Props {
+  title: string;
+}
+
+const slug = Astro.url.pathname.replace(/^\/+|\/+$/g, "");
+const postCategory = slug.split("/")[0];
+
+const { title } = Astro.props;
+---
+
+<nav class="text-sm">
+  <ol class="flex gap-4">
+    <li>
+      <a href={`/${postCategory}`} class="text-secondary-default capitalize"
+        >{postCategory}</a
+      >
+    </li>
+    <li class="text-secondary-default">&gt;</li>
+    <li class="text-secondary-emphasize">{title}</li>
+  </ol>
+</nav>

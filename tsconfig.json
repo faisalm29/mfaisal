@@ -7,6 +7,11 @@
       "@components/*": ["./src/components/*"],
       "@layouts/*": ["./src/layouts/*"]
     },
+    "plugins": [
+      {
+        "name": "@astrojs/ts-plugin"
+      }
+    ],
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   }

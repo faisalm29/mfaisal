@@ -3,16 +3,16 @@ import { gsap } from "gsap";
 
 interface Movie {
   movie: {
-    id?: string;
-    category?: string;
-    pubDate?: Date;
+    id: string;
+    category: string;
+    pubDate: Date;
     title: string;
     overview: string;
-    releaseDate: Date;
-    genres: string[];
+    releaseDate: string;
+    genres: Array<string>;
     poster: string;
-    director: string;
-    casts: string[];
+    directors: Array<string>;
+    casts: Array<string>;
   };
 }
 
@@ -74,10 +74,10 @@ const MovieList = ({ movie }: Movie) => {
         className="spacing-y-densest group flex flex-col md:grid md:grid-cols-12"
       >
         <time
-          dateTime={movie.pubDate?.toLocaleDateString()}
+          dateTime={movie.pubDate.toLocaleDateString()}
           className="group-hover:text-primary col-span-3 transition-all duration-300 ease-in-out md:col-span-2"
         >
-          {movie.pubDate?.toLocaleDateString("en-US", {
+          {movie.pubDate.toLocaleDateString("en-US", {
             day: "numeric",
             month: "short",
             year: "numeric",
