@@ -1,20 +1,8 @@
 [
   {
-    "id": "bluesky",
-    "name": "Bluesky",
-    "url": "https://bsky.app/",
-    "icon": "bluesky-fill"
-  },
-  {
     "id": "github",
     "name": "Github",
     "url": "https://github.com/faisalm29",
     "icon": "github-fill"
-  },
-  {
-    "id": "instagram",
-    "name": "Instagram",
-    "url": "https://www.instagram.com/faisalm29/",
-    "icon": "instagram-fill"
   }
 ]
