@@ -1,0 +1,47 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  number: number;
+  url: string;
+  title: string;
+  artists: Array<string>;
+  artworkUrl: string;
+}
+
+const { number, url, title, artists, artworkUrl } = Astro.props;
+---
+
+<li>
+  <a href={url} target="_blank" class="group flex flex-row items-start gap-8">
+    <div class="relative">
+      <span
+        class="text-secondary-emphasize group-hover:text-primary absolute font-bold transition-all duration-300 ease-in-out"
+      >
+        {number}.
+      </span>
+    </div>
+
+    <div class="flex w-full items-start justify-between gap-4">
+      <div>
+        <h2
+          class="group-hover:text-primary text-base transition-all duration-300 ease-in-out"
+        >
+          {title}
+        </h2>
+        <p
+          class="group-hover:text-primary transition-all duration-300 ease-in-out"
+        >
+          {artists.join(", ")}
+        </p>
+      </div>
+
+      <Image
+        src={artworkUrl}
+        alt={`${title}'s artwork.`}
+        inferSize
+        class="rounded-sm"
+      />
+    </div>
+  </a>
+</li>

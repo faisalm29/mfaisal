@@ -1,0 +1,18 @@
+---
+import { getTopTracks } from "@features/chart/lib/spotify";
+import TrackItem from "./TrackItem.astro";
+
+const trackEntries = await getTopTracks();
+
+const tracks = trackEntries.map((track, id) => ({
+  number: id + 1,
+  url: track.url,
+  title: track.name,
+  artists: track.artists.map((artist) => artist.name),
+  artworkUrl: track.album.image.url,
+}));
+---
+
+<Fragment>
+  {tracks.map((track) => <TrackItem {...track} />)}
+</Fragment>

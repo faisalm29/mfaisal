@@ -1,194 +1,21 @@
 ---
-import { getMovies } from "../../../lib/tmdb";
-import { getCollection } from "astro:content";
+import { getMoviesData } from "@features/movies/lib/movies";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import MovieList from "@components/MovieList";
-import { Icon } from "astro-icon/components";
+import { MoviePageContent } from "@features/movies/components/MoviePageContent";
 
-// get all local movie post from content collections, then sort it
-const movieEntries = await getCollection("movies", ({ data }) => {
-  return import.meta.env.PROD ? data.published === true : true;
-});
+const { movies } = await getMoviesData();
 
-const sortedMovieEntries = movieEntries.sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
-
-// get the imdb id from each local movie post
-const imdbIds = sortedMovieEntries.map((post) => post.data.imdbId);
-
-// fetch remote movie data from tmdb api using their imdb ids
-const remoteMovieData = await getMovies(imdbIds);
-
-// get all genre from retrieved remote movie data for the filter feature
-const genres: Array<string> = [
-  ...new Set(remoteMovieData.flatMap((movie) => movie.genres)),
-];
-
-// metadata for SEO
 const metadata = {
   pageTitle: "Movies",
   description: "My take on the movies I've watched recently.",
 };
 ---
 
-<!-- style for active genre badges -->
-<style>
-  .active {
-    background-color: var(--color-secondary-emphasize);
-    color: var(--color-neutral);
-  }
-</style>
-
 <BaseLayout metadata={metadata}>
   <main
     class="spacing-y-article mx-auto flex w-[112ch] max-w-full flex-col px-4 lg:px-0"
   >
     <h1>Movies</h1>
-    {remoteMovieData.length > 0 ? <p>Is there any genre you like?</p>
-    <!-- filter -->
-    <ul class="flex flex-wrap gap-2">
-      {
-        genres.map((genre) => (
-          <li>
-            <button
-              id="badge"
-              class="bg-tertiary-default text-secondary-default block w-fit rounded-full px-4 py-0.5"
-              data-genre={genre}
-            >
-              {genre}
-            </button>
-          </li>
-        ))
-      }
-      <!-- reset filter button -->
-      <button
-        id="reset-filter-btn"
-        class="hidden w-fit rounded-full bg-red-100 px-4 py-0.5 text-red-400"
-        data-genre="reset"
-      >
-        <span class="flex items-center gap-2">
-          <Icon name="ri:delete-bin-line" /> Reset
-        </span>
-      </button>
-    </ul>
-    <p>
-      Currently showing <span id="movie-total" class="text-secondary-emphasize"
-        >{remoteMovieData.length} movies</span
-      >.
-    </p>
-    <ul id="movie-list-container" class="spacing-y-article flex flex-col">
-      {remoteMovieData.map((movie) => <MovieList movie={movie} client:load />)}
-    </ul> : <div class="h-[50vh]">
-          <p>Sorry, there are no posts yet. Please come back later 😉.</p>
-        </div>}
+    <MoviePageContent movies={movies} client:load />
   </main>
 </BaseLayout>
-
-<script>
-  const genreBadges = document.querySelectorAll(
-    "#badge",
-  ) as NodeListOf<HTMLButtonElement>;
-  const movieItems = document.querySelectorAll(
-    "#movie-item",
-  ) as NodeListOf<HTMLLIElement>;
-  const resetFilterBtn = document.getElementById(
-    "reset-filter-btn",
-  ) as HTMLButtonElement;
-  const movieListContainer = document.getElementById(
-    "movie-list-container",
-  ) as HTMLUListElement;
-  const movieTotal = document.getElementById("movie-total") as HTMLSpanElement;
-
-  // cache all movie posts
-  const allMoviePosts = [...movieItems].map((el) => el.outerHTML);
-
-  // track selected genres
-  let selectedGenres = new Set();
-
-  genreBadges.forEach((badge) =>
-    badge.addEventListener("click", () => {
-      const genre = badge.dataset.genre;
-
-      // toggle selection
-      if (selectedGenres.has(genre)) {
-        selectedGenres.delete(genre);
-        badge.classList.remove("active");
-      } else {
-        selectedGenres.add(genre);
-        badge.classList.add("active");
-      }
-
-      updateMovies();
-      updateMovieTotal();
-      if (selectedGenres.size > 0) {
-        resetFilterBtn.classList.remove("hidden");
-      } else {
-        resetFilterBtn.classList.add("hidden");
-      }
-    }),
-  );
-
-  // reset filter
-  resetFilterBtn.addEventListener("click", () => {
-    resetFilterBtn.classList.add("hidden");
-    genreBadges.forEach((badge) => {
-      badge.classList.remove("active");
-    });
-    selectedGenres.clear();
-    movieListContainer.innerHTML = "";
-    allMoviePosts.forEach((item) => {
-      const temp = document.createElement("div") as HTMLDivElement;
-      temp.innerHTML = item;
-      movieListContainer.appendChild(temp.firstElementChild as Node);
-    });
-    updateMovieTotal();
-    return;
-  });
-
-  const updateMovies = () => {
-    movieListContainer.innerHTML = "";
-
-    // if one or more genre selected, make remove filter button appear
-    if (selectedGenres.size > 0) {
-      resetFilterBtn.classList.remove("hidden");
-    } else {
-      resetFilterBtn.classList.add("hidden");
-    }
-
-    // if none selected, show all movies
-    if (selectedGenres.size === 0) {
-      movieListContainer.innerHTML = "";
-      allMoviePosts.forEach((item) => {
-        const temp = document.createElement("div") as HTMLDivElement;
-        temp.innerHTML = item;
-        movieListContainer.appendChild(temp.firstElementChild as Node);
-      });
-      updateMovieTotal();
-      return;
-    }
-
-    // otherwise, only show matching movies
-    allMoviePosts.forEach((item) => {
-      const temp = document.createElement("div");
-      temp.innerHTML = item;
-
-      const movie = temp.firstElementChild as HTMLDivElement;
-      const genres = movie.dataset.genre?.split(", ");
-
-      // check if movie matches any selected genre
-      const match = [...selectedGenres].some((genre) =>
-        genres?.includes(genre as string),
-      );
-
-      if (match) {
-        movieListContainer.appendChild(movie);
-      }
-    });
-  };
-
-  const updateMovieTotal = () => {
-    let total = movieListContainer.children.length;
-    movieTotal.textContent = `${total.toString()} ${total > 1 ? "movies" : "movie"}`;
-  };
-</script>

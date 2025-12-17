@@ -1,15 +1,8 @@
 ---
-import { getTopTracks } from "../../lib/spotify";
-import { Image } from "astro:assets";
 import BaseLayout from "@layouts/BaseLayout.astro";
-
-const tracks = await getTopTracks();
-
-const lastUpdated = new Date().toLocaleString("en-US", {
-  timeZone: "Asia/Jakarta",
-  dateStyle: "medium",
-  timeStyle: "short",
-});
+import TrackListWrapper from "@features/chart/components/TrackListWrapper.astro";
+import TrackList from "@features/chart/components/TrackList.astro";
+import LastUpdated from "@features/chart/components/LastUpdated.astro";
 
 const metadata = {
   pageTitle: "Chart",
@@ -23,52 +16,9 @@ const metadata = {
   >
     <h1>Chart</h1>
     <p>My current Spotify heavy rotation. Updated daily.</p>
-    <ol id="song-list" class="spacing-y-article flex flex-col">
-      {
-        tracks.map((track, id) => (
-          <li>
-            <a
-              href={track.url}
-              target="_blank"
-              class="group flex flex-row items-start gap-8"
-            >
-              <div class="relative">
-                <span class="text-secondary-emphasize group-hover:text-primary absolute font-bold transition-all duration-300 ease-in-out">
-                  {id + 1}.
-                </span>
-              </div>
-
-              <div class="flex w-full items-start justify-between gap-4">
-                <div>
-                  <h2 class="group-hover:text-primary text-base transition-all duration-300 ease-in-out">
-                    {track.name}
-                  </h2>
-                  <p class="group-hover:text-primary transition-all duration-300 ease-in-out">
-                    {track.artists
-                      .map((artist: { name: string }) => artist.name)
-                      .join(", ")}
-                  </p>
-                </div>
-
-                <Image
-                  src={track.album.image.url}
-                  alt={`${track.album.name}'s cover.`}
-                  width={track.album.image.width}
-                  height={track.album.image.height}
-                  class="rounded-sm"
-                />
-              </div>
-            </a>
-          </li>
-        ))
-      }
-    </ol>
-    <p><small>Last updated: {lastUpdated}</small></p>
+    <TrackListWrapper>
+      <TrackList />
+    </TrackListWrapper>
+    <LastUpdated />
   </main>
 </BaseLayout>
-
-<script>
-  const songList = document.getElementById("song-list") as HTMLOListElement;
-  const allSongs = [...songList.children];
-  console.log(allSongs);
-</script>

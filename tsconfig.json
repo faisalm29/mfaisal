@@ -5,13 +5,11 @@
   "compilerOptions": {
     "paths": {
       "@components/*": ["./src/components/*"],
-      "@layouts/*": ["./src/layouts/*"]
+      "@layouts/*": ["./src/layouts/*"],
+      "@features/*": ["./src/features/*"],
+      "@lib/*": ["./lib/*"]
     },
-    "plugins": [
-      {
-        "name": "@astrojs/ts-plugin"
-      }
-    ],
+    "plugins": [{}],
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   }
