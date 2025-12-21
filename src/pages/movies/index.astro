@@ -2,6 +2,7 @@
 import { getMoviesData } from "@features/movies/lib/movies";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { MoviePageContent } from "@features/movies/components/MoviePageContent";
+import NoPostMessage from "@components/common/NoPostMessage.astro";
 
 const { movies } = await getMoviesData();
 
@@ -16,6 +17,12 @@ const metadata = {
     class="spacing-y-article mx-auto flex w-[112ch] max-w-full flex-col px-4 lg:px-0"
   >
     <h1>Movies</h1>
-    <MoviePageContent movies={movies} client:load />
+    {
+      movies.length > 0 ? (
+        <MoviePageContent movies={movies} client:load />
+      ) : (
+        <NoPostMessage />
+      )
+    }
   </main>
 </BaseLayout>

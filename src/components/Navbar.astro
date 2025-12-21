@@ -146,7 +146,7 @@ const pages = [
     .querySelector("#search-input")
     .addEventListener("focus", async (e) => {
       if (!pagefind) {
-        pagefind = await import("/pagefind/pagefind.js");
+        pagefind = await import("/pagefind/pagefind.js?url");
         await pagefind.options({
           highlightParam: "highlight",
           excerptLength: 10,

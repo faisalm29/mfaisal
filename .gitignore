@@ -63,3 +63,6 @@ eslintcache
 # Optional: if you use shared assets or build caches
 # ==========================================================
 shared/.cache/
+
+# pagefind in public directory
+/public/pagefind

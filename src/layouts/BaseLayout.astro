@@ -1,7 +1,7 @@
 ---
-import Navbar from "@components/Navbar.astro";
 import Footer from "@components/Footer.astro";
 import { SEO } from "astro-seo";
+import { SearchProvider } from "@components/common/SearchProvider";
 import "../styles/global.css";
 
 export interface Props {
@@ -22,15 +22,7 @@ const { metadata } = Astro.props;
             async
             src="https://www.googletagmanager.com/gtag/js?id=G-LRR12DZSER"
           />
-          <script is:inline>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-              dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-
-            gtag("config", "G-LRR12DZSER");
-          </script>
+          <script is:inline src="../scripts/gtag.js" />
         </>
       )
     }
@@ -38,26 +30,9 @@ const { metadata } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <link rel="canonical" href="https://mfaisal.xyz">
+    <link rel="canonical" href="https://mfaisal.xyz" />
     <meta name="generator" content={Astro.generator} />
-    <script is:inline>
-      const getInitialTheme = () => {
-        const saved = localStorage.getItem("color-theme");
-
-        if (saved === "dark")  return "dark";
-        if (saved === "light") return "light"
-
-        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-      }
-
-      const initialTheme = getInitialTheme();
-
-      if (initialTheme === "dark") {
-        document.documentElement.classList.add("dark")
-      } else {
-        document.documentElement.classList.remove("dark")
-      }
-    </script>
+    <script src="../scripts/theme.ts"></script>
     <SEO
       title={metadata.pageTitle}
       titleTemplate=`${Astro.url.pathname === "/" ? "" : "%s - "}Faisal M.`
@@ -88,8 +63,14 @@ const { metadata } = Astro.props;
     />
   </head>
   <body class="spacing-y-loosest bg-neutral flex flex-col">
-    <Navbar />
+    <!-- header element is inside -->
+    <SearchProvider currentRoute={Astro.url.pathname} client:load />
     <slot />
     <Footer />
   </body>
 </html>
+
+<script type="module">
+  import * as pagefind from "/pagefind/pagefind.js";
+  window.pagefind = pagefind;
+</script>
