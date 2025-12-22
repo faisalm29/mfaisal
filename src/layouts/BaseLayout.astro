@@ -16,14 +16,21 @@ const { metadata } = Astro.props;
   <head>
     {
       import.meta.env.PROD && (
-        <>
+        <Fragment>
           <script
             is:inline
             async
-            src="https://www.googletagmanager.com/gtag/js?id=G-LRR12DZSER"
-          />
-          <script is:inline src="../scripts/gtag.js" />
-        </>
+            src="https://www.googletagmanager.com/gtag/js?id=G-LRR12DZSER"></script>
+          <script is:inline>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+              dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+
+            gtag("config", "G-LRR12DZSER");
+          </script>
+        </Fragment>
       )
     }
     <meta charset="utf-8" />
@@ -32,7 +39,26 @@ const { metadata } = Astro.props;
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="canonical" href="https://mfaisal.xyz" />
     <meta name="generator" content={Astro.generator} />
-    <script src="../scripts/theme.ts"></script>
+    <script is:inline>
+      const getInitialTheme = () => {
+        const saved = localStorage.getItem("color-theme");
+
+        if (saved === "dark") return "dark";
+        if (saved === "light") return "light";
+
+        return window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+      };
+
+      const initialTheme = getInitialTheme();
+
+      if (initialTheme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    </script>
     <SEO
       title={metadata.pageTitle}
       titleTemplate=`${Astro.url.pathname === "/" ? "" : "%s - "}Faisal M.`
