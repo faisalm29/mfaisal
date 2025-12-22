@@ -138,6 +138,8 @@
   --color-secondary-emphasize: var(--color-gray-950);
   --color-tertiary-default: var(--color-gray-200);
   --color-tertiary-emphasize: var(--color-gray-400);
+  --color-modal-default: var(--color-gray-50);
+  --color-modal-emphasize: var(--color-gray-200);
   --color-danger: var(--color-red-600);
 
   --text-base: 1rem;
@@ -175,6 +177,8 @@
     --color-secondary-emphasize: var(--color-gray-50);
     --color-tertiary-default: var(--color-gray-700);
     --color-tertiary-emphasize: var(--color-gray-500);
+    --color-modal-default: var(--color-gray-800);
+    --color-modal-emphasize: var(--color-slate-700);
     --color-danger: var(--color-red-400);
   }
 
@@ -192,6 +196,10 @@
 
   html {
     scroll-behavior: smooth;
+  }
+
+  small {
+    font-family: var(--font-inter);
   }
 
   p {
